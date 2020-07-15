@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { getStatusTextClass, getIndicatorClass } from 'libs/utils';
+import React from "react";
+import PropTypes from "prop-types";
+import { getStatusTextClass, getIndicatorClass } from "libs/utils";
+import { PepperestContext } from "components/helpers/constant";
 
 const ListItemDetails = ({
   status,
@@ -17,9 +18,7 @@ const ListItemDetails = ({
   onClick,
 }) => (
   <div className="list-item-detail__container">
-    <div
-      className={`list-item__indicator ${getIndicatorClass(status)}`}
-    />
+    <div className={`list-item__indicator ${getIndicatorClass(status)}`} />
     <div className="list-item-detail__header">
       <div
         role="button"
@@ -48,16 +47,12 @@ const ListItemDetails = ({
           <p className="list-item-detail__main-item__title">Customer</p>
         </div>
         <div className="col-md-9 px-0">
-          <p className="list-item-detail__main-item__details">
-            {customerName}
-          </p>
+          <p className="list-item-detail__main-item__details">{customerName}</p>
         </div>
       </div>
       <div className="list-item-detail__main-item row mx-0">
         <div className="col-md-3 px-0">
-          <p className="list-item-detail__main-item__title">
-            Transaction Date
-          </p>
+          <p className="list-item-detail__main-item__title">Transaction Date</p>
         </div>
         <div className="col-md-9 px-0">
           <p className="list-item-detail__main-item__details">
@@ -70,9 +65,7 @@ const ListItemDetails = ({
           <p className="list-item-detail__main-item__title">Payment Name</p>
         </div>
         <div className="col-md-9 px-0">
-          <p className="list-item-detail__main-item__details">
-            {paymentName}
-          </p>
+          <p className="list-item-detail__main-item__details">{paymentName}</p>
         </div>
       </div>
       <div className="list-item-detail__main-item row mx-0">
@@ -93,7 +86,18 @@ const ListItemDetails = ({
           <p className="list-item-detail__main-item__details">{amount}</p>
         </div>
         <div className="ml-auto">
-          <div className="button button-md button--orange">Make Payment</div>
+          <PepperestContext.Consumer>
+            {(context) => (
+              <div
+                className="button button-md button--orange"
+                onClick={() => {
+                  context.updateShowRequestPaymentModal(true);
+                }}
+              >
+                Request Payment
+              </div>
+            )}
+          </PepperestContext.Consumer>
         </div>
       </div>
       <div className="list-item-detail__main-item row mx-0">
@@ -134,8 +138,31 @@ const ListItemDetails = ({
       </div>
       <div className="list-item-detail__main-item">
         <div className="button button-md button--grey">Print Receipt</div>
-        <div className="button button-md button--grey">Report an issue</div>
-        <div className="button button-md button--grey">Refund customer</div>
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              role="presentation"
+              className="button button-md button--grey"
+              onClick={() => {
+                context.updateShowReportIssueModal(true);
+              }}
+            >
+              Report an issue
+            </div>
+          )}
+        </PepperestContext.Consumer>
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              className="button button-md button--grey"
+              onClick={() => {
+                context.updateShowRefundCustomerModal(true);
+              }}
+            >
+              Refund customer
+            </div>
+          )}
+        </PepperestContext.Consumer>
       </div>
     </div>
   </div>

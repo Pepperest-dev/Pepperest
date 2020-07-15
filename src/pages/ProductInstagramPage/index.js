@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { CloseIcon, WhiteTick } from 'components/vectors';
+import React, { useState } from "react";
+import { CloseIcon, WhiteTick } from "components/vectors";
 import {
   InstagramBusinessOnBoarding,
   InstagramBusinessProductsSelect,
   InstagramBusinessAccountsSelect,
   InstagramProductList,
-} from 'components/blocks';
+  PublishInstagramImageModal,
+} from "components/blocks";
+import { PepperestContext } from "components/helpers/constant";
 
 const ProductInstagramPage = (props) => {
   const [onBoarding, setOnBoarding] = useState(true);
@@ -29,16 +31,24 @@ const ProductInstagramPage = (props) => {
   const onBoardingContent = (
     <div className="d-flex flex-column align-items-center instagram-page">
       <div className="header--nav">
-        <div className={`header--nav-dot ${onBoarding ? 'active' : ''}`}>
+        <div className={`header--nav-dot ${onBoarding ? "active" : ""}`}>
           {onBoarding ? <WhiteTick /> : null}
         </div>
-        <div className={`header--nav-progress ${hasSelectedAccount ? 'active' : ''}`} />
-        <div className={`header--nav-dot ${hasSelectedAccount ? 'active' : ''}`}>
-          { hasSelectedAccount ? <WhiteTick /> : null}
+        <div
+          className={`header--nav-progress ${
+            hasSelectedAccount ? "active" : ""
+          }`}
+        />
+        <div
+          className={`header--nav-dot ${hasSelectedAccount ? "active" : ""}`}
+        >
+          {hasSelectedAccount ? <WhiteTick /> : null}
         </div>
-        <div className={`header--nav-progress ${publishProducts ? 'active' : ''}`} />
-        <div className={`header--nav-dot ${publishProducts ? 'active' : ''}`}>
-          { publishProducts ? <WhiteTick /> : null}
+        <div
+          className={`header--nav-progress ${publishProducts ? "active" : ""}`}
+        />
+        <div className={`header--nav-dot ${publishProducts ? "active" : ""}`}>
+          {publishProducts ? <WhiteTick /> : null}
         </div>
       </div>
       <ul className="header--nav__menu">
@@ -84,10 +94,14 @@ const ProductInstagramPage = (props) => {
 
   return (
     <>
-      {
-        onBoarding
-          ? onBoardingContent : pageContent
-      }
+      {onBoarding ? onBoardingContent : pageContent}
+      <PepperestContext.Consumer>
+        {(context) =>
+          context.state.showPublishInstagramImageModal ? (
+            <PublishInstagramImageModal />
+          ) : null
+        }
+      </PepperestContext.Consumer>
     </>
   );
 };

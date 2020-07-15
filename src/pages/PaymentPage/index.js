@@ -1,25 +1,31 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { withDefaultLayout } from 'components/layouts';
-import { Modal, ListItemDetailMobileModal, FilterByModal ,SortByModal } from 'components/blocks';
-import { paymentInnerRoutes } from 'config/inner-routes';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React from "react";
+import { withDefaultLayout } from "components/layouts";
+import {
+  Modal,
+  ListItemDetailMobileModal,
+  FilterByModal,
+  SortByModal,
+  ReportIssueModal,
+  RefundCustomerModal,
+} from "components/blocks";
+import { paymentInnerRoutes } from "config/inner-routes";
+import { Route, Switch, Redirect } from "react-router-dom";
 import {
   PaymentPendingPage,
   PaymentRefundPage,
   PaymentTransactionPage,
   PaymentReleasePage,
   PaymentStopPage,
-} from 'pages';
+} from "pages";
 
-
-import { PepperestContext } from 'components/helpers/constant';
+import { PepperestContext } from "components/helpers/constant";
 
 const config = {
   hasAlternateHeader: true,
   links: paymentInnerRoutes,
-  page: 'payments',
+  page: "payments",
 };
 
 const PaymentPage = ({ match }) => (
@@ -30,24 +36,19 @@ const PaymentPage = ({ match }) => (
           path={`${match.url}/transactions`}
           component={PaymentTransactionPage}
         />
-        <Route
-          path={`${match.url}/pending`}
-          component={PaymentPendingPage}
-        />
-        <Route
-          path={`${match.url}/refund`}
-          component={PaymentRefundPage}
-        />
-        <Route
-          path={`${match.url}/release`}
-          component={PaymentReleasePage}
-        />
+        <Route path={`${match.url}/pending`} component={PaymentPendingPage} />
+        <Route path={`${match.url}/refund`} component={PaymentRefundPage} />
+        <Route path={`${match.url}/release`} component={PaymentReleasePage} />
         <Route path={`${match.url}/stop`} component={PaymentStopPage} />
         <Redirect to={`${match.url}/transactions`} />
       </Switch>
     </div>
     <PepperestContext.Consumer>
-      {(context) => (context.state.showPaymentListModal ? <ListItemDetailMobileModal /> : null)}
+      {(context) =>
+        context.state.showPaymentListModal ? (
+          <ListItemDetailMobileModal />
+        ) : null
+      }
     </PepperestContext.Consumer>
     <PepperestContext.Consumer>
       {(context) => (context.state.showPaymentModal ? <Modal /> : null)}
@@ -57,6 +58,16 @@ const PaymentPage = ({ match }) => (
     </PepperestContext.Consumer>
     <PepperestContext.Consumer>
       {(context) => (context.state.showSortModal ? <SortByModal /> : null)}
+    </PepperestContext.Consumer>
+    <PepperestContext.Consumer>
+      {(context) =>
+        context.state.showReportIssueModal ? <ReportIssueModal /> : null
+      }
+    </PepperestContext.Consumer>
+    <PepperestContext.Consumer>
+      {(context) =>
+        context.state.showRefundCustomerModal ? <RefundCustomerModal /> : null
+      }
     </PepperestContext.Consumer>
   </>
 );

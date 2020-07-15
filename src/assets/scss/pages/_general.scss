@@ -1,172 +1,170 @@
-.instagram-page{
+.instagram-page {
+  &__main {
+    width: 647px;
+    min-height: 400px;
+    height: auto;
+    background-color: #e7e9ed;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px 3px rgba(0, 0, 0, 0.04);
 
-    &__main{
-        width: 647px;
-        min-height: 400px;
-        height: auto;
-        background-color: #e7e9ed;
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 3px 10px 3px rgba(0, 0, 0, 0.04);
+    &--alt {
+      background-color: $white;
+      margin-top: 0px;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    &--header {
+      height: 48px;
+      width: 100%;
+      border-bottom: solid 1px rgba($color: #979797, $alpha: 0.5);
+      padding: 14px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      @include medium-font;
+      font-size: $font-size-1;
+      color: $dark;
 
-        &--alt{
-            background-color: $white;
-            margin-top: 0px;
-            justify-content: flex-start;
-            align-items: flex-start;
+      &-alt {
+        flex-direction: row;
+      }
+    }
+    &--footer {
+      margin-top: auto;
+      border-top: solid 1px rgba($color: #979797, $alpha: 0.5);
+      height: 80px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0px 24px;
+      & .button-md {
+        height: 40px;
+        margin: 0px 8px;
+        &:first-child {
+          margin-left: 0px;
         }
-        &--header{
-            height: 48px;
-            width: 100%;
-            border-bottom: solid 1px rgba($color: #979797, $alpha: 0.5);
-            padding: 14px 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;;
-            @include medium-font;
-            font-size: $font-size-1;
-            color: $dark;
-
-            &-alt{
-                flex-direction: row;
-            }
+        &:last-child {
+          margin-right: 0px;
+          min-width: 145px;
         }
-        &--footer{
-            margin-top: auto;
-            border-top: solid 1px rgba($color: #979797, $alpha: 0.5);
-            height: 80px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 0px 24px;
-            & .button-md{
-                height: 40px;
-                margin: 0px 8px;
-                &:first-child{
-                    margin-left: 0px;
-                }
-                &:last-child{
-                    margin-right: 0px;
-                    min-width: 145px;
-                }
-            }
-
-        }
-
-        &-content{
-            width: 224px;
-
-            & .button{
-                margin: 8px 0px;
-                &:first-child{
-                    margin-top: 0px;
-                }
-                &:last-child{
-                    margin-bottom: 0px;
-                }
-            }
-        }
-
-        &-list{
-            width: 100%;
-            &-item{
-                display: flex;
-                flex-direction: row;
-                height: 48px;
-                width: 100%;
-                padding: 14px 24px;
-                align-items: center;;
-
-                & .header--nav-dot{
-                    margin-right: 16px;
-                }
-                label{
-                    font-size: $font-size-1;
-                    color: $dark;
-                    margin-bottom: 0px;
-                }
-
-                &.active{
-                    background-color: #f0f0f1;
-                }
-
-                &__avatar{
-                    width: 32px;
-                    height: 32px;
-                    object-fit: contain;
-                    margin: 0px 24px;
-                }
-
-                & .input-control{
-                    label{
-                        height: 16px;
-                        margin-left: 15px;
-                    }
-                }
-                & .text--smallest {
-                    font-weight: 600;
-                }
-                & .list-footer__pagination-prev{
-                    margin-left: 0px;
-                }
-            }
-            
-        }
-        &--control{
-            display: flex;
-            flex-direction: row;
-            & .icon{
-                margin-right: 20px;
-                cursor: pointer;
-            }
-            & .text--smallest{
-                font-weight: normal;
-            }
-        }
+      }
     }
 
-    & .current-account, & .loader{
-        width: 647px;
-        height: 48px;
-        border-radius: 4px;
-        box-shadow: 0 3px 10px 3px rgba(0, 0, 0, 0.04);
-        background-color: $white;
-        margin-bottom: 24px;
-        margin-top: 20px;
-        padding: 0px 24px;
+    &-content {
+      width: 224px;
+
+      & .button {
+        margin: 8px 0px;
+        &:first-child {
+          margin-top: 0px;
+        }
+        &:last-child {
+          margin-bottom: 0px;
+        }
+      }
+    }
+
+    &-list {
+      width: 100%;
+      &-item {
         display: flex;
         flex-direction: row;
+        height: 48px;
+        width: 100%;
+        padding: 14px 24px;
         align-items: center;
 
-        & .text--smallest{
-            @include medium-font;
+        & .header--nav-dot {
+          margin-right: 16px;
         }
-    }
-    & .current-account {
-        &__avatar{
-            width: 24px;
-            height: 24px;
-            border-radius: $border-radius-2;
-            object-fit: cover;
-            margin-right: 16px;
+        label {
+          font-size: $font-size-1;
+          color: $dark;
+          margin-bottom: 0px;
         }
-        & .icon{
-            margin-left: auto;
-            cursor: pointer;
-        }
-    }
-    & .loader{
-        background-color: $initial-tag;
-        margin-top: 0px;
 
-        & .icon{
-            cursor: pointer;
-            // margin-left: auto;
+        &.active {
+          background-color: #f0f0f1;
         }
+
+        &__avatar {
+          width: 32px;
+          height: 32px;
+          object-fit: contain;
+          margin: 0px 24px;
+        }
+
+        & .input-control {
+          label {
+            height: 16px;
+            margin-left: 15px;
+          }
+        }
+        & .text--smallest {
+          font-weight: 600;
+        }
+        & .list-footer__pagination-prev {
+          margin-left: 0px;
+        }
+      }
     }
+    &--control {
+      display: flex;
+      flex-direction: row;
+      & .icon {
+        margin-right: 20px;
+        cursor: pointer;
+      }
+      & .text--smallest {
+        font-weight: normal;
+      }
+    }
+  }
+
+  & .current-account,
+  & .loader {
+    width: 647px;
+    height: 48px;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px 3px rgba(0, 0, 0, 0.04);
+    background-color: $white;
+    margin-bottom: 24px;
+    margin-top: 20px;
+    padding: 0px 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & .text--smallest {
+      @include medium-font;
+    }
+  }
+  & .current-account {
+    &__avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: $border-radius-2;
+      object-fit: cover;
+      margin-right: 16px;
+    }
+    & .icon {
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+  & .loader {
+    background-color: $initial-tag;
+    margin-top: 0px;
+
+    & .icon {
+      cursor: pointer;
+      // margin-left: auto;
+    }
+  }
 }

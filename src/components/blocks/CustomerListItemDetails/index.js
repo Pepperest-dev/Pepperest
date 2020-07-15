@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Fragment, useState } from 'react';
-import { getIndicatorClass, getStringHash } from 'libs/utils';
-import { CustomerInfo, CustomerRecentTransaction } from 'components/blocks';
+import React, { Fragment, useState } from "react";
+import { getIndicatorClass, getStringHash } from "libs/utils";
+import { CustomerInfo, CustomerRecentTransaction } from "components/blocks";
 
-import PropTypes from 'prop-types';
+import { PepperestContext } from "components/helpers/constant";
+
+import PropTypes from "prop-types";
 
 const CustomerListItemDetails = ({
   status,
@@ -25,7 +27,7 @@ const CustomerListItemDetails = ({
         <ul className="list-item-detail__header-menu">
           <li
             className={`list-item-detail__header-menu__item ${
-              showCustomerInfo ? 'active' : ''
+              showCustomerInfo ? "active" : ""
             }`}
             onClick={() => {
               setShowCustomerInfo(true);
@@ -35,7 +37,7 @@ const CustomerListItemDetails = ({
           </li>
           <li
             className={`list-item-detail__header-menu__item ${
-              !showCustomerInfo ? 'active' : ''
+              !showCustomerInfo ? "active" : ""
             }`}
             onClick={() => {
               setShowCustomerInfo(false);
@@ -79,9 +81,19 @@ const CustomerListItemDetails = ({
           {showCustomerInfo ? (
             <>
               {/* <div className="button button-md button--grey">Edit Customer</div> */}
-              <div className="button button-md button--grey">
-                Block Customer
-              </div>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowBlockCustomerModal(true);
+                    }}
+                  >
+                    Block Customer
+                  </div>
+                )}
+              </PepperestContext.Consumer>
             </>
           ) : (
             <div className="button button-md button--grey">

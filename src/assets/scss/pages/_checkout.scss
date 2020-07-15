@@ -1,107 +1,217 @@
-.checkout{
-    padding: 16px;
-    @include desktop{
-        margin-top: 24px;
-        padding: 0;
-    }
-    & .pcard{
-        @include desktop{
-            padding: 16px;
-        }
-
-        & .main-header{
-            padding: 16px;
-            border-bottom: 1px solid $border-color-1;
-
-            @include desktop{
-                padding: 0px;
-                border: none;
-            }
-
-        }
-
-        & .main-content{
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 16px;
-
-            & .text--smaller {
-                padding: 16px;
-                border-bottom: 1px solid $border-color-1;
-                @include desktop{
-                    padding: 0;
-                    border: none;
-                }
-
-            }
-
-            & .button{
-                margin-left: 16px;
-                margin-right: 16px;
-                margin-top: 16px;
-                @include desktop{
-                    margin: 0;
-                }
-            }
-
-            @include desktop{
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
-        }
-
-        &-header{
-            padding: 16px;
-        }
+.checkout {
+  padding: 16px;
+  @include desktop {
+    margin-top: 24px;
+    padding: 0;
+  }
+  & .pcard {
+    @include desktop {
+      padding: 16px;
     }
 
-    &-summary {
-        padding: 0px !important;
+    & .main-header {
+      padding: 16px;
+      border-bottom: 1px solid $border-color-1;
 
-        &-base{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
+      @include desktop {
+        padding: 0px;
+        border: none;
+      }
+      & .address-header {
+        @include desktop {
+          padding: 10px 0;
         }
+      }
     }
 
-    &-item{
-        padding: 12px 16px;
+    & .main-content {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 16px;
+      &-card {
+        padding: 20px 40px;
+        background-color: #fff;
+        // box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        //   0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 10px;
+        .flex-checkout {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid $whitesmoke;
+          .payable-amount {
+            font-weight: 700;
+            font-size: 18px;
+          }
+          .payable-value {
+            font-weight: 600;
+          }
+        }
+        .flex-checkout > span {
+          display: block;
+          padding: 15px 0;
+        }
+        .payment-options > .button {
+          margin-bottom: 15px;
+        }
+      }
+      & .flex-content {
+        position: relative;
+        width: 100%;
         display: flex;
-        flex-direction: row;
-        border-bottom: 1px solid $border-color-1;
-
-
-
-        &-image{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-
-            &__wrapper{
-                min-width: 48px;
-                width: 48px;
-                height: 48px;
-                margin-right: 5px;
+        justify-content: space-between;
+        margin-top: 10px;
+        & .flex-content_child {
+          width: 70%;
+          display: flex;
+          /* Create a custom radio button */
+          & .radio-checkmark {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 50%;
+            @include desktop {
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 25px;
+              width: 25px;
+              background-color: #eee;
+              border-radius: 50%;
             }
-        }
+          }
 
-        &-content{
+          /* On mouse-over, add a grey background color */
+          & .radio-container:hover input ~ .radio-checkmark {
+            background-color: #ccc;
+          }
+
+          /* When the radio button is checked, add a blue background */
+          & .radio-container input:checked ~ .radio-checkmark {
+            background-color: #ff721b;
+          }
+
+          /* Create the indicator (the dot/circle - hidden when not checked) */
+          & .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+          }
+
+          /* Show the indicator (dot/circle) when checked */
+          & .radio-container input:checked ~ .radio-checkmark:after {
+            display: block;
+          }
+
+          /* Style the indicator (dot/circle) */
+          & .radio-container .radio-checkmark:after {
+            top: 9px;
+            left: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+          }
+        }
+        & .space-between {
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          @include desktop {
+            width: 20%;
             display: flex;
-            flex-direction: column;
-            margin-left: 5px;
-            width: 100%;
-
-            &__title{
-                 overflow: hidden;
-                 display: -webkit-box;
-                 -webkit-line-clamp: 3;
-                 -webkit-box-orient: vertical;
-            }
+            justify-content: space-between;
+          }
         }
+      }
+
+      & .text--smaller {
+        padding: 16px;
+        border-bottom: 1px solid $border-color-1;
+        @include desktop {
+          padding: 0;
+          border: none;
+        }
+      }
+      & .ml-10 {
+        position: relative;
+        left: 30px;
+      }
+
+      & .button {
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-top: 16px;
+        @include desktop {
+          margin: 0;
+        }
+      }
+
+      .button-rounded {
+        width: 45px;
+        height: 45px;
+        background-color: rgba(238, 238, 238, 0.239);
+        border-radius: 999px;
+        &:hover {
+          background-color: #ff721b28;
+        }
+      }
+
+      @include desktop {
+        position: relative;
+      }
     }
+
+    &-header {
+      padding: 16px;
+    }
+  }
+
+  &-summary {
+    padding: 0px !important;
+
+    &-base {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+    }
+  }
+
+  &-item {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $border-color-1;
+
+    &-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      &__wrapper {
+        min-width: 48px;
+        width: 48px;
+        height: 48px;
+        margin-right: 5px;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5px;
+      width: 100%;
+
+      &__title {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
 }

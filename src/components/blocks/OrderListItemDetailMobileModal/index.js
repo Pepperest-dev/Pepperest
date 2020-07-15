@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, {
-  useContext, useRef, useEffect, useState,
-} from 'react';
-import { PepperestContext } from 'components/helpers/constant';
-import useResizeObserver from 'components/customHook/useResizeObserver';
-
+import React, { useContext, useRef, useEffect, useState } from "react";
+import { PepperestContext } from "components/helpers/constant";
+import useResizeObserver from "components/customHook/useResizeObserver";
 
 const OrderListItemDetailMobileModal = () => {
   const pepperestContext = useContext(PepperestContext);
@@ -19,9 +16,9 @@ const OrderListItemDetailMobileModal = () => {
         ...state,
         style: {
           top:
-            contentRect.height >= window.innerHeight - 350 ? '350px' : 'unset',
+            contentRect.height >= window.innerHeight - 350 ? "350px" : "unset",
           bottom:
-            contentRect.height >= window.innerHeight - 350 ? 'unset' : '0',
+            contentRect.height >= window.innerHeight - 350 ? "unset" : "0",
         },
       });
     }
@@ -139,9 +136,19 @@ const OrderListItemDetailMobileModal = () => {
 
             <div className="list-modal__list-item list-modal__list-item__alternate">
               <div className="button button-md button--grey">Print Receipt</div>
-              <div className="button button-md button--grey">
-                Report an issue
-              </div>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowReportIssueModal(true);
+                    }}
+                  >
+                    Report an issue
+                  </div>
+                )}
+              </PepperestContext.Consumer>
             </div>
           </ul>
         </div>

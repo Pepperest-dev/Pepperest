@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
-import { ListItemDetails } from 'components/blocks';
+import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import { ListItemDetails } from "components/blocks";
 import {
-  getStatusTextClass, getIndicatorClass, getStatusTagClass, getStatusText,
-} from 'libs/utils';
+  getStatusTextClass,
+  getIndicatorClass,
+  getStatusTagClass,
+  getStatusText,
+} from "libs/utils";
 
-import { PepperestContext } from 'components/helpers/constant';
-
+import { PepperestContext } from "components/helpers/constant";
 
 const ListItem = ({
   status,
@@ -33,11 +35,13 @@ const ListItem = ({
 
   return (
     <>
-
-      <div className="list-item row mx-0" onClick={() => { handleListClick(); }}>
-        <div
-          className={`list-item__indicator ${getIndicatorClass(status)}`}
-        />
+      <div
+        className="list-item row mx-0"
+        onClick={() => {
+          handleListClick();
+        }}
+      >
+        <div className={`list-item__indicator ${getIndicatorClass(status)}`} />
         <div className="col-2 col-md-4 px-0">
           <div className="d-flex flex-row">
             <div className="list-item__date">
@@ -52,13 +56,13 @@ const ListItem = ({
                 >
                   {getStatusText(status)}
                 </div>
-                {status.toLowerCase() === 'pending' ? (
+                {status.toLowerCase() === "pending" ? (
                   <p
                     className={`list-item__status-text ${getStatusTextClass(
                       status,
                     )}`}
                   >
-                    {statusText.substring(statusText.indexOf(' ') + 1)}
+                    {statusText.substring(statusText.indexOf(" ") + 1)}
                   </p>
                 ) : null}
               </div>
@@ -75,7 +79,7 @@ const ListItem = ({
           <div className="d-flex flex-row justify-content-end">
             <div className="list-item__payment">
               <div className="list-item__payment-container">
-                {status.toLowerCase() === 'pending' ? (
+                {status.toLowerCase() === "pending" ? (
                   <div className="button button-md button--orange">
                     Make Payment
                   </div>

@@ -1,9 +1,19 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { getStatusTextClass, getIndicatorClass } from 'libs/utils';
+import React from "react";
+import PropTypes from "prop-types";
+import { getStatusTextClass, getIndicatorClass } from "libs/utils";
+import { PepperestContext } from "components/helpers/constant";
 
-const OrderListItemDetails = ({ status, onClick, date, address, orderId, cost, customerEmail, customerName}) => (
+const OrderListItemDetails = ({
+  status,
+  onClick,
+  date,
+  address,
+  orderId,
+  cost,
+  customerEmail,
+  customerName,
+}) => (
   <div className="list-item-detail__container">
     <div className={`list-item__indicator ${getIndicatorClass(status)}`} />
     <div className="list-item-detail__header">
@@ -40,9 +50,7 @@ const OrderListItemDetails = ({ status, onClick, date, address, orderId, cost, c
           <p className="list-item-detail__main-item__title">Order Date</p>
         </div>
         <div className="col-md-9 px-0">
-          <p className="list-item-detail__main-item__details">
-            {date}
-          </p>
+          <p className="list-item-detail__main-item__details">{date}</p>
         </div>
       </div>
       <div className="list-item-detail__main-item row mx-0">
@@ -69,7 +77,9 @@ const OrderListItemDetails = ({ status, onClick, date, address, orderId, cost, c
         </div>
         <div className="col-md-9 px-0">
           <p
-            className={`list-item-detail__main-item__details status-text ${getStatusTextClass(status)}`}
+            className={`list-item-detail__main-item__details status-text ${getStatusTextClass(
+              status,
+            )}`}
           >
             {status}
           </p>
@@ -82,9 +92,7 @@ const OrderListItemDetails = ({ status, onClick, date, address, orderId, cost, c
           </p>
         </div>
         <div className="col-md-9 px-0">
-          <p className="list-item-detail__main-item__details">
-            {address}.
-          </p>
+          <p className="list-item-detail__main-item__details">{address}.</p>
         </div>
       </div>
       <div className="list-item-detail__main-item list-item-detail__main-item-alternate row mx-0">
@@ -136,7 +144,19 @@ const OrderListItemDetails = ({ status, onClick, date, address, orderId, cost, c
       </div>
       <div className="list-item-detail__main-item">
         <div className="button button-md button--grey">Print Receipt</div>
-        <div className="button button-md button--grey">Report an issue</div>
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              role="presentation"
+              className="button button-md button--grey"
+              onClick={() => {
+                context.updateShowReportIssueModal(true);
+              }}
+            >
+              Report an issue
+            </div>
+          )}
+        </PepperestContext.Consumer>
       </div>
     </div>
   </div>

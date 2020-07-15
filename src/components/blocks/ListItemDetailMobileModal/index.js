@@ -1,10 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, {
-  useContext, useRef, useEffect, useState, useLayoutEffect,
-} from 'react';
-import { PepperestContext } from 'components/helpers/constant';
-import useResizeObserver from 'components/customHook/useResizeObserver';
+  useContext,
+  useRef,
+  useEffect,
+  useState,
+  useLayoutEffect,
+} from "react";
+import { PepperestContext } from "components/helpers/constant";
+import useResizeObserver from "components/customHook/useResizeObserver";
 
 const ListItemDetailMobileModal = () => {
   const pepperestContext = useContext(PepperestContext);
@@ -17,9 +21,9 @@ const ListItemDetailMobileModal = () => {
         ...state,
         style: {
           top:
-            contentRect.height >= window.innerHeight - 350 ? '350px' : 'unset',
+            contentRect.height >= window.innerHeight - 350 ? "350px" : "unset",
           bottom:
-            contentRect.height >= window.innerHeight - 350 ? 'unset' : '0',
+            contentRect.height >= window.innerHeight - 350 ? "unset" : "0",
         },
       });
     }
@@ -129,12 +133,31 @@ const ListItemDetailMobileModal = () => {
             </li>
             <div className="list-modal__list-item list-modal__list-item__alternate">
               <div className="button button-md button--grey">Print Receipt</div>
-              <div className="button button-md button--grey">
-                Report an issue
-              </div>
-              <div className="button button-md button--grey">
-                Refund customer
-              </div>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowReportIssueModal(true);
+                    }}
+                  >
+                    Report an issue
+                  </div>
+                )}
+              </PepperestContext.Consumer>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowRefundCustomerModal(true);
+                    }}
+                  >
+                    Refund customer
+                  </div>
+                )}
+              </PepperestContext.Consumer>
             </div>
           </ul>
         </div>

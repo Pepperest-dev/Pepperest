@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { LeftChevron } from 'components/vectors';
+import { LeftChevron } from "components/vectors";
+import { PepperestContext } from "components/helpers/constant";
 
 const InstagramBusinessProductsSelect = (props) => (
   <div className="instagram-page__main instagram-page__main--alt">
@@ -18,7 +19,20 @@ const InstagramBusinessProductsSelect = (props) => (
     <ul className="instagram-page__main-list">
       <div className="instagram-page__main-list-item">
         <div className="input-control">
-          <input type="checkbox" id="product1" name="instagram" />
+          {/* <input type="checkbox" id="product1" name="instagram" /> */}
+          <PepperestContext.Consumer>
+            {(context) => (
+              <div
+                role="presentation"
+                className="button button-md button--orange mt-25"
+                onClick={() => {
+                  context.updateShowPublishInstagramImageModal(true);
+                }}
+              >
+                Publish
+              </div>
+            )}
+          </PepperestContext.Consumer>
           <label htmlFor="product1" />
         </div>
         <img
@@ -26,65 +40,107 @@ const InstagramBusinessProductsSelect = (props) => (
           src="/assets/images/laptop.jpeg"
           alt="product"
         />
-        <p className="text--smallest text--gray">
-          HP Notebook 15-RB000NIA
-        </p>
+        <p className="text--smallest text--gray">HP Notebook 15-RB000NIA</p>
       </div>
       <div className="instagram-page__main-list-item">
-        <div className="input-control">
+        {/* <div className="input-control">
           <input type="checkbox" id="product2" name="instagram" />
           <label htmlFor="product2" />
-        </div>
+        </div> */}
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              role="presentation"
+              className="button button-md button--orange"
+              onClick={() => {
+                context.updateShowPublishInstagramImageModal(true);
+              }}
+            >
+              Publish
+            </div>
+          )}
+        </PepperestContext.Consumer>
         <img
           className="instagram-page__main-list-item__avatar"
           src="/assets/images/laptop.jpeg"
           alt="product"
         />
-        <p className="text--smallest text--gray">
-          HP Notebook 15-RB000NIA
-        </p>
+        <p className="text--smallest text--gray">HP Notebook 15-RB000NIA</p>
       </div>
       <div className="instagram-page__main-list-item">
-        <div className="input-control">
+        {/* <div className="input-control">
           <input type="checkbox" id="product3" name="instagram" />
           <label htmlFor="product3" />
-        </div>
+        </div> */}
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              role="presentation"
+              className="button button-md button--orange"
+              onClick={() => {
+                context.updateShowPublishInstagramImageModal(true);
+              }}
+            >
+              Publish
+            </div>
+          )}
+        </PepperestContext.Consumer>
         <img
           className="instagram-page__main-list-item__avatar"
           src="/assets/images/laptop.jpeg"
           alt="product"
         />
-        <p className="text--smallest text--gray">
-          HP Notebook 15-RB000NIA
-        </p>
+        <p className="text--smallest text--gray">HP Notebook 15-RB000NIA</p>
       </div>
       <div className="instagram-page__main-list-item active">
-        <div className="input-control">
+        {/* <div className="input-control">
           <input type="checkbox" id="product4" name="instagram" checked />
           <label htmlFor="product4" />
-        </div>
+        </div> */}
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              role="presentation"
+              className="button button-md button--orange"
+              onClick={() => {
+                context.updateShowPublishInstagramImageModal(true);
+              }}
+            >
+              Publish
+            </div>
+          )}
+        </PepperestContext.Consumer>
         <img
           className="instagram-page__main-list-item__avatar"
           src="/assets/images/laptop.jpeg"
           alt="product"
         />
-        <p className="text--smallest text--gray">
-          HP Notebook 15-RB000NIA
-        </p>
+        <p className="text--smallest text--gray">HP Notebook 15-RB000NIA</p>
       </div>
       <div className="instagram-page__main-list-item">
-        <div className="input-control">
+        {/* <div className="input-control">
           <input type="checkbox" id="product5" name="instagram" />
           <label htmlFor="product5" />
-        </div>
+        </div> */}
+        <PepperestContext.Consumer>
+          {(context) => (
+            <div
+              role="presentation"
+              className="button button-md button--orange"
+              onClick={() => {
+                context.updateShowPublishInstagramImageModal(true);
+              }}
+            >
+              Publish
+            </div>
+          )}
+        </PepperestContext.Consumer>
         <img
           className="instagram-page__main-list-item__avatar"
           src="/assets/images/laptop.jpeg"
           alt="product"
         />
-        <p className="text--smallest text--gray">
-          HP Notebook 15-RB000NIA
-        </p>
+        <p className="text--smallest text--gray">HP Notebook 15-RB000NIA</p>
       </div>
       <div className="instagram-page__main-list-item">
         <div className="list-footer__pagination">
@@ -113,17 +169,20 @@ const InstagramBusinessProductsSelect = (props) => (
     </ul>
     <div className="instagram-page__main--footer">
       <div className="button button-md button--neutral">CANCEL</div>
-      <div className="button button-md button--orange" onClick={() => { props.onClick(false); }}>
+      <div
+        className="button button-md button--orange"
+        onClick={() => {
+          props.onClick(false);
+        }}
+      >
         PUBLISH PRODUCTS
       </div>
     </div>
   </div>
 );
 
-
 InstagramBusinessProductsSelect.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
-
 
 export default InstagramBusinessProductsSelect;

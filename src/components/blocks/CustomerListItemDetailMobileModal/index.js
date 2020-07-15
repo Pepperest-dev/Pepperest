@@ -1,18 +1,16 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, {
-  useContext,
-  useState,
-  useEffect,
-} from 'react';
-import { PepperestContext } from 'components/helpers/constant';
-import useResizeObserver from 'components/customHook/useResizeObserver';
-
+import React, { useContext, useState, useEffect } from "react";
+import { PepperestContext } from "components/helpers/constant";
+import useResizeObserver from "components/customHook/useResizeObserver";
 
 const CustomerListItemDetailMobileModal = () => {
   const pepperestContext = useContext(PepperestContext);
-  const [state, setState] = useState({ isRecentTransactionActive: false, style: {} });
+  const [state, setState] = useState({
+    isRecentTransactionActive: false,
+    style: {},
+  });
   const [ref, { contentRect }] = useResizeObserver();
 
   useEffect(() => {
@@ -21,9 +19,9 @@ const CustomerListItemDetailMobileModal = () => {
         ...state,
         style: {
           top:
-            contentRect.height >= window.innerHeight - 350 ? '350px' : 'unset',
+            contentRect.height >= window.innerHeight - 350 ? "350px" : "unset",
           bottom:
-            contentRect.height >= window.innerHeight - 350 ? 'unset' : '0',
+            contentRect.height >= window.innerHeight - 350 ? "unset" : "0",
           // minHeight:
           //   contentRect.height >= window.innerHeight - 350 ? 'unset' : '500px',
         },
@@ -32,14 +30,15 @@ const CustomerListItemDetailMobileModal = () => {
   }, [contentRect]);
 
   const handleToggle = () => {
-    setState({ ...state, isRecentTransactionActive: !state.isRecentTransactionActive });
+    setState({
+      ...state,
+      isRecentTransactionActive: !state.isRecentTransactionActive,
+    });
   };
 
   return (
     <>
-      <div
-        className="list-modal-overlay"
-      />
+      <div className="list-modal-overlay" />
       <div
         className="list-modal"
         onClick={() => {
@@ -48,14 +47,16 @@ const CustomerListItemDetailMobileModal = () => {
       >
         <div
           className="list-modal__body"
-          onClick={(event) => { event.stopPropagation(); }}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
           ref={ref}
           style={state.style}
         >
           <div className="list-modal__header py-0">
             <h4
               className={`list-modal__header-label ${
-                !state.isRecentTransactionActive ? 'active' : ''
+                !state.isRecentTransactionActive ? "active" : ""
               }`}
               onClick={() => {
                 handleToggle();
@@ -65,7 +66,7 @@ const CustomerListItemDetailMobileModal = () => {
             </h4>
             <h4
               className={`list-modal__header-label ${
-                state.isRecentTransactionActive ? 'active' : ''
+                state.isRecentTransactionActive ? "active" : ""
               }`}
               onClick={() => {
                 handleToggle();
@@ -122,12 +123,22 @@ const CustomerListItemDetailMobileModal = () => {
                   </p>
                 </li>
                 <div className="list-modal__list-item list-modal__list-item__alternate">
-                  <div className="button button-md button--grey">
+                  {/* <div className="button button-md button--grey">
                     Edit Customer
-                  </div>
-                  <div className="button button-md button--grey">
-                    Block Customer
-                  </div>
+                  </div> */}
+                  <PepperestContext.Consumer>
+                    {(context) => (
+                      <div
+                        role="presentation"
+                        className="button button-md button--grey"
+                        onClick={() => {
+                          context.updateShowBlockCustomerModal(true);
+                        }}
+                      >
+                        Block Customer
+                      </div>
+                    )}
+                  </PepperestContext.Consumer>
                 </div>
               </>
             ) : (

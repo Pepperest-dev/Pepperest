@@ -1,234 +1,232 @@
-.nsForm{
+.nsForm {
+  display: flex;
+  flex-direction: column;
+  font-family: $primary-font;
+
+  label,
+  &__label-help {
+    font-size: $font-size-2;
+    letter-spacing: normal;
+    color: $dark;
+    line-height: normal;
+    margin-bottom: 8px;
+    @include medium-font;
+  }
+
+  &__label-help {
+    font-size: $font-size-1;
+    color: $orange;
+    // text-decoration: none !important;
+    &:hover {
+      color: $orange;
+    }
+  }
+
+  &-input {
+    height: 48px;
+    width: 100%;
+    border-radius: $border-radius-2;
+    background-color: $whitesmoke;
+    font-size: $font-size-2;
+    letter-spacing: normal;
+    color: $gray;
+    line-height: normal;
+    padding: 16px;
+    outline: none !important;
+    margin-top: 8px;
+    border: 0px;
+    @include medium-font;
+    &::placeholder {
+      color: $gray;
+      @include primary-font;
+    }
+    &:hover {
+      box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.5);
+    }
+    &.error {
+      border: solid 1px $error;
+      color: $error;
+      &::placeholder {
+        color: $error;
+      }
+    }
+    &.disabled {
+      background-color: #f5f5f7;
+      cursor: not-allowed;
+    }
+
+    &__alternate {
+      border: 1px solid $grey;
+      background-color: transparent;
+      color: $black;
+      margin: 0;
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+
+  &-control {
+    margin: 12px 0px;
+    &:first-child {
+      margin-top: 0px;
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  &-button {
+    background-color: $orange;
+    width: 100%;
+    outline: none !important;
     display: flex;
     flex-direction: column;
-    font-family: $primary-font;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-2;
+    color: $white;
+    letter-spacing: normal;
+    line-height: normal;
+    height: 48px;
+    border-radius: $border-radius-2;
+    box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.5);
+    @include medium-font;
+  }
 
-
-    label, &__label-help{
-        font-size: $font-size-2;
-        letter-spacing: normal;
-        color: $dark;
-        line-height: normal;
-        margin-bottom: 8px;
-        @include medium-font;
+  &-select {
+    background-color: $whitesmoke;
+    border-radius: $border-radius-2;
+    &:hover {
+      box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.5);
     }
 
-    &__label-help{
-        font-size: $font-size-1;
+    select {
+      height: 48px;
+      width: 100%;
+      padding: 13px;
+      border: 0px;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none; /* remove default arrow */
+      background: url(/assets/images/svg/chevron.svg) no-repeat 96% 53%; /* add custom arrow */
+      font-size: $font-size-2;
+      @include medium-font;
+      line-height: normal;
+      color: $gray;
+      outline: none;
+      &:focus {
+        outline: none;
+      }
+      &.error {
+        border: solid 1px $error;
+        color: $error;
+      }
+
+      // &:hover {
+      //     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+      // }
+
+      // &.error {
+      //     border: 1px solid $red !important;
+      // }
+    }
+
+    &__alternate {
+      background-color: transparent;
+      border: 1px solid $grey;
+      &:hover {
+        box-shadow: none;
+      }
+      select {
+        color: $black;
+        background: url(/assets/images/svg/down-chevron.svg) no-repeat 92% 53%; /* add custom arrow */
+      }
+    }
+    &--orange {
+      background-color: transparent;
+      border: 1px solid $orange;
+      margin-top: 40px;
+      select {
         color: $orange;
-        // text-decoration: none !important;
-        &:hover{
-            color: $orange;
-        }
+        background: url(/assets/images/svg/down-chevron-orange.svg) no-repeat
+          92% 53%; /* add custom arrow */
+      }
+      &:hover {
+        box-shadow: none;
+      }
     }
+    &--sm {
+      select {
+        height: 40px;
+      }
+    }
+  }
 
-    &-input{
-        height: 48px;
-        width: 100%;
-        border-radius: $border-radius-2;
-        background-color: $whitesmoke;
-        font-size: $font-size-2;
-        letter-spacing: normal;
-        color: $gray;
+  &-password {
+    position: relative;
+    @include medium-font;
+    & .nsForm-input {
+      padding-right: 56px;
+    }
+    &-icon {
+      position: absolute;
+      top: 24px;
+      right: 16px;
+      cursor: pointer;
+      &.error {
+        path {
+          fill: $error;
+        }
+      }
+    }
+  }
+
+  &-textarea {
+    width: 100%;
+    height: 96px;
+    font-size: $font-size-2;
+    letter-spacing: normal;
+    color: $gray;
+    line-height: normal;
+    padding: 16px;
+    outline: none !important;
+    border-radius: $border-radius-2;
+    background-color: transparent;
+    border: 1px solid $grey;
+    resize: none;
+    @include medium-font;
+    &::placeholder {
+      @include primary-font;
+    }
+    &.error {
+      border: solid 1px $error;
+      color: $error;
+
+      &::placeholder {
+        color: $error;
+      }
+    }
+  }
+
+  &-error {
+    &__boundary {
+      display: flex;
+      flex-direction: row;
+      margin-top: 4px;
+      align-items: center;
+
+      &-message {
+        font-size: $font-size-0;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
         line-height: normal;
-        padding: 16px;
-        outline: none !important;
-        margin-top: 8px;
-        border: 0px;
-        @include medium-font;
-        &::placeholder{
-            color: $gray;
-            @include primary-font;
-        }
-        &:hover{
-          box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.5);
-        }
-        &.error{
-            border: solid 1px $error;
-            color: $error;
-            &::placeholder {
-                color: $error;
-            }
-        }
-        &.disabled{
-            background-color: #f5f5f7;
-            cursor: not-allowed;
-        }
-
-
-        &__alternate{
-            border: 1px solid $whitesmoke;
-            background-color: transparent;
-            color: $black;
-            margin: 0;
-            &:hover{
-                box-shadow: none;
-            }
-        }
-
-    }
-    
-    &-control{
-        margin: 12px 0px;
-        &:first-child{
-            margin-top: 0px;
-        }
-        &:last-child{
-            margin-bottom: 0px;
-        }
-    }
-
-    &-button{
-        background-color: $orange;
-        width: 100%;
-        outline: none !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: $font-size-2;
-        color: $white;
         letter-spacing: normal;
-        line-height: normal;
-        height: 48px;
-        border-radius: $border-radius-2;
-        box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.5);
-        @include medium-font;
+        color: $error;
+        margin-left: 4px;
+      }
     }
-
-    &-select{
-        background-color: $whitesmoke;
-        border-radius: $border-radius-2;
-        &:hover{
-          box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.5);
-        }
-
-        select {
-            height: 48px;
-            width: 100%;
-            padding: 13px;
-            border: 0px;
-            box-sizing: border-box;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none; /* remove default arrow */
-            background: url(/assets/images/svg/chevron.svg) no-repeat 96% 53%; /* add custom arrow */
-            font-size: $font-size-2;
-            @include medium-font;
-            line-height: normal;
-            color: $gray;
-            outline: none;
-            &:focus {
-                outline: none;
-            }
-            &.error{
-                border: solid 1px $error;
-                color: $error;
-            }
-
-            // &:hover {
-            //     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
-            // }
-
-            // &.error {
-            //     border: 1px solid $red !important;
-            // }
-        }
-
-        &__alternate{
-            background-color: transparent;
-            border: 1px solid $whitesmoke;
-            &:hover{
-                box-shadow: none;
-            }
-            select{
-                color: $black;
-                background: url(/assets/images/svg/down-chevron.svg) no-repeat 92% 53%; /* add custom arrow */
-            }
-        }
-        &--orange{
-            background-color: transparent;
-            border: 1px solid $orange;
-            margin-top: 40px;
-            select{
-                color: $orange;
-                background: url(/assets/images/svg/down-chevron-orange.svg) no-repeat 92% 53%; /* add custom arrow */   
-            }
-            &:hover{
-                box-shadow: none;
-            }
-        }
-        &--sm{
-            select {
-                height: 40px;
-            }
-        }
-    }
-
-    &-password{
-        position: relative;
-        @include medium-font;
-        & .nsForm-input{
-            padding-right: 56px;
-        }
-        &-icon{
-            position: absolute;
-            top: 24px;
-            right: 16px;
-            cursor: pointer;
-            &.error {
-                path {
-                    fill: $error;
-                }
-            }
-        }
-    }
-
-    &-textarea{
-        width: 100%;
-        height: 96px;
-        font-size: $font-size-2;
-        letter-spacing: normal;
-        color: $gray;
-        line-height: normal;
-        padding: 16px;
-        outline: none !important;
-        border-radius: $border-radius-2;
-        background-color: transparent;
-        border: 1px solid $whitesmoke;
-        resize: none;
-        @include medium-font;
-        &::placeholder{
-            @include primary-font;
-        }
-        &.error {
-            border: solid 1px $error;
-            color: $error;
-
-            &::placeholder {
-                color: $error;
-            }
-        }
-    }
-
-    &-error{
-        &__boundary{
-            display: flex;
-            flex-direction: row;
-            margin-top: 4px;
-            align-items: center;
-
-            &-message{
-                font-size: $font-size-0;
-                font-weight: normal;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: normal;
-                letter-spacing: normal;
-                color: $error;
-                margin-left: 4px;
-            }
-
-        }
-    }
+  }
 }
