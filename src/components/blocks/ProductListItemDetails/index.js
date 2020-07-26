@@ -1,12 +1,22 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useState } from "react";
+import PropTypes from "prop-types";
 
-import { ProductInfo, ProductRecentTransaction } from 'components/blocks';
+import { ProductInfo, ProductRecentTransaction } from "components/blocks";
+
+import { PepperestContext } from "components/helpers/constant";
 
 const ProductListItemDetails = ({
-  productID, productName, dateCreated, deliveryDate, productDescription, amount, transactions, recentTransactions, onClick,
+  productID,
+  productName,
+  dateCreated,
+  deliveryDate,
+  productDescription,
+  amount,
+  transactions,
+  recentTransactions,
+  onClick,
 }) => {
   const [showProductInfo, setShowProductInfo] = useState(true);
   return (
@@ -15,7 +25,7 @@ const ProductListItemDetails = ({
         <ul className="list-item-detail__header-menu">
           <li
             className={`list-item-detail__header-menu__item ${
-              showProductInfo ? 'active' : ''
+              showProductInfo ? "active" : ""
             }`}
             onClick={() => {
               setShowProductInfo(true);
@@ -25,7 +35,7 @@ const ProductListItemDetails = ({
           </li>
           <li
             className={`list-item-detail__header-menu__item ${
-              !showProductInfo ? 'active' : ''
+              !showProductInfo ? "active" : ""
             }`}
             onClick={() => {
               setShowProductInfo(false);
@@ -57,8 +67,8 @@ const ProductListItemDetails = ({
             productDescription={productDescription}
           />
         ) : (
-          recentTransactions
-          && recentTransactions.map((transaction, index) => (
+          recentTransactions &&
+          recentTransactions.map((transaction, index) => (
             <ProductRecentTransaction
               key={index}
               amount={transaction.amount}
@@ -72,12 +82,45 @@ const ProductListItemDetails = ({
         <div className="list-item-detail__main-item">
           {showProductInfo ? (
             <>
-              <div className="button button-md button--grey">
-                Delete Product
-              </div>
-              <div className="button button-md button--grey">
-                Report an issue
-              </div>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowEditProductModal(true);
+                    }}
+                  >
+                    Edit Product
+                  </div>
+                )}
+              </PepperestContext.Consumer>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowDeleteProductModal(true);
+                    }}
+                  >
+                    Delete Product
+                  </div>
+                )}
+              </PepperestContext.Consumer>
+              <PepperestContext.Consumer>
+                {(context) => (
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowReportIssueModal(true);
+                    }}
+                  >
+                    Report an issue
+                  </div>
+                )}
+              </PepperestContext.Consumer>
             </>
           ) : (
             <div className="button button-md button--grey">

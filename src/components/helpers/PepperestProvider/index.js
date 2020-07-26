@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { PepperestContext } from 'components/helpers/constant';
-
+import React, { useState } from "react";
+import { PepperestContext } from "components/helpers/constant";
 
 const PepperestProvider = (props) => {
   const [localState, setLocalState] = useState({
@@ -12,6 +11,16 @@ const PepperestProvider = (props) => {
     showOrdersListModal: false,
     showFilterModal: false,
     showSortModal: false,
+    showEditProductModal: false,
+    showReportIssueModal: false,
+    showBlockCustomerModal: false,
+    showDeleteProductModal: false,
+    showRefundCustomerModal: false,
+    showAddNewAddressModal: false,
+    showEditAddressModal: false,
+    showRemoveAddressModal: false,
+    showPublishInstagramImageModal: false,
+    showRequestPaymentModal: false,
   });
   return (
     <PepperestContext.Provider
@@ -40,6 +49,39 @@ const PepperestProvider = (props) => {
         },
         updateShowSortModal: (value) => {
           setLocalState({ ...localState, showSortModal: value });
+        },
+        updateShowEditProductModal: (value) => {
+          setLocalState({ ...localState, showEditProductModal: value });
+        },
+        updateShowReportIssueModal: (value) => {
+          setLocalState({ ...localState, showReportIssueModal: value });
+        },
+        updateShowBlockCustomerModal: (value) => {
+          setLocalState({ ...localState, showBlockCustomerModal: value });
+        },
+        updateShowDeleteProductModal: (value) => {
+          setLocalState({ ...localState, showDeleteProductModal: value });
+        },
+        updateShowRefundCustomerModal: (value) => {
+          setLocalState({ ...localState, showRefundCustomerModal: value });
+        },
+        updateShowAddNewAddressModal: (value) => {
+          setLocalState({ ...localState, showAddNewAddressModal: value });
+        },
+        updateShowEditAddressModal: (value) => {
+          setLocalState({ ...localState, showEditAddressModal: value });
+        },
+        updateShowRemoveAddressModal: (value) => {
+          setLocalState({ ...localState, showRemoveAddressModal: value });
+        },
+        updateShowPublishInstagramImageModal: (value) => {
+          setLocalState({
+            ...localState,
+            showPublishInstagramImageModal: value,
+          });
+        },
+        updateShowRequestPaymentModal: (value) => {
+          setLocalState({ ...localState, showRequestPaymentModal: value });
         },
       }}
     >

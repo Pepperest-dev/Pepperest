@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from "react";
+import React, { Fragment } from "react";
 import { CloseIcon, RightChevron, SpinnerIcon } from "components/vectors";
 import {
   InputWithoutLabel,
@@ -11,35 +11,21 @@ import {
 import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 
-const ProductModal = (props) => (
+const EditProductModal = (props) => (
   <>
     <div className="pModal">
       <div className="pModal-overlay" />
       <div className="pModal-content">
-        <div className="pModal-header">
-          <h6 className="text--small">Add Product / Service</h6>
+        <div className="pModal-header pModal-border-bottom">
+          <h6 className="text--small">Edit Product / Service</h6>
           <PepperestContext.Consumer>
             {(context) => (
-              <div onClick={() => context.updateShowProductModal(false)}>
+              <div onClick={() => context.updateShowEditProductModal(false)}>
                 <CloseIcon />
               </div>
             )}
           </PepperestContext.Consumer>
         </div>
-        {/* <div className="pModal-sub__header row mx-0">
-          <div className="col-12 col-lg-6 px-0">
-            <div className="pModal-sub__header-half left">
-              <h6 className="text--smaller text--gray">Total Amount</h6>
-              <p className="text--smaller">NGN 0</p>
-            </div>
-          </div>
-          <div className="col-12 col-lg-6 px-0">
-            <div className="pModal-sub__header-half right">
-              <h6 className="text--smaller text--gray">Pepperest Fee</h6>
-              <p className="text--smaller">NGN 0</p>
-            </div>
-          </div>
-        </div> */}
         <div className="pModal-main">
           <div className="pModal-main__notification text--smallest">
             A payment link would be created
@@ -128,13 +114,6 @@ const ProductModal = (props) => (
                   classNames="nsForm-input__alternate"
                 />
               </div>
-              {/* <div className="col-md-7">
-                <div className="pModal-form__datepicker">
-                  <p className="text--smaller">12 Jul 2019</p>
-                  <RightChevron />
-                  <p className="text--smaller">12 Jul 2019</p>
-                </div>
-              </div> */}
             </div>
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
@@ -143,32 +122,32 @@ const ProductModal = (props) => (
                 </div>
               </div>
               <div className="col-md-7">
-                <InputWithoutLabel
-                  name="display_image"
-                  type="file"
-                  placeholder=""
-                  id="cost_item"
-                  value=""
-                  onChange={() => {}}
-                  classNames="nsForm-input__alternate"
-                />
+                <div className="image-upload">
+                  <label htmlFor="file-input">
+                    <img
+                      src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                      alt="item"
+                    />
+                  </label>
+                  <input className="file-input" id="file-input" type="file" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="pModal-footer">
+        <div className="pModal-footer pModal-border-top">
           <PepperestContext.Consumer>
             {(context) => (
               <div
                 className="button button--auto button-md button--neutral"
-                onClick={() => context.updateShowProductModal(false)}
+                onClick={() => context.updateShowEditProductModal(false)}
               >
                 CANCEL
               </div>
             )}
           </PepperestContext.Consumer>
           <div className="button button-md button--orange">
-            ADD A PRODUCT
+            EDIT PRODUCT
             {/* <SpinnerIcon /> */}
           </div>
         </div>
@@ -178,4 +157,4 @@ const ProductModal = (props) => (
   </>
 );
 
-export default ProductModal;
+export default EditProductModal;

@@ -1,19 +1,25 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { OrderListItemDetails } from 'components/blocks';
-import { PepperestContext } from 'components/helpers/constant';
+import React, { useState, useContext } from "react";
+import PropTypes from "prop-types";
+import { OrderListItemDetails } from "components/blocks";
+import { PepperestContext } from "components/helpers/constant";
 
 import {
   getStatusTextClass,
   getIndicatorClass,
   getStatusTagClass,
   getStatusText,
-} from 'libs/utils';
+} from "libs/utils";
 
 const OrderListItem = ({
-  status, date, address, orderId, cost, customerEmail, customerName
+  status,
+  date,
+  address,
+  orderId,
+  cost,
+  customerEmail,
+  customerName,
 }) => {
   const [isListDetailsOpen, setListDetailsOpen] = useState(false);
   const updateListDetailsOpen = (value) => setListDetailsOpen(value);
@@ -86,15 +92,16 @@ const OrderListItem = ({
         </div>
       </div>
       {isListDetailsOpen ? (
-        <OrderListItemDetails 
-          onClick={updateListDetailsOpen} 
-          date = {date}
-          address = {address}
-          orderId = {orderId}
-          cost = {cost}
-          customerEmail = {customerEmail}
-          customerName = {customerName}
-          status={status} />
+        <OrderListItemDetails
+          onClick={updateListDetailsOpen}
+          date={date}
+          address={address}
+          orderId={orderId}
+          cost={cost}
+          customerEmail={customerEmail}
+          customerName={customerName}
+          status={status}
+        />
       ) : null}
     </>
   );

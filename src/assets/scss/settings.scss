@@ -1,4 +1,4 @@
-@import 'utils/_typography.scss';
+@import "utils/_typography.scss";
 
 //colors
 $white: #ffffff;
@@ -6,6 +6,7 @@ $black: #10182a;
 $orange: #ff721b;
 $dark: #313639;
 $gray: #707479;
+$grey: rgba(204, 204, 204, 0.527);
 $whitesmoke: #f2f3f5;
 $blue: #4367b2;
 $gainsboro: #e4e4e4;
@@ -16,41 +17,39 @@ $green: #01bf7c;
 $yellowish: #ffecd0;
 $brown: #904306;
 $light-gray: #878b94;
-$modal-color: #E4E5EA;
+$modal-color: #e4e5ea;
 $silver: #c7c7c7;
 
-$overlay: #6F6F6F;
+$overlay: #6f6f6f;
 $error: #d80000;
-
 
 //status color
 $pending: #ff8900;
-$awaiting:#4d8fca;
+$awaiting: #4d8fca;
 $open: #d7e233;
-$fulfilled:#5dc28b ;
-$initial:#f4cb77 ;
-$flagged:#e45646 ;
-$closed:#868a8e ;
-$refund:#4ed34a ;
-$released:#2995b5 ;
-$stop:#cf347c;
+$fulfilled: #5dc28b;
+$initial: #f4cb77;
+$flagged: #e45646;
+$closed: #868a8e;
+$refund: #4ed34a;
+$released: #2995b5;
+$stop: #cf347c;
 $cancel: #ff1b00;
 
 //status tag color
-$pending-tag: #F5DBC5;
-$awaiting-tag: #CAE1FE;
+$pending-tag: #f5dbc5;
+$awaiting-tag: #cae1fe;
 $initial-tag: #ffe7b5;
-$open-tag: #EBEF97;
+$open-tag: #ebef97;
 $fulfilled-tag: #b4edce;
-$flagged-tag: #F0C5BE;
-$closed-tag: #DADBDC;
-$refund-tag: #CEEFC1;
+$flagged-tag: #f0c5be;
+$closed-tag: #dadbdc;
+$refund-tag: #ceefc1;
 $release-tag: #caf3ff;
-$stop-tag: #ECD3D2;
-
+$stop-tag: #ecd3d2;
 
 //text color
-$pending-text-color : #b74803;
+$pending-text-color: #b74803;
 $awaiting-text-color: #29396d;
 $initial-text-color: #60450f;
 $open-text-color: #51540c;
@@ -68,10 +67,9 @@ $base-font-size: 16px;
 //     font-size: ($font-size/$base-font-size)*1rem;
 // }
 
-@function font-size ($font-size){
-    @return ($font-size/$base-font-size)*1rem;
+@function font-size($font-size) {
+  @return ($font-size/$base-font-size) * 1rem;
 }
-
 
 //Font-sizes
 $font-size-xs: font-size(10px);
@@ -99,9 +97,11 @@ $border-radius-3: 8px;
 $border-radius-md: 16px;
 $border-radius-lg: 24px;
 
- //border-color
-$border-color-1: rgba($color: #979797, $alpha: 0.5);
-
+//border-color
+$border-color-1: rgba(
+  $color: #979797,
+  $alpha: 0.5,
+);
 
 //z-index
 $z-index-1: 1;
@@ -114,40 +114,38 @@ $mobile-width: 576px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
 
-
 @mixin desktop {
-    @media (min-width: #{$desktop-width}) {
-        @content;
-    }
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
 }
-@mixin  mobile {
-    @media (max-width: #{$mobile-width}){
-        @content;
-    }
+@mixin mobile {
+  @media (max-width: #{$mobile-width}) {
+    @content;
+  }
 }
 
 @mixin tablet {
-    @media(min-width: #{$tablet-width}) and (max-width: #{$desktop-width}){
-        @content;
-    }
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width}) {
+    @content;
+  }
 }
 
-@mixin mobileAndTablet{
-    @include mobile{
-        @content;
-    }
-    @include tablet{
-        @content;
-    }
+@mixin mobileAndTablet {
+  @include mobile {
+    @content;
+  }
+  @include tablet {
+    @content;
+  }
 }
-
 
 @mixin medium-font {
-    font-family: $medium-font;
-    font-weight: 500;
+  font-family: $medium-font;
+  font-weight: 500;
 }
 
 @mixin primary-font {
-    font-family: $primary-font;
-    font-weight: normal;
+  font-family: $primary-font;
+  font-weight: normal;
 }

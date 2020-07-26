@@ -2,62 +2,42 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
-import { CloseIcon, RightChevron, SpinnerIcon } from "components/vectors";
-import {
-  InputWithoutLabel,
-  SelectInputWithoutLabel,
-  TextArea,
-} from "components/blocks";
+import { CloseIcon } from "components/vectors";
+import { InputWithoutLabel, SelectInputWithoutLabel } from "components/blocks";
 import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 
-const ProductModal = (props) => (
+const EditAddressModal = (props) => (
   <>
     <div className="pModal">
       <div className="pModal-overlay" />
-      <div className="pModal-content">
-        <div className="pModal-header">
-          <h6 className="text--small">Add Product / Service</h6>
+      <div className="pModal-content pModal-midcontent">
+        <div className="pModal-header pModal-border-bottom">
+          <h6 className="text--small">Add New Address</h6>
           <PepperestContext.Consumer>
             {(context) => (
-              <div onClick={() => context.updateShowProductModal(false)}>
+              <div onClick={() => context.updateShowEditAddressModal(false)}>
                 <CloseIcon />
               </div>
             )}
           </PepperestContext.Consumer>
         </div>
-        {/* <div className="pModal-sub__header row mx-0">
-          <div className="col-12 col-lg-6 px-0">
-            <div className="pModal-sub__header-half left">
-              <h6 className="text--smaller text--gray">Total Amount</h6>
-              <p className="text--smaller">NGN 0</p>
-            </div>
-          </div>
-          <div className="col-12 col-lg-6 px-0">
-            <div className="pModal-sub__header-half right">
-              <h6 className="text--smaller text--gray">Pepperest Fee</h6>
-              <p className="text--smaller">NGN 0</p>
-            </div>
-          </div>
-        </div> */}
         <div className="pModal-main">
-          <div className="pModal-main__notification text--smallest">
-            A payment link would be created
-          </div>
           <div className="pModal-form">
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Product Name</label>
+                  <label className="pModal-form__label">Recipient Name</label>
                 </div>
               </div>
               <div className="col-md-7">
                 <InputWithoutLabel
-                  name="product"
+                  name="recipient_name"
                   type="text"
                   placeholder=""
-                  id="product"
+                  id="recipient_name"
                   value=""
+                  defaultValue="Wiz Sullivan"
                   onChange={() => {}}
                   classNames="nsForm-input__alternate"
                 />
@@ -66,28 +46,16 @@ const ProductModal = (props) => (
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">
-                    Product Description
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <TextArea name="description" value="" onChange={() => {}} />
-              </div>
-            </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Amount</label>
+                  <label className="pModal-form__label">Street</label>
                 </div>
               </div>
               <div className="col-md-7">
                 <InputWithoutLabel
-                  name="cost_item"
+                  name="street"
                   type="text"
                   placeholder=""
-                  id="cost_item"
-                  value=""
+                  id="street"
+                  value="No 13, Thurborn street, Yaba"
                   onChange={() => {}}
                   classNames="nsForm-input__alternate"
                 />
@@ -96,17 +64,17 @@ const ProductModal = (props) => (
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Currency</label>
+                  <label className="pModal-form__label">City</label>
                 </div>
               </div>
               <div className="col-md-7">
                 <SelectInputWithoutLabel
                   options={[]}
-                  name="currency"
-                  id="currency"
+                  name="city"
+                  id="city"
                   value=""
                   onChange={() => {}}
-                  defaultValue="American Dollars"
+                  defaultValue="Yaba"
                   classNames="nsForm-select__alternate"
                 />
               </div>
@@ -114,61 +82,54 @@ const ProductModal = (props) => (
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Delivery Period</label>
+                  <label className="pModal-form__label">Postal Code</label>
                 </div>
               </div>
               <div className="col-md-7">
                 <InputWithoutLabel
-                  name="delivery_days"
-                  type="number"
+                  name="postal_code"
+                  type="text"
                   placeholder=""
-                  id="cost_item"
-                  value=""
+                  id="postal_code"
+                  value="127777"
                   onChange={() => {}}
                   classNames="nsForm-input__alternate"
                 />
               </div>
-              {/* <div className="col-md-7">
-                <div className="pModal-form__datepicker">
-                  <p className="text--smaller">12 Jul 2019</p>
-                  <RightChevron />
-                  <p className="text--smaller">12 Jul 2019</p>
-                </div>
-              </div> */}
             </div>
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Display Image</label>
+                  <label className="pModal-form__label">State</label>
                 </div>
               </div>
               <div className="col-md-7">
-                <InputWithoutLabel
-                  name="display_image"
-                  type="file"
-                  placeholder=""
-                  id="cost_item"
+                <SelectInputWithoutLabel
+                  options={[]}
+                  name="state"
+                  id="state"
                   value=""
                   onChange={() => {}}
-                  classNames="nsForm-input__alternate"
+                  defaultValue="Lagos"
+                  classNames="nsForm-select__alternate"
                 />
               </div>
             </div>
           </div>
         </div>
-        <div className="pModal-footer">
+        <div className="pModal-footer pModal-border-top">
           <PepperestContext.Consumer>
             {(context) => (
               <div
                 className="button button--auto button-md button--neutral"
-                onClick={() => context.updateShowProductModal(false)}
+                onClick={() => context.updateShowEditAddressModal(false)}
               >
                 CANCEL
               </div>
             )}
           </PepperestContext.Consumer>
           <div className="button button-md button--orange">
-            ADD A PRODUCT
+            EDITADDRESS
             {/* <SpinnerIcon /> */}
           </div>
         </div>
@@ -178,4 +139,4 @@ const ProductModal = (props) => (
   </>
 );
 
-export default ProductModal;
+export default EditAddressModal;
