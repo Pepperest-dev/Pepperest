@@ -35,7 +35,8 @@ const InvoicePage = ({ history }) => (
                 </div>
                 <div className="invoice-address">
                   <p>
-                    No 21, Yemi Adenuga street, <br></br>Yaba, Lagos State
+                    No 21, Yemi Adenuga street, <br />
+                    Yaba, Lagos State
                   </p>
                   <p>10011</p>
                 </div>
@@ -46,7 +47,8 @@ const InvoicePage = ({ history }) => (
                 <div className="billed-to">
                   <p className="grey-format">Billed To</p>
                   <p>
-                    No 21, Yemi Adenuga street, <br></br>Yaba, Lagos State
+                    No 21, Yemi Adenuga street, <br />
+                    Yaba, Lagos State
                   </p>
                 </div>
                 <div className="invoice-number">
@@ -133,6 +135,28 @@ const InvoicePage = ({ history }) => (
                     <p>Subtotal</p>
                     <p>N40000</p>
                   </div>
+                  <div className="total-items-content">
+                    <p>Tax</p>
+                    <p>N400</p>
+                  </div>
+                  <div className="total-items-content">
+                    <p>Total</p>
+                    <p>N70000</p>
+                  </div>
+                  <div className="total-items-content mt-20">
+                    <p>Amount Due(Naira)</p>
+                    <p>N70,0000</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="invoice-footer">
+              <div className="invoice-footer-child">
+                <div className="button button--auto button-md button--orange">
+                  Download
+                </div>
+                <div className="button button--auto button-md button--neutral ml-15">
+                  Send Via Email
                 </div>
               </div>
             </div>

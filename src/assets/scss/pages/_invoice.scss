@@ -1,7 +1,9 @@
 .invoice {
   & .invoice-card {
     @include desktop {
+      margin-top: 20px;
       background-color: #fff;
+      border-radius: 5px;
     }
 
     & .invoice-header {
@@ -10,6 +12,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 30px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
       background-color: #10182a;
       .pepperest-logo {
         width: 200px;
@@ -92,12 +96,24 @@
         display: flex;
         justify-content: flex-end;
         .total-items-container {
-          width: 20%;
+          width: 28%;
+          padding: 20px 0;
           .total-items-content {
             display: flex;
             justify-content: space-between;
+            padding: 6px 0;
+          }
+          .total-items-content > p:nth-child(1) {
+            font-weight: 800;
           }
         }
+      }
+    }
+    .invoice-footer {
+      padding: 30px;
+      .invoice-footer-child {
+        display: flex;
+        justify-content: flex-start;
       }
     }
     .grey-format {
