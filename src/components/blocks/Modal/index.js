@@ -1,16 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   CloseIcon,
   RightChevron,
   CalendarIcon,
   SpinnerIcon,
-} from 'components/vectors';
-import { InputWithoutLabel, SelectInputWithoutLabel, TextArea } from 'components/blocks';
-import { PepperestContext } from 'components/helpers/constant';
-import EscapeCloseModalHelper from 'components/helpers/EscapeCloseModalHelper';
-
+} from "components/vectors";
+import {
+  InputWithoutLabel,
+  SelectInputWithoutLabel,
+  TextArea,
+} from "components/blocks";
+import { PepperestContext } from "components/helpers/constant";
+import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 
 const Modal = (props) => (
   <>
@@ -118,7 +122,9 @@ const Modal = (props) => (
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label htmlFor="currency" className="pModal-form__label">Currency</label>
+                  <label htmlFor="currency" className="pModal-form__label">
+                    Currency
+                  </label>
                 </div>
               </div>
               <div className="col-md-7">
@@ -136,7 +142,9 @@ const Modal = (props) => (
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
-                  <label htmlFor="cost_item" className="pModal-form__label">Cost of Item</label>
+                  <label htmlFor="cost_item" className="pModal-form__label">
+                    Cost of Item
+                  </label>
                 </div>
               </div>
               <div className="col-md-7">
@@ -199,7 +207,12 @@ const Modal = (props) => (
           </PepperestContext.Consumer>
 
           <div className="button button--orange">
-            <SpinnerIcon />
+            <Link
+              to="/invoice"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              CREATE
+            </Link>
           </div>
         </div>
       </div>

@@ -7,38 +7,78 @@
     }
 
     & .invoice-header {
-      height: 100%;
+      width: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 20px 30px;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      flex-direction: column;
+      flex-wrap: wrap;
       background-color: #10182a;
+      @include desktop {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px 30px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: #10182a;
+      }
       .pepperest-logo {
         width: 200px;
         object-fit: contain;
       }
       .details-container {
-        width: 50%;
+        width: 100%;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        @include desktop {
+          width: 50%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
         .invoice-userdetails {
           color: #fff;
+          margin-top: 20px;
+          @include desktop {
+            margin-top: 0;
+          }
         }
         .invoice-address {
           color: #fff;
+          margin: 20px 0;
+          @include desktop {
+            margin: 0 0;
+          }
         }
       }
     }
     & .invoice-subcontent {
       display: flex;
       justify-content: space-between;
+      flex-direction: column;
       padding: 40px 30px;
-      .subcontent-address {
-        width: 40%;
+      @include desktop {
         display: flex;
         justify-content: space-between;
+        flex-direction: row;
+        padding: 40px 30px;
+      }
+      .subcontent-address {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        @include desktop {
+          width: 40%;
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+        }
         .invoice-number > p:nth-child(3) {
           margin-top: 20px;
         }
@@ -59,10 +99,18 @@
         font-weight: 800;
         color: $dark;
         padding-top: 20px;
+        font-size: 12px;
+        @include desktop {
+          font-size: 16px;
+        }
         .item-unit {
           width: 60%;
           display: flex;
           justify-content: space-between;
+          font-size: 12px;
+          @include desktop {
+            font-size: 16px;
+          }
         }
       }
       .item-container {
@@ -72,6 +120,10 @@
           justify-content: space-between;
           padding: 20px 0 10px 0;
           border-bottom: 1px solid $silver;
+          font-size: 12px;
+          @include desktop {
+            font-size: 16px;
+          }
           .item-content-description > p:nth-child(2) {
             font-size: 13px;
             color: $gray;
@@ -81,10 +133,16 @@
             display: flex;
             justify-content: space-between;
             .item-quantity {
-              margin-left: 20px;
+              margin-left: 1px;
+              @include desktop {
+                margin-left: 20px;
+              }
             }
             .item-cost {
-              margin-left: 20px;
+              margin-left: 1px;
+              @include desktop {
+                margin-left: 20px;
+              }
             }
             .item-amount {
               margin-right: 3px;
@@ -96,8 +154,12 @@
         display: flex;
         justify-content: flex-end;
         .total-items-container {
-          width: 28%;
+          width: 100%;
           padding: 20px 0;
+          @include desktop {
+            width: 28%;
+            padding: 20px 0;
+          }
           .total-items-content {
             display: flex;
             justify-content: space-between;
