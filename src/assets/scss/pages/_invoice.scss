@@ -1,0 +1,109 @@
+.invoice {
+  & .invoice-card {
+    @include desktop {
+      background-color: #fff;
+    }
+
+    & .invoice-header {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background-color: #10182a;
+      .pepperest-logo {
+        width: 200px;
+        object-fit: contain;
+      }
+      .details-container {
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        .invoice-userdetails {
+          color: #fff;
+        }
+        .invoice-address {
+          color: #fff;
+        }
+      }
+    }
+    & .invoice-subcontent {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 30px;
+      .subcontent-address {
+        width: 40%;
+        display: flex;
+        justify-content: space-between;
+        .invoice-number > p:nth-child(3) {
+          margin-top: 20px;
+        }
+      }
+      .invoice-total > p:nth-child(2) {
+        font-size: 36px;
+        color: $dark;
+        font-weight: 700;
+      }
+    }
+    .invoice-content {
+      margin: 20px 30px;
+      border-top: 3px solid $dark;
+
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 800;
+        color: $dark;
+        padding-top: 20px;
+        .item-unit {
+          width: 60%;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .item-container {
+        padding: 2px 0;
+        .item-content {
+          display: flex;
+          justify-content: space-between;
+          padding: 20px 0 10px 0;
+          border-bottom: 1px solid $silver;
+          .item-content-description > p:nth-child(2) {
+            font-size: 13px;
+            color: $gray;
+          }
+          .item-content-children {
+            width: 60%;
+            display: flex;
+            justify-content: space-between;
+            .item-quantity {
+              margin-left: 20px;
+            }
+            .item-cost {
+              margin-left: 20px;
+            }
+            .item-amount {
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+      .total-items {
+        display: flex;
+        justify-content: flex-end;
+        .total-items-container {
+          width: 20%;
+          .total-items-content {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+    .grey-format {
+      color: $gray;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+  }
+}
