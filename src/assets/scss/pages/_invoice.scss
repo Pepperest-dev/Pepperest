@@ -12,7 +12,7 @@
       align-items: center;
       flex-direction: column;
       flex-wrap: wrap;
-      background-color: #10182a;
+      background-color: $orange;
       @include desktop {
         height: 100%;
         display: flex;
@@ -22,7 +22,7 @@
         padding: 20px 30px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
-        background-color: #10182a;
+        background-color: $orange;
       }
       .pepperest-logo {
         width: 200px;
