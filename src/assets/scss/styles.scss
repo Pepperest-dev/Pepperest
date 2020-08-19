@@ -1,37 +1,35 @@
-@import 'utils/_bootstrap.scss';
-@import 'settings';
+@import "utils/_bootstrap.scss";
+@import "settings";
 
-@import 'components/button';
-@import 'components/form';
-@import 'components/pill';
-@import 'components/alert';
-@import 'components/header';
-@import 'components/menu';
-@import 'components/avatar';
-@import 'components/on-boarding';
-@import 'components/loading-list';
-@import 'components/list';
-@import 'components/text';
-@import 'components/modal';
-@import 'components/header-progress';
-@import 'components/checkbox';
-@import 'components/radio';
-@import 'components/badge';
-@import 'components/card';
-@import 'components/merchant';
+@import "components/button";
+@import "components/form";
+@import "components/pill";
+@import "components/alert";
+@import "components/header";
+@import "components/menu";
+@import "components/avatar";
+@import "components/on-boarding";
+@import "components/loading-list";
+@import "components/list";
+@import "components/text";
+@import "components/modal";
+@import "components/header-progress";
+@import "components/checkbox";
+@import "components/radio";
+@import "components/badge";
+@import "components/card";
+@import "components/merchant";
 
-@import 'layout/auth';
+@import "layout/auth";
 
+@import "pages/payment";
+@import "pages/general";
+@import "pages/user-account";
+@import "pages/order";
+@import "pages/homepage";
+@import "pages/cart";
+@import "pages/checkout";
+@import "pages/invoice";
+@import "pages/confirmation";
 
-@import 'pages/payment';
-@import 'pages/general';
-@import 'pages/user-account';
-@import 'pages/order';
-@import 'pages/homepage';
-@import 'pages/cart';
-@import 'pages/checkout';
-@import 'pages/confirmation';
-
-
-
-@import 'globals';
+@import "globals";

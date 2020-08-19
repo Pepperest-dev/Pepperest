@@ -22,6 +22,7 @@ const HomePage = lazy(() => import("pages/HomePage"));
 const UserAccountPage = lazy(() => import("pages/UserAccountPage"));
 const MerchantProductsPage = lazy(() => import("pages/MerchantProductsPage"));
 const CheckoutPage = lazy(() => import("pages/CheckoutPage"));
+const InvoicePage = lazy(() => import("pages/InvoicePage"));
 const ShoppingCartPage = lazy(() => import("pages/ShoppingCartPage"));
 const ConfirmationPage = lazy(() => import("pages/ConfirmationPage"));
 const ConfirmCheckoutPage = lazy(() => import("pages/ConfirmCheckoutPage"));
@@ -139,6 +140,12 @@ const routes = [
     path: "/confirmcheckout",
     exact: true,
     component: ConfirmCheckoutPage,
+    isProtected: true,
+  },
+  {
+    path: "/invoice",
+    exact: true,
+    component: InvoicePage,
     isProtected: true,
   },
 ];
