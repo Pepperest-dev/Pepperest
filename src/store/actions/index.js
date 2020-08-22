@@ -23,10 +23,14 @@ export {
 } from './orders';
 
 export {
-    updateProfile, 
-    updateBankAccount, 
-    updateUserType, 
-    updateApiSetting, 
+    updateProfile,
+    updateBankAccount,
+    updateUserType,
+    updateApiSetting,
     updateNotificationSetting,
     updatePassword
 } from './userAccount';
+
+export {
+  loadCustomerCart
+} from './cart'

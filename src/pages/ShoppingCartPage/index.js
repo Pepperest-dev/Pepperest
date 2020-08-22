@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React , {useEffect} from 'react';
 import { withDefaultLayout } from 'components/layouts';
 import { getStringHash } from 'libs/utils';
 import { CartItem } from 'components/blocks';
+import { connect } from "react-redux";
+import * as actions from "store/actions/index";
 
 const config = {
   hasAlternateHeader: false,
@@ -15,14 +17,25 @@ const config = {
   isSettings: true,
   navBarTitle: 'Shopping Cart',
 };
-const ShoppingCartPage = ({ history }) => (
-  <>
-    <div className="cart">
+const ShoppingCartPage = (props) => {
+  const {cart} = props;
+  useEffect(() => {
+    if (!props.loaded && !props.loading) {
+      getCart();
+    }
+  },[])
+
+  const getCart = () => {
+    props.onLoadCart(props.token, props.user)
+  }
+
+  return ( <>{cart &&
+    (<div className="cart">
       <div className="row">
         <div className="col-12 col-lg-8">
           <div className="cart-list">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
-              <CartItem key={getStringHash()} />
+            {cart.items.map((item) => (
+              <CartItem key={item.id} item={item}/>
             ))}
           </div>
         </div>
@@ -32,18 +45,18 @@ const ShoppingCartPage = ({ history }) => (
               <p className="text--smaller text-font--medium ">
                 My Order Summary
               </p>
-              <p className="text--smaller text--gray">3 Items</p>
+              <p className="text--smaller text--gray">{props.cart.items_count} Items</p>
             </div>
             <div className="pcard-body">
               <div className="d-flex flex-column align-items-center px-3">
                 <p className="text--smaller">Your cart total is</p>
                 <h4 className="text--big text-font--medium mt-3">
-                  NGN 108,500
+                  {cart.total_sum}
                 </h4>
               </div>
               <div className="cart-divider my-3" />
               <div className="w-100 d-flex flex-column align-items-center px-3">
-                <div role="button" tabIndex={0} className="button button-lg button--orange" onClick={() => { history.push('/checkout'); }}>
+                <div role="button" tabIndex={0} className="button button-lg button--orange" onClick={() => { props.history.push('/checkout'); }}>
                   CONTINUE TO CHECKOUT
                 </div>
                 <div className="button button-lg button--orange-outline">
@@ -54,8 +67,25 @@ const ShoppingCartPage = ({ history }) => (
           </div>
         </div>
       </div>
-    </div>
+    </div>)}
   </>
-);
+)};
 
-export default withDefaultLayout(ShoppingCartPage, config);
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token,
+    user: state.auth.userInfo,
+    loading: state.cart.loading,
+    loaded: state.cart.loaded,
+    cart: state.cart.cart,
+    error: state.cart.error,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadCart: (token, user) => dispatch(actions.loadCustomerCart(token, user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withDefaultLayout(ShoppingCartPage, config));
