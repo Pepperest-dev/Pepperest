@@ -12,24 +12,25 @@ import {
 
 import { PepperestContext } from "components/helpers/constant";
 
-const ListItem = ({
-  status,
-  customerName,
-  customerEmail,
-  paymentName,
-  amount,
-  transactionId,
-  transactionDatetime,
-  paymentDescription,
-  date,
-  statusText,
-  deliveryDatetime,
-}) => {
+const ListItem = ( props ) => {
+  const {
+    status,
+    customerName,
+    customerEmail,
+    paymentName,
+    amount,
+    transactionId,
+    transactionDatetime,
+    paymentDescription,
+    date,
+    statusText,
+    deliveryDatetime,
+  } = props
   const pepperestContext = useContext(PepperestContext);
   const [isListDetailsOpen, setListDetailsOpen] = useState(false);
   const updateListDetailsOpen = (value) => setListDetailsOpen(value);
   const handleListClick = () => {
-    pepperestContext.updateShowPaymentListModal(true);
+    pepperestContext.updateShowPaymentListModal(true, props);
     updateListDetailsOpen(!isListDetailsOpen);
   };
 

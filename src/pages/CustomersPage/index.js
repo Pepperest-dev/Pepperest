@@ -40,7 +40,7 @@ const CustomersPage = (props) => {
       <PepperestContext.Consumer>
         {(context) =>
           context.state.showCustomerListModal ? (
-            <CustomerListItemDetailMobileModal />
+            <CustomerListItemDetailMobileModal customerDetails={context.state.customerDetails}/>
           ) : null
         }
       </PepperestContext.Consumer>
