@@ -32,5 +32,6 @@ export {
 } from './userAccount';
 
 export {
-  loadCustomerCart
+  loadCustomerCart,
+  removeItemFromCart
 } from './cart'
