@@ -1,40 +1,43 @@
-import React, { useState } from 'react';
-import { NavLink as Nav, FooterList, HomePageFeatureItem } from 'components/blocks';
-import { NavLink } from 'react-router-dom';
-import { getStringHash } from 'libs/utils';
+import React, { useState } from "react";
+import {
+  NavLink as Nav,
+  FooterList,
+  HomePageFeatureItem,
+} from "components/blocks";
+import { NavLink } from "react-router-dom";
+import { getStringHash } from "libs/utils";
 import {
   Globe,
   OrangeRightArrowIcon,
   GrowthIllustrationTop,
   GrowthIllustrationBottom,
   FlutterwaveIcon,
-} from 'components/vectors';
-import { footerLinks } from 'config/inner-routes';
-import { businessFeatures, extraBusinessFeatures } from 'libs/constants';
+} from "components/vectors";
+import { footerLinks } from "config/inner-routes";
+import { businessFeatures, extraBusinessFeatures } from "libs/constants";
 
 const navLinks = [
   {
-    title: 'Solutions',
-    url: '/solutions',
+    title: "Solutions",
+    url: "/solutions",
     exact: false,
   },
   {
-    title: 'Why Pepperest',
-    url: '/why',
+    title: "Why Pepperest",
+    url: "/why",
     exact: false,
   },
   {
-    title: 'Pricing',
-    url: '/pricing',
+    title: "Pricing",
+    url: "/pricing",
     exact: false,
   },
   {
-    title: 'Support',
-    url: '/support',
+    title: "Support",
+    url: "/support",
     exact: false,
   },
 ];
-
 
 const HomePage = (props) => {
   const [state, setState] = useState({
@@ -43,13 +46,21 @@ const HomePage = (props) => {
   });
 
   const handleBusinessFeatureClick = (position) => {
-    const arrayOfBusinessFeatures = state.businessFeatures.map((x) => { x.isActive = false; return x; });
+    const arrayOfBusinessFeatures = state.businessFeatures.map((x) => {
+      x.isActive = false;
+      return x;
+    });
     arrayOfBusinessFeatures[position].isActive = true;
     setState({ ...state, businessFeatures: arrayOfBusinessFeatures });
   };
 
   const handleExtraBusinessFeatureClick = (position) => {
-    const arrayOfExtraBusinessFeatures = state.extraBusinessFeatures.map((x) => { x.isActive = false; return x; });
+    const arrayOfExtraBusinessFeatures = state.extraBusinessFeatures.map(
+      (x) => {
+        x.isActive = false;
+        return x;
+      },
+    );
     arrayOfExtraBusinessFeatures[position].isActive = true;
     setState({ ...state, extraBusinessFeature: arrayOfExtraBusinessFeatures });
   };
@@ -57,7 +68,7 @@ const HomePage = (props) => {
   return (
     <>
       <div className="homepage">
-        <div className="nsHeader">
+        {/* <div className="nsHeader">
           <div className="nsHeader-main">
             <a className="nsHeader-logo" href="/">
               <img
@@ -93,9 +104,80 @@ const HomePage = (props) => {
               </NavLink>
             </div>
           </div>
-        </div>
-        <div className="max-width hero-wrapper">
-          <div className="max-container">
+        </div> */}
+        <nav className="nav">
+          <div className="container">
+            <div className="nav-mobile">
+              <div className="nav-brand">
+                <a href="/">
+                  <img
+                    src="/assets/images/logo/pepperest-logo-white.png"
+                    srcSet="/assets/images/logo/pepperest-logo-white@2x.png 2x,
+                            /assets/images/logo/pepperest-logo-white@3x.png 3x"
+                    alt="logo"
+                  />
+                </a>
+              </div>
+              <div>
+                <button className="nav-menu-button">
+                  <svg
+                    className="nav-menu-hamburger"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="nav-menu">
+              <div className="nav-left">
+                {navLinks.map(({ title, url, exact }) => (
+                  <Nav
+                    key={getStringHash(title)}
+                    title={title}
+                    url="/payments"
+                    classNames="nav-link"
+                    exact={exact}
+                  />
+                ))}
+                {/* <a href="#" className="nav-link active">
+                  Solution
+                </a>
+                <a href="#" className="nav-link">
+                  Why Pepperest
+                </a>
+                <a href="#" className="nav-link">
+                  Pricing
+                </a>
+                <a href="#" className="nav-link">
+                  Support
+                </a> */}
+              </div>
+              <div className="nav-right">
+                <div className="nav-item">
+                  <NavLink
+                    to="/login"
+                    className="button button-md button-lg button--transparent"
+                  >
+                    Login
+                  </NavLink>
+                </div>
+                <div className="nav-item">
+                  <NavLink
+                    to="/register"
+                    className="button button-md button-auto button-lg button--white"
+                  >
+                    Create Account
+                  </NavLink>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div className="hero-wrapper">
+          <div className="container">
             <div className="hero">
               <div className="row">
                 <div className="col-md-4">
@@ -131,28 +213,48 @@ const HomePage = (props) => {
             </div>
           </div>
         </div>
-        <div className="max-container">
+        <div className="container">
           <div className="section-one">
-            <div className="section-one__content-section">
-              <h3 className="title">
-                Empowering independent business owners everywhere
-              </h3>
-              <p className="info">
-                One platform that lets you sell wherever your customers
-                are—online, in‑person, and everywhere in‑between.
-              </p>
-              <ul className="section-one__list">
-                {state.extraBusinessFeatures
-                  && state.extraBusinessFeatures.map(({ isActive, title }, index) => (
-                    <HomePageFeatureItem
-                      index={getStringHash()}
-                      isActive={isActive}
-                      title={title}
-                      handleClick={handleExtraBusinessFeatureClick}
-                      position={index}
-                    />
-                  ))}
-              </ul>
+            <div className="columns">
+              <div className="md-col-6">
+                <div>
+                  <h3 className="title">
+                    Empowering independent business owners everywhere
+                  </h3>
+                  <p className="info">
+                    One platform that lets you sell wherever your customers
+                    are—online, in‑person, and everywhere in‑between.
+                  </p>
+                  <ul className="section-one__list">
+                    {state.extraBusinessFeatures &&
+                      state.extraBusinessFeatures.map(
+                        ({ isActive, title }, index) => (
+                          <HomePageFeatureItem
+                            index={getStringHash()}
+                            isActive={isActive}
+                            title={title}
+                            handleClick={handleExtraBusinessFeatureClick}
+                            position={index}
+                          />
+                        ),
+                      )}
+                  </ul>
+                </div>
+              </div>
+              <div className="md-col-6">
+                <div className="section-one__image-section">
+                  <img
+                    src="/assets/images/pepperest.png"
+                    srcSet="/assets/images/pepperest@2x.png 2x,
+             /assets/images/pepperest@3x.png 3x"
+                    className="Bitmap"
+                    alt="pepperest dashboard"
+                  />
+                </div>
+              </div>
+            </div>
+            {/* <div className="section-one__content-section">
+              
             </div>
             <div className="section-one__image-section">
               <img
@@ -162,7 +264,7 @@ const HomePage = (props) => {
                 className="Bitmap"
                 alt="pepperest dashboard"
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="max-width section-two">
@@ -197,8 +299,7 @@ const HomePage = (props) => {
                   </h3>
                   <p className="info">
                     Add a mobile friendly, secure checkout experience to your
-                    business page and discover 60% increase in sales
-                    {' '}
+                    business page and discover 60% increase in sales{" "}
                   </p>
                   <div className="mycard">
                     <div className="mycard-header">
@@ -233,8 +334,8 @@ const HomePage = (props) => {
                 Grow your business on pepperest with this four easy steps
               </h3>
               <ul className="section-one__list">
-                {state.businessFeatures
-                  && state.businessFeatures.map(({ isActive, title }, index) => (
+                {state.businessFeatures &&
+                  state.businessFeatures.map(({ isActive, title }, index) => (
                     <HomePageFeatureItem
                       key={getStringHash()}
                       isActive={isActive}
@@ -376,8 +477,7 @@ const HomePage = (props) => {
                   <div className="mycard-body">
                     <p className="mycard-body__text">
                       Pepperest has no setup fees or hidden costs. All you pay
-                      for a transaction is stated below.
-                      {' '}
+                      for a transaction is stated below.{" "}
                     </p>
                   </div>
                   <div className="mycard-footer">
@@ -437,18 +537,27 @@ const HomePage = (props) => {
                 </div>
                 <div className="col-md-3">
                   <ul className="footer-list">
-                    <FooterList index={getStringHash()} links={footerLinks[0]} />
+                    <FooterList
+                      index={getStringHash()}
+                      links={footerLinks[0]}
+                    />
                   </ul>
                 </div>
                 <div className="col-md-2">
                   <ul className="footer-list">
-                    <FooterList index={getStringHash()} links={footerLinks[1]} />
+                    <FooterList
+                      index={getStringHash()}
+                      links={footerLinks[1]}
+                    />
                   </ul>
                 </div>
 
                 <div className="col-md-2">
                   <ul className="footer-list">
-                    <FooterList index={getStringHash()} links={footerLinks[2]} />
+                    <FooterList
+                      index={getStringHash()}
+                      links={footerLinks[2]}
+                    />
                   </ul>
                 </div>
 
