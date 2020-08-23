@@ -19,7 +19,7 @@ export const SOCIAL_PROVIDERS = {
     },
     facebook : {
         client_id : '2253727468182840',
-        redirectURL : 'https://pepperest-app.netlify.app/login',
+        redirectURL : 'http://localhost:3001/login',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }
