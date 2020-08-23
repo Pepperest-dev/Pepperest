@@ -10,7 +10,20 @@ import React, {
 import { PepperestContext } from "components/helpers/constant";
 import useResizeObserver from "components/customHook/useResizeObserver";
 
-const ListItemDetailMobileModal = () => {
+const ListItemDetailMobileModal = ({paymentDetails}) => {
+  const {
+    status,
+    customerName,
+    customerEmail,
+    paymentName,
+    amount,
+    transactionId,
+    transactionDatetime,
+    paymentDescription,
+    date,
+    statusText,
+    deliveryDatetime,
+  } = paymentDetails
   const pepperestContext = useContext(PepperestContext);
   const [ref, { contentRect }] = useResizeObserver();
   const [state, setState] = useState({ style: {} });
@@ -61,13 +74,13 @@ const ListItemDetailMobileModal = () => {
                 Transaction ID
               </p>
               <p className="list-item-detail__main-item__details">
-                16835004G6739590D
+                {transactionId}
               </p>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">Customer</p>
               <p className="list-item-detail__main-item__details">
-                James Blunt
+                {customerName}
               </p>
             </li>
             <li className="list-modal__list-item">
@@ -75,13 +88,13 @@ const ListItemDetailMobileModal = () => {
                 Transaction Date
               </p>
               <p className="list-item-detail__main-item__details">
-                January 21, 2019 / 15:00:23pm
+                {transactionDatetime}
               </p>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">Payment Name</p>
               <p className="list-item-detail__main-item__details">
-                Ina Ankara Payment
+                {paymentName}
               </p>
             </li>
             <li className="list-modal__list-item">
@@ -89,7 +102,7 @@ const ListItemDetailMobileModal = () => {
                 Delivery Date
               </p>
               <p className="list-item-detail__main-item__details">
-                13th - 15th August ( Your expected delivery date is 2 days from
+                {deliveryDatetime} ( Your expected delivery date is 2 days from
                 payment date.)
               </p>
             </li>
@@ -98,7 +111,7 @@ const ListItemDetailMobileModal = () => {
                 <div>
                   <p className="list-item-detail__main-item__title">Amount</p>
                   <p className="list-item-detail__main-item__details">
-                    NGN 530,600
+                    {amount}
                   </p>
                 </div>
                 <div className="button button-md button--orange">
@@ -111,13 +124,13 @@ const ListItemDetailMobileModal = () => {
                 Customer Email
               </p>
               <p className="list-item-detail__main-item__details">
-                Tohbeey@gmail.com
+                {customerEmail}
               </p>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">Status</p>
               <p className="list-item-detail__main-item__details list-item__status-text text--pending">
-                Pending, Due in 4 days
+                {statusText}
               </p>
             </li>
             <li className="list-modal__list-item">
@@ -125,10 +138,7 @@ const ListItemDetailMobileModal = () => {
                 Payment Description
               </p>
               <p className="list-item-detail__main-item__details">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque id nisl urna. Aenean eget blandit magna, sit amet
-                posuere erat. Integer posuere odio tincidunt velit ornare,
-                feugiat venenatis
+                {paymentDescription}
               </p>
             </li>
             <div className="list-modal__list-item list-modal__list-item__alternate">

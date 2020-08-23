@@ -46,7 +46,7 @@ const PaymentPage = ({ match }) => (
     <PepperestContext.Consumer>
       {(context) =>
         context.state.showPaymentListModal ? (
-          <ListItemDetailMobileModal />
+          <ListItemDetailMobileModal paymentDetails={context.state.paymentDetails}/>
         ) : null
       }
     </PepperestContext.Consumer>

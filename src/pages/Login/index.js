@@ -23,7 +23,7 @@ const Login = (props) => {
         </div>
       </div>
       <AuthFooter
-        value="SIGN IN"
+        value="SIGN UP"
         url="/register"
         label="I DON'T HAVE AN ACCOUNT ?"
         isAlternate
