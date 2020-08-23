@@ -15,11 +15,32 @@ export const loadCustomerCart = (token, user) => {
     .then(response => {
       const cart = { cart: response.data.cart }
       dispatch(loadedCart(cart))
-    })
-    .catch(error => {
+    }).catch(error => {
       console.error(error)
       dispatch(failedLoadingCart(error))
     })
+  }
+}
+
+export const removeItemFromCart = (token, user, cart_id, productID, quantity=1) => {
+  return (dispatch) => {
+    const headers = {
+      Authorization: token,
+      customerID: user.customerID
+    }
+    const body = {
+      customerID: user.customerID,
+      cart_id,
+      productID,
+      quantity
+     }
+     PepperestAxios.post(Cart.REMOVE, body, headers)
+     .then(response => {
+       const cart = { cart: response.data.cart }
+       dispatch(loadedCart(cart))
+     }).catch(error => {
+       dispatch(failedLoadingCart(error))
+     })
   }
 }
 
