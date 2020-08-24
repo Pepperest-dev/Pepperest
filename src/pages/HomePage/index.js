@@ -40,6 +40,7 @@ const navLinks = [
 ];
 
 const HomePage = (props) => {
+  const [menuActive, setMenuState] = useState(false);
   const [state, setState] = useState({
     businessFeatures,
     extraBusinessFeatures,
@@ -69,7 +70,7 @@ const HomePage = (props) => {
     <>
       <div className="homepage">
         <nav className="nav">
-          <div className="container">
+          <div className="container nav-container">
             <div className="nav-mobile">
               <div className="nav-brand">
                 <a href="/">
@@ -82,7 +83,10 @@ const HomePage = (props) => {
                 </a>
               </div>
               <div>
-                <button className="nav-menu-button">
+                <button
+                  className="nav-menu-button"
+                  onClick={() => setMenuState(!menuActive)}
+                >
                   <svg
                     className="nav-menu-hamburger"
                     viewBox="0 0 20 20"
@@ -94,7 +98,7 @@ const HomePage = (props) => {
                 </button>
               </div>
             </div>
-            <div className="nav-menu">
+            <div className={`nav-menu ${menuActive ? "active" : ""}`}>
               <div className="nav-left">
                 {navLinks.map(({ title, url, exact }) => (
                   <Nav
