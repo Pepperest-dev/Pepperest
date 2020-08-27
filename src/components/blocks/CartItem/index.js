@@ -34,7 +34,7 @@ const CartItem = ({ token, user, error, removeItem,
     </div>
     <div className="merchant-product-card__mobile-base">
       <div className="d-flex flex-column">
-        <p className="merchant-product-card__amount">NGN 18,500</p>
+        <p className="merchant-product-card__amount">NGN {price}</p>
         <p className="merchant-product-card__delivery-day">
           {deliveryPeriod} Delivery days</p>
       </div>
