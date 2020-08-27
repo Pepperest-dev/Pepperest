@@ -10,6 +10,9 @@ import {
 import { PepperestContext } from "components/helpers/constant";
 
 const ProductInstagramPage = (props) => {
+  let s = props.location?.search
+  const code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
+  console.log(code);
   const [onBoarding, setOnBoarding] = useState(true);
   const [hasSelectedAccount, setHasSelectedAccount] = useState(false);
   const [hasSelectedProducts, setHasSelectedProducts] = useState(false);
