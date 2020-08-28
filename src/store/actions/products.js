@@ -2,6 +2,27 @@ import PepperestAxios from '../../libs/utils/PepperestAxios'
 import { Products, ProductsErrorMessages } from '../../libs/constants/PepperestWebServices';
 import * as actionTypes from './actionTypes';
 
+export const getProductsInfo = (token, user, extraParams = {}) => {
+  return dispatch => {
+      dispatch(loadingProduct())
+      const headers = {
+          Authorization : token,
+          customerID : user.customerID
+      }
+      const params = {
+          merchantID : user.customerID,
+          "provider" : "facebook",
+          ...extraParams
+      }
+      console.log(headers);
+      console.log(params);
+      PepperestAxios.get(Products.GET_INFO, { params, headers })
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => console.error(error.response))
+   }
+}
+
 export const loadProduct = (token, user, extraParams = {}) => {
     return dispatch => {
         dispatch(loadingProduct())

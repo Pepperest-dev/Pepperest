@@ -1,5 +1,7 @@
 export default {
-    PRODUCTS : '/EscrowBackend/api/myProducts'
+    PRODUCTS : '/EscrowBackend/api/myProducts',
+    GET_INFO: '/EscrowBackend/api/product/social/getInfo',
+    GET_PRODUCTS: '/EscrowBackend/api/product/social/pageProducts'
 }
 
 export const ErrorMessages =

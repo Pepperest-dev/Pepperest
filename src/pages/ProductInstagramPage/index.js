@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CloseIcon, WhiteTick } from "components/vectors";
 import {
   InstagramBusinessOnBoarding,
@@ -8,15 +8,25 @@ import {
   PublishInstagramImageModal,
 } from "components/blocks";
 import { PepperestContext } from "components/helpers/constant";
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
 const ProductInstagramPage = (props) => {
+  const {getInfo, user, token} = props
   let s = props.location?.search
-  const code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
+  let code
+  if (s) code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
   console.log(code);
   const [onBoarding, setOnBoarding] = useState(true);
   const [hasSelectedAccount, setHasSelectedAccount] = useState(false);
   const [hasSelectedProducts, setHasSelectedProducts] = useState(false);
   const [publishProducts, setPublishProducts] = useState(false);
+  useEffect(() => {
+    if (code){
+      console.log("we have code: ", code);
+      getInfo(token, user, {code})
+    }
+  }, [code])
 
   const updateOnBoarding = (value) => {
     setOnBoarding(value);
@@ -109,4 +119,16 @@ const ProductInstagramPage = (props) => {
   );
 };
 
-export default ProductInstagramPage;
+const mapStateToProps = state => {
+  return {
+      token: state.auth.token,
+      user: state.auth.userInfo,
+}}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getInfo: (token, user, extraParams) => dispatch(actions.getProductsInfo(token, user, extraParams))
+  }
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(ProductInstagramPage);

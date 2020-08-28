@@ -12,6 +12,7 @@ export {
 
 export {
     loadProduct,
+    getProductsInfo
 } from './products';
 
 export {
