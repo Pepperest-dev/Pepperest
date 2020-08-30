@@ -42,7 +42,6 @@ export const getPageData = ( token, user, extraParams = {} ) => {
 		}
 		const params = {
 			merchantID: user.customerID,
-			"provider": "facebook",
 			...extraParams
 		}
 		PepperestAxios.get( Products.GET_PAGE_PRODUCTS, {
@@ -50,13 +49,13 @@ export const getPageData = ( token, user, extraParams = {} ) => {
 				headers
 			} )
 			.then( ( response ) => {
-				const pages = response.data.pages;
-				console.log( pages );
-				dispatch( loadedFacebookPages( pages ) )
+				console.log( response );
+				// const pages = response.data.pages;
+				// dispatch( loadingFacebookProduct( pages ) )
 
 			} ).catch( ( error ) => {
 				console.error( error.response )
-				dispatch( failedToLoadFacebookPages( error ) )
+				dispatch( failedToLoadFacebookProduct( error ) )
 			} )
 	}
 }

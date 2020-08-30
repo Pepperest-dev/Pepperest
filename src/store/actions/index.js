@@ -14,7 +14,8 @@ from './payments';
 
 export {
 	loadProduct,
-	getFacebookPages
+	getFacebookPages,
+	getPageData
 }
 from './products';
 

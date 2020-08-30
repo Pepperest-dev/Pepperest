@@ -42,7 +42,8 @@ const InstagramBusinessAccountsSelect = (props) => {
 
 InstagramBusinessAccountsSelect.propTypes = {
   onClick: PropTypes.func.isRequired,
-  pages: PropTypes.array
+  pages: PropTypes.array,
+  getPage: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -51,4 +52,11 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(InstagramBusinessAccountsSelect);
+const mapDispatchToProps = dispatch => {
+  return {
+    getPage: (token, user, extraParams) => dispatch(actions.getPageData(token, user, extraParams))
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InstagramBusinessAccountsSelect);
