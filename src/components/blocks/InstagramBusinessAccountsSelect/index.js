@@ -8,26 +8,26 @@ import * as actions from 'store/actions/index';
 
 import { SpinnerIcon } from 'components/vectors';
 
-const pages = [
-  {
-    access_token: 'EAAgBwNEpXTgBANnxeYlhoZCodUzRMZAGmmMP0hKZA8YJsXCZAxwOUa7gMb53XOjtjPoF4rIxbN0SUT3jCDJPWhaT83h7TpSf9R0iNQrlWhPRM6hUUpZBgHLIo97J4FX7ZBewMgFk6GsDofdHakQkOMRmBp2woTc4WDudP5GK32mQZDZD',
-    category: 'Clothing (Brand)',
-    category_list: [{
-      id: "2209", 
-      name: "Clothing (Brand)" }],
-    id: '116089838957709',
-    name: 'Uncensored Wears',   
-  },
-  {
-    access_token: 'EAAgBwNEpXTgBANnxeYlhoZCodUzRMZAGmmMP0hKZA8YJsXCZAxwOUa7gMb53XOjtjPoF4rIxbN0SUT3jCDJPWhaT83h7TpSf9R0iNQrlWhPRM6hUUpZBgHLIo9gFk6GsDofdHakQkOMRmBp2woTc4WDudP5GK32mQZDZD',
-    category: 'Clothing (Brand)',
-    category_list: [{
-      id: "2209", 
-      name: "Clothing (Brand)" }],
-    id: '1168957709',
-    name: 'UnceWears',   
-  }
-]
+// const pages = [
+//   {
+//     access_token: 'EAAgBwNEpXTgBANnxeYlhoZCodUzRMZAGmmMP0hKZA8YJsXCZAxwOUa7gMb53XOjtjPoF4rIxbN0SUT3jCDJPWhaT83h7TpSf9R0iNQrlWhPRM6hUUpZBgHLIo97J4FX7ZBewMgFk6GsDofdHakQkOMRmBp2woTc4WDudP5GK32mQZDZD',
+//     category: 'Clothing (Brand)',
+//     category_list: [{
+//       id: "2209", 
+//       name: "Clothing (Brand)" }],
+//     id: '116089838957709',
+//     name: 'Uncensored Wears',   
+//   },
+//   {
+//     access_token: 'EAAgBwNEpXTgBANnxeYlhoZCodUzRMZAGmmMP0hKZA8YJsXCZAxwOUa7gMb53XOjtjPoF4rIxbN0SUT3jCDJPWhaT83h7TpSf9R0iNQrlWhPRM6hUUpZBgHLIo9gFk6GsDofdHakQkOMRmBp2woTc4WDudP5GK32mQZDZD',
+//     category: 'Clothing (Brand)',
+//     category_list: [{
+//       id: "2209", 
+//       name: "Clothing (Brand)" }],
+//     id: '1168957709',
+//     name: 'UnceWears',   
+//   }
+// ]
 
 
 
@@ -45,7 +45,7 @@ const InstagramBusinessAccountsSelect = (props) => {
       Select one instagram / facebook page
     </div>
     <ul className="instagram-page__main-list">
-      { pages.map((page) => (
+      { props.pages.map((page) => (
         <div className={`instagram-page__main-list-item ${selectedPage == page.id ? 'active' : ' '}`} 
         onChange={(e) => _setPage(e.target.value)}
         key={page.id}>

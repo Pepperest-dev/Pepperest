@@ -16,7 +16,7 @@ const ProductInstagramPage = (props) => {
   let s = props.location?.search
   let code
   if (s) code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
-  console.log(code);
+  console.log(user);
   const [onBoarding, setOnBoarding] = useState(true);
   const [hasSelectedAccount, setHasSelectedAccount] = useState(false);
   const [hasSelectedProducts, setHasSelectedProducts] = useState(false);
@@ -86,9 +86,11 @@ const ProductInstagramPage = (props) => {
               className="current-account__avatar"
               alt="current instagram avatar"
             />
-            <p className="text--smallest text--black">
-              Continue with Leke Bisola instagram
-            </p>
+            {/* {users.map((user) => ( */}
+              <p className="text--smallest text--black">
+                {props.user.name}
+              </p>
+            {/* ))} */}
             <CloseIcon />
           </div>
           <div className="loader">
