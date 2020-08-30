@@ -6,7 +6,6 @@ import { FacebookButtonAlternate, InstagramButton } from 'components/blocks';
 
 const InstagramBusinessOnBoarding = (props) => {
   const loginWithFacebook = () => {
-    props.click(true);
     const merchant_id = SOCIAL_STORE_PROVIDERS.facebook.merchant_id;
     const redirectURL = SOCIAL_STORE_PROVIDERS.facebook.redirectURL;
     const baseURL = SOCIAL_STORE_PROVIDERS.facebook.baseURL;

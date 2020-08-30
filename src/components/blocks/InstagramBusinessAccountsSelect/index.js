@@ -3,6 +3,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
 import { SpinnerIcon } from 'components/vectors';
 
@@ -85,6 +87,13 @@ const InstagramBusinessAccountsSelect = (props) => {
 
 InstagramBusinessAccountsSelect.propTypes = {
   onClick: PropTypes.func.isRequired,
+  pages: PropTypes.array
 };
 
-export default InstagramBusinessAccountsSelect;
+const mapStateToProps = state => {
+  return {
+    pages: state.products.pages
+  }
+}
+
+export default connect(mapStateToProps)(InstagramBusinessAccountsSelect);

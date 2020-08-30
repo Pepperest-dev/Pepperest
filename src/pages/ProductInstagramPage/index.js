@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions/index';
 
 const ProductInstagramPage = (props) => {
-  const {getInfo, user, token} = props
+  const {getInfo, user, token, loaded, loading} = props
   let s = props.location?.search
   let code
   if (s) code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
@@ -27,6 +27,12 @@ const ProductInstagramPage = (props) => {
       getInfo(token, user, {code})
     }
   }, [code])
+
+  useEffect(() => {
+    if (loaded) {
+      updateHasSelectedAccount(true)
+    }
+  })
 
   const updateOnBoarding = (value) => {
     setOnBoarding(value);
@@ -123,11 +129,13 @@ const mapStateToProps = state => {
   return {
       token: state.auth.token,
       user: state.auth.userInfo,
+      loaded: state.products.loadingFacebookPages,
+      loading: state.products.loadedFacebookPages,
 }}
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getInfo: (token, user, extraParams) => dispatch(actions.getProductsInfo(token, user, extraParams))
+    getInfo: (token, user, extraParams) => dispatch(actions.getFacebookPages(token, user, extraParams))
   }
 }
 
