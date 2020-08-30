@@ -1,10 +1,9 @@
 export default {
-    PRODUCTS : '/EscrowBackend/api/myProducts',
-    GET_INFO: '/EscrowBackend/api/product/social/getInfo',
-    GET_PRODUCTS: '/EscrowBackend/api/product/social/pageProducts'
+	PRODUCTS: '/EscrowBackend/api/myProducts',
+	GET_INFO: '/EscrowBackend/api/product/social/getInfo',
+	GET_PAGE_PRODUCTS: '/EscrowBackend/api/product/social/pageProducts'
 }
 
-export const ErrorMessages =
-{
-    getHistoryFailed : "We are currently unable to get your products data",
+export const ErrorMessages = {
+	getHistoryFailed: "We are currently unable to get your products data",
 }

@@ -3,10 +3,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
 import { SpinnerIcon } from 'components/vectors';
 
-const InstagramBusinessAccountsSelect = (props) => (
+const InstagramBusinessAccountsSelect = (props) => {
+  console.log(props);
+  return (
   <div className="instagram-page__main instagram-page__main--alt">
     <div className="instagram-page__main--header">
       Select one instagram / facebook page
@@ -34,10 +38,17 @@ const InstagramBusinessAccountsSelect = (props) => (
       <div className="button button-md button--orange" onClick={() => { props.onClick(true); }}>FETCH PRODUCTS</div>
     </div>
   </div>
-);
+)}
 
 InstagramBusinessAccountsSelect.propTypes = {
   onClick: PropTypes.func.isRequired,
+  pages: PropTypes.array
 };
 
-export default InstagramBusinessAccountsSelect;
+const mapStateToProps = state => {
+  return {
+    pages: state.products.pages
+  }
+}
+
+export default connect(mapStateToProps)(InstagramBusinessAccountsSelect);
