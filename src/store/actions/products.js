@@ -23,7 +23,6 @@ export const getFacebookPages = ( token, user, extraParams = {} ) => {
 			} )
 			.then( ( response ) => {
 				const pages = response.data.pages;
-				console.log( pages );
 				dispatch( loadedFacebookPages( pages ) )
 
 			} ).catch( ( error ) => {
@@ -49,9 +48,8 @@ export const getPageData = ( token, user, extraParams = {} ) => {
 				headers
 			} )
 			.then( ( response ) => {
-				console.log( response );
-				// const pages = response.data.pages;
-				// dispatch( loadingFacebookProduct( pages ) )
+				const items = response.data.items;
+				dispatch( loadedFacebookProduct( items ) )
 
 			} ).catch( ( error ) => {
 				console.error( error.response )
@@ -144,11 +142,9 @@ export const loadingFacebookProduct = () => {
 	};
 }
 
-export const loadedFacebookProduct = ( products, meta, links ) => {
+export const loadedFacebookProduct = ( items ) => {
 	const update = {
-		products,
-		meta,
-		links,
+		items,
 		loadingFacebookProducts: false,
 		loadedFacebookProducts: true,
 		errorFacebookProducts: null,

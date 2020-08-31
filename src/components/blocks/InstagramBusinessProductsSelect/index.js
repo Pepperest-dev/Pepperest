@@ -6,8 +6,12 @@ import PropTypes from "prop-types";
 
 import { LeftChevron } from "components/vectors";
 import { PepperestContext } from "components/helpers/constant";
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
-const InstagramBusinessProductsSelect = (props) => (
+const InstagramBusinessProductsSelect = (props) => {
+  console.log(props.items);
+  return (
   <div className="instagram-page__main instagram-page__main--alt">
     <div className="instagram-page__main--header instagram-page__main--header-alt">
       <div className="instagram-page__main--control">
@@ -179,10 +183,14 @@ const InstagramBusinessProductsSelect = (props) => (
       </div>
     </div>
   </div>
-);
+)}
 
 InstagramBusinessProductsSelect.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default InstagramBusinessProductsSelect;
+const mapStateToProps = state => {
+  return {items: state.products.items}
+}
+
+export default connect(mapStateToProps)(InstagramBusinessProductsSelect);

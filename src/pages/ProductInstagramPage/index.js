@@ -12,18 +12,16 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions/index';
 
 const ProductInstagramPage = (props) => {
-  const {getInfo, user, token, loaded, loading} = props
+  const {getInfo, getPage, user, token, loaded, loading} = props
   let s = props.location?.search
   let code
   if (s) code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
-  console.log(user);
   const [onBoarding, setOnBoarding] = useState(true);
   const [hasSelectedAccount, setHasSelectedAccount] = useState(false);
   const [hasSelectedProducts, setHasSelectedProducts] = useState(false);
   const [publishProducts, setPublishProducts] = useState(false);
   useEffect(() => {
     if (code){
-      console.log("we have code: ", code);
       getInfo(token, user, {code})
     }
   }, [code])
@@ -32,7 +30,7 @@ const ProductInstagramPage = (props) => {
     if (loaded) {
       updateHasSelectedAccount(true)
     }
-  })
+  }, [loaded])
 
   const updateOnBoarding = (value) => {
     setOnBoarding(value);
@@ -42,9 +40,16 @@ const ProductInstagramPage = (props) => {
     setHasSelectedProducts(true);
     setPublishProducts(false);
   };
-  const updateSetPublishProducts = (value) => {
+  const updateSetPublishProducts = (page) => {
+    const extraParams = {
+      page_id: page.id,
+      page_access_token: page.access_token
+    }
+    getPage(token, user, extraParams)
+    setHasSelectedAccount(true);
+
     setHasSelectedProducts(false);
-    setPublishProducts(value);
+    setPublishProducts(true);
   };
 
   const onBoardingContent = (
@@ -131,13 +136,15 @@ const mapStateToProps = state => {
   return {
       token: state.auth.token,
       user: state.auth.userInfo,
-      loaded: state.products.loadingFacebookPages,
-      loading: state.products.loadedFacebookPages,
+      loaded: state.products.loadedFacebookPages,
+      loadedPageProduct: state.products.loadedFacebookProducts,
+      loading: state.products.loading,
 }}
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getInfo: (token, user, extraParams) => dispatch(actions.getFacebookPages(token, user, extraParams))
+    getInfo: (token, user, extraParams) => dispatch(actions.getFacebookPages(token, user, extraParams)),
+    getPage: (token, user, extraParams) => dispatch(actions.getPageData(token, user, extraParams))
   }
 }
 

@@ -11,7 +11,7 @@ const initialState = {
 	loaded: false,
 	error: null,
 
-	loadingFacebookPages: false,
+	// loadingFacebookPages: false,
 	loadedFacebookPages: false,
 	errorFacebookPages: null,
 	pages: [],
@@ -19,7 +19,7 @@ const initialState = {
 	loadingFacebookProducts: false,
 	loadedFacebookProducts: false,
 	errorFacebookProducts: null,
-	facebookProducts: [],
+	items: [],
 }
 
 const loading = ( state, action ) => {
@@ -42,7 +42,7 @@ const failedToLoadProducts = ( state, action ) => {
 
 const loadingFacebookPages = ( state, action ) => {
 	return updateObject( state, {
-		loadingFacebookPages: true
+		loading: true
 	} );
 }
 
@@ -52,7 +52,7 @@ const loadedFacebookPages = ( state, action ) => {
 
 const failedToLoadFacebookPages = ( state, action ) => {
 	return updateObject( state, {
-		loadingFacebookPages: false,
+		loading: false,
 		loadedFacebookPages: false,
 		error: action.error
 	} );
@@ -85,7 +85,7 @@ const reducer = ( state = initialState, action ) => {
 		case actionTypes.LOADING_PRODUCTS_FAILED:
 			return failedToLoadProducts( state, action )
 		case actionTypes.LOADING_FACEBOOK_PAGES:
-			return loadingFacebookPages( state, action );
+			return loading( state, action );
 		case actionTypes.FINISHED_LOADING_FACEBOOK_PAGES:
 			return loadedFacebookPages( state, action );
 		case actionTypes.LOADING_FACEBOOK_PAGES_FAILED:

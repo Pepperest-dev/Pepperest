@@ -13,19 +13,19 @@ import { SpinnerIcon } from 'components/vectors';
 //     access_token: 'EAAgBwNEpXTgBANnxeYlhoZCodUzRMZAGmmMP0hKZA8YJsXCZAxwOUa7gMb53XOjtjPoF4rIxbN0SUT3jCDJPWhaT83h7TpSf9R0iNQrlWhPRM6hUUpZBgHLIo97J4FX7ZBewMgFk6GsDofdHakQkOMRmBp2woTc4WDudP5GK32mQZDZD',
 //     category: 'Clothing (Brand)',
 //     category_list: [{
-//       id: "2209", 
+//       id: "2209",
 //       name: "Clothing (Brand)" }],
 //     id: '116089838957709',
-//     name: 'Uncensored Wears',   
+//     name: 'Uncensored Wears',
 //   },
 //   {
 //     access_token: 'EAAgBwNEpXTgBANnxeYlhoZCodUzRMZAGmmMP0hKZA8YJsXCZAxwOUa7gMb53XOjtjPoF4rIxbN0SUT3jCDJPWhaT83h7TpSf9R0iNQrlWhPRM6hUUpZBgHLIo9gFk6GsDofdHakQkOMRmBp2woTc4WDudP5GK32mQZDZD',
 //     category: 'Clothing (Brand)',
 //     category_list: [{
-//       id: "2209", 
+//       id: "2209",
 //       name: "Clothing (Brand)" }],
 //     id: '1168957709',
-//     name: 'UnceWears',   
+//     name: 'UnceWears',
 //   }
 // ]
 
@@ -34,11 +34,12 @@ import { SpinnerIcon } from 'components/vectors';
 const InstagramBusinessAccountsSelect = (props) => {
   const [selectedPage, setPage] = useState(null)
 
-  const _setPage = page => {
-    console.log(page);
-    setPage(page)
+  const selectPage = () => {
+    if (selectedPage) {
+      const [selected] = props.pages.filter(page => page.id === selectedPage)
+      props.onClick(selected);
+    }
   }
-  console.log(selectedPage);
   return (
   <div className="instagram-page__main instagram-page__main--alt">
     <div className="instagram-page__main--header">
@@ -46,14 +47,14 @@ const InstagramBusinessAccountsSelect = (props) => {
     </div>
     <ul className="instagram-page__main-list">
       { props.pages.map((page) => (
-        <div className={`instagram-page__main-list-item ${selectedPage == page.id ? 'active' : ' '}`} 
-        onChange={(e) => _setPage(e.target.value)}
+        <div className={`instagram-page__main-list-item ${selectedPage == page.id ? 'active' : ' '}`}
+        onChange={(e) => setPage(e.target.value)}
         key={page.id}>
           {/* <li item key={page.id} className={`instagram-page__main-list-item`} > */}
-            <input type="radio" name="instagram" 
+            <input type="radio" name="instagram"
                 id={page.name}
-                value={page.id} 
-                checked={selectedPage == page.id} 
+                value={page.id}
+                checked={selectedPage == page.id}
                 />
             <label htmlFor={page.name}> {page.name}</label>
           {/* </li> */}
@@ -80,7 +81,7 @@ const InstagramBusinessAccountsSelect = (props) => {
     </ul> */}
     <div className="instagram-page__main--footer">
       <div className="button button-md button--neutral">CANCEL</div>
-      <div className="button button-md button--orange" onClick={() => { props.onClick(true); }}>FETCH PRODUCTS</div>
+      <div disabled className="button button-md button--orange" onClick={() => selectPage()}>FETCH PRODUCTS</div>
     </div>
   </div>
 )}
@@ -93,15 +94,9 @@ InstagramBusinessAccountsSelect.propTypes = {
 
 const mapStateToProps = state => {
   return {
+    loading: state.products.loading,
     pages: state.products.pages
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getPage: (token, user, extraParams) => dispatch(actions.getPageData(token, user, extraParams))
-
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InstagramBusinessAccountsSelect);
+export default connect(mapStateToProps)(InstagramBusinessAccountsSelect);
