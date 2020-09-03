@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Header, HeaderAlternate, CommonHeader } from 'components/shared';
-import { SettingsNavigationBar } from 'components/blocks';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { Header, HeaderAlternate, CommonHeader } from "components/shared";
+import { SettingsNavigationBar } from "components/blocks";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 export default function withDefaultLayout(WrappedComponent, data = {}) {
   const component = class extends Component {
@@ -22,11 +22,11 @@ export default function withDefaultLayout(WrappedComponent, data = {}) {
 
     componentDidMount() {
       this.updateIsDesktop();
-      window.addEventListener('resize', this.updateIsDesktop);
+      window.addEventListener("resize", this.updateIsDesktop);
     }
 
     componentWillUnmount() {
-      window.removeEventListener('resize', this.updateIsDesktop);
+      window.removeEventListener("resize", this.updateIsDesktop);
     }
 
     updateIsDesktop() {
@@ -35,7 +35,7 @@ export default function withDefaultLayout(WrappedComponent, data = {}) {
 
     render() {
       if (!this.props.isAuthenticated) {
-        return <Redirect to="/login"/>;
+        return <Redirect to="/login" />;
       }
       const {
         hasAlternateHeader,
@@ -52,7 +52,6 @@ export default function withDefaultLayout(WrappedComponent, data = {}) {
       return (
         <>
           {isSettings && !isDesktop ? null : <Header />}
-
           {!isSettings && !isDesktop ? null : (
             <SettingsNavigationBar navBarTitle={navBarTitle} />
           )}
@@ -77,11 +76,11 @@ export default function withDefaultLayout(WrappedComponent, data = {}) {
       );
     }
   };
-  const mapStateToProps = state => {
+  const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.token !== null
+      isAuthenticated: state.auth.token !== null,
     };
   };
 
-  return ( connect( mapStateToProps, null )( component ) );
+  return connect(mapStateToProps, null)(component);
 }
