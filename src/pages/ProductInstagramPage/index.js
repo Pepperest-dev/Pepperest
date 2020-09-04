@@ -93,7 +93,7 @@ const ProductInstagramPage = (props) => {
             />
             {/* {users.map((user) => ( */}
               <p className="text--smallest text--black">
-                {props.user.name}
+                {props.user.businessname}
               </p>
             {/* ))} */}
             <CloseIcon />
