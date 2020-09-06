@@ -21,7 +21,7 @@ const PublishInstagramImageModal = (props) => {
   const [ChangeAmount, setChangeAmount] = useState("")
   const [ChangeCurrency, setChangeCurrency] = useState("")
   const [DeliveryPeriod, setDeliveryPeriod] = useState("")
-  const [ImageUrl, setImageUrl] = useState(context.state.item)
+  const [ImageUrl, setImageUrl] = useState(context.state.item.url)
   const [error, setError] = useState(false)
 
   const handleChangeProductName = (e) => setProductName(e.target.value);
@@ -170,7 +170,7 @@ const PublishInstagramImageModal = (props) => {
                 <div className="image-upload">
                   <label htmlFor="file-input">
                     <img
-                      src={context.state.item}
+                      src={ImageUrl}
                       alt="item"
                       />
                   </label>

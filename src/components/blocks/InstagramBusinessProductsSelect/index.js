@@ -20,8 +20,8 @@ const InstagramBusinessProductsSelect = (props) => {
       <p className="mx-auto">Instagram A</p>
     </div>
     <ul className="instagram-page__main-list">
-    { props.items.map((item, index) => (
-      <div className={`instagram-page__main-list-item`} key={index}>
+    { props.items.map((item) => (
+      <div className={`instagram-page__main-list-item`} key={item.id}>
         <div className="input-control">
           {/* <input type="checkbox" id="product1" name="instagram" /> */}
           <PepperestContext.Consumer>
@@ -41,10 +41,10 @@ const InstagramBusinessProductsSelect = (props) => {
         </div>
         <img
           className="instagram-page__main-list-item__avatar"
-          src= {item}
+          src= {item.url}
           alt="product"
         />
-      <p className="text--smallest text--gray">Product {index + 1}</p>
+      <p className="text--smallest text--gray">Product {item.id}</p>
       </div>
       ))}
       <div className="instagram-page__main-list-item">

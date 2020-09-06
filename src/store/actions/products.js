@@ -69,7 +69,15 @@ export const getPageData = ( token, user, extraParams = {} ) => {
 				headers
 			} )
 			.then( ( response ) => {
-				const items = response.data.items;
+				const items = []
+				response.data.items.forEach((item, index)=>{
+					items.push({
+						id: index +1,
+						url: item,
+						published: false
+					})
+				})
+
 				dispatch( loadedFacebookProduct( items ) )
 
 			} ).catch( ( error ) => {
