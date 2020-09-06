@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions/index';
 
 const InstagramBusinessProductsSelect = (props) => {
-  console.log(props.items);
   return (
   <div className="instagram-page__main instagram-page__main--alt">
     <div className="instagram-page__main--header instagram-page__main--header-alt">
@@ -21,8 +20,8 @@ const InstagramBusinessProductsSelect = (props) => {
       <p className="mx-auto">Instagram A</p>
     </div>
     <ul className="instagram-page__main-list">
-    { props.items.map((item) => (
-      <div className={`instagram-page__main-list-item`} >
+    { props.items.map((item, index) => (
+      <div className={`instagram-page__main-list-item`} key={index}>
         <div className="input-control">
           {/* <input type="checkbox" id="product1" name="instagram" /> */}
           <PepperestContext.Consumer>
@@ -31,7 +30,7 @@ const InstagramBusinessProductsSelect = (props) => {
                 role="presentation"
                 className="button button-md button--orange mt-25"
                 onClick={() => {
-                  context.updateShowPublishInstagramImageModal(true);
+                  context.updateShowPublishInstagramImageModal(true, item);
                 }}
               >
                 Publish
@@ -45,9 +44,9 @@ const InstagramBusinessProductsSelect = (props) => {
           src= {item}
           alt="product"
         />
-        <p className="text--smallest text--gray">{item}</p>
+      <p className="text--smallest text--gray">Product {index + 1}</p>
       </div>
-      ))}     
+      ))}
       <div className="instagram-page__main-list-item">
         <div className="list-footer__pagination">
           <span className="list-footer__pagination-prev list-footer-text">
@@ -98,5 +97,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(InstagramBusinessProductsSelect);
-
-

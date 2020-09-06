@@ -48,18 +48,18 @@ const InstagramBusinessAccountsSelect = (props) => {
     <ul className="instagram-page__main-list">
       { props.pages.map((page) => (
         <div className={`instagram-page__main-list-item ${selectedPage == page.id ? 'active' : ' '}`}
-        onChange={(e) => setPage(e.target.value)}
         key={page.id}>
           {/* <li item key={page.id} className={`instagram-page__main-list-item`} > */}
             <input type="radio" name="instagram"
-                id={page.name}
-                value={page.id}
-                checked={selectedPage == page.id}
-                />
+              onChange={(e) => setPage(e.target.value)}
+              id={page.name}
+              value={page.id}
+              checked={selectedPage == page.id}
+              />
             <label htmlFor={page.name}> {page.name}</label>
-          {/* </li> */}
-        </div>
-      ))}
+            {/* </li> */}
+          </div>
+        ))}
     </ul>
     {/* <ul className="instagram-page__main-list">
       <div className="instagram-page__main-list-item">

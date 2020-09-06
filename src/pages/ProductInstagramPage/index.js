@@ -124,7 +124,7 @@ const ProductInstagramPage = (props) => {
       <PepperestContext.Consumer>
         {(context) =>
           context.state.showPublishInstagramImageModal ? (
-            <PublishInstagramImageModal />
+            <PublishInstagramImageModal context={context}/>
           ) : null
         }
       </PepperestContext.Consumer>

@@ -22,6 +22,7 @@ const PepperestProvider = (props) => {
     showPublishInstagramImageModal: false,
     showRequestPaymentModal: false,
     paymentDetails: null,
+    item: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
   });
   return (
     <PepperestContext.Provider
@@ -79,9 +80,9 @@ const PepperestProvider = (props) => {
         updateShowRemoveAddressModal: (value) => {
           setLocalState({ ...localState, showRemoveAddressModal: value });
         },
-        updateShowPublishInstagramImageModal: (value) => {
+        updateShowPublishInstagramImageModal: (value, item) => {
           setLocalState({
-            ...localState,
+            ...localState, item,
             showPublishInstagramImageModal: value,
           });
         },

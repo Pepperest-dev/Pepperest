@@ -10,28 +10,42 @@ import {
 } from "components/blocks";
 import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
 const PublishInstagramImageModal = (props) => {
-  const [ProductName, setProductName] = useState()
-  const [ProductDescription, setProductDescription] = useState()
-  const [ChangeAmount, setChangeAmount] = useState()
-  const [ChangeCurrency, setChangeCurrency] = useState()
-  const [DeliveryPeriod, setDeliveryPeriod] = useState()
-  
-  
-  
+  const {user, token, publishProduct, context} = props
+  console.log(props);
+  const [ProductName, setProductName] = useState("")
+  const [ProductDescription, setProductDescription] = useState("")
+  const [ChangeAmount, setChangeAmount] = useState("")
+  const [ChangeCurrency, setChangeCurrency] = useState("")
+  const [DeliveryPeriod, setDeliveryPeriod] = useState("")
+  const [ImageUrl, setImageUrl] = useState(context.state.item)
+  const [error, setError] = useState(false)
+
   const handleChangeProductName = (e) => setProductName(e.target.value);
   const handleChangeProductDescription = (e) => setProductDescription(e.target.value);
   const handleChangeAmount = (e) => setChangeAmount(e.target.value);
   const handleChangeCurrency = (e) => setChangeCurrency(e.target.value);
   const handleChangeDeliveryPeriod = (e) => setDeliveryPeriod(e.target.value);
-  
-  
-  const handleOnSubmit = (value) => {
-    console.log(value)
+
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    const extraParams = {
+      productname: ProductName,
+      description: ProductDescription,
+      price: ChangeAmount,
+      currency: 'NGN',
+      deliveryperiod: DeliveryPeriod,
+      image_url: ImageUrl,
+    }
+    publishProduct(token, user, extraParams)
+    context.updateShowPublishInstagramImageModal(false)
   }
 
-  return(  
+  return(
   <>
     <form onSubmit= {handleOnSubmit} >
     <div className="pModal">
@@ -39,17 +53,13 @@ const PublishInstagramImageModal = (props) => {
       <div className="pModal-content">
         <div className="pModal-header pModal-border-bottom">
           <h6 className="text--small">Add image details</h6>
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div
-                onClick={() =>
-                  context.updateShowPublishInstagramImageModal(false)
-                }
-              >
-                <CloseIcon />
-              </div>
-            )}
-          </PepperestContext.Consumer>
+          <div
+            onClick={() =>
+              context.updateShowPublishInstagramImageModal(false)
+            }
+            >
+            <CloseIcon />
+          </div>
         </div>
         <div className="pModal-main">
           <div className="pModal-main__notification text--smallest">
@@ -72,6 +82,7 @@ const PublishInstagramImageModal = (props) => {
                   required
                   onChange={handleChangeProductName}
                   classNames="nsForm-input__alternate"
+                  errorMessage={error ? "Enter product name": ''}
                 />
               </div>
             </div>
@@ -84,7 +95,10 @@ const PublishInstagramImageModal = (props) => {
                 </div>
               </div>
               <div className="col-md-7">
-                <TextArea name="description" value= {ProductDescription} onChange={handleChangeProductDescription}/>
+                <TextArea name="description"
+                  value= {ProductDescription}
+                  errorMessage={error ? "Enter product name": ''}
+                  onChange={handleChangeProductDescription}/>
               </div>
             </div>
             <div className="pModal-form-control row mx-0">
@@ -102,6 +116,7 @@ const PublishInstagramImageModal = (props) => {
                   value= {ChangeAmount}
                   onChange={handleChangeAmount}
                   classNames="nsForm-input__alternate"
+                  errorMessage={error ? "Enter amount name": ''}
                   required
                 />
               </div>
@@ -119,7 +134,7 @@ const PublishInstagramImageModal = (props) => {
                   id="currency"
                   value={ChangeCurrency}
                   onChange={handleChangeCurrency}
-                  defaultValue="American Dollars"
+                  defaultValue="Nigerian Naira"
                   required
                   classNames="nsForm-select__alternate"
                 />
@@ -140,6 +155,7 @@ const PublishInstagramImageModal = (props) => {
                   value= {DeliveryPeriod}
                   onChange={handleChangeDeliveryPeriod}
                   classNames="nsForm-input__alternate"
+                  errorMessage={error ? "Enter product name": ''}
                   required
                 />
               </div>
@@ -154,9 +170,9 @@ const PublishInstagramImageModal = (props) => {
                 <div className="image-upload">
                   <label htmlFor="file-input">
                     <img
-                      src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                      src={context.state.item}
                       alt="item"
-                    />
+                      />
                   </label>
                   <input className="file-input" id="file-input" type="file" />
                 </div>
@@ -165,19 +181,15 @@ const PublishInstagramImageModal = (props) => {
           </div>
         </div>
         <div className="pModal-footer pModal-border-top">
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div
-                className="button button--auto button-md button--neutral"
-                onClick={() =>
-                  context.updateShowPublishInstagramImageModal(false)
-                }
-              >
-                CANCEL
-              </div>
-            )}
-          </PepperestContext.Consumer>
-          <button 
+          <div
+            className="button button--auto button-md button--neutral"
+            onClick={() =>
+              context.updateShowPublishInstagramImageModal(false)
+            }
+            >
+            CANCEL
+          </div>
+        <button
             className="button button-md button--orange"
             type= "submit"
           >
@@ -193,4 +205,20 @@ const PublishInstagramImageModal = (props) => {
 
 )}
 
-export default PublishInstagramImageModal;
+const mapStateToProps = ( state, {context}) => {
+  return {
+      token: state.auth.token,
+      user: state.auth.userInfo,
+      context: context,
+      loaded: state.products.loaded,
+      loading: state.products.loading,
+      error: state.products.error
+}}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    publishProduct: (token, user, extraParams) => dispatch(actions.publishSingleProduct(token, user, extraParams)),
+  }
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(PublishInstagramImageModal);

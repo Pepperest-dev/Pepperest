@@ -39,7 +39,7 @@ const ProductsPage = ({ match }) => (
       </div>
       <PepperestContext.Consumer>
         {(context) =>
-          context.state.showProductModal ? <ProductModal /> : null
+          context.state.showProductModal ? <ProductModal context={context}/> : null
         }
       </PepperestContext.Consumer>
       <PepperestContext.Consumer>
