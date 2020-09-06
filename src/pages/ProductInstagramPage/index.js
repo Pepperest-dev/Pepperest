@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions/index';
 
 const ProductInstagramPage = (props) => {
-  const {getInfo, getPage, user, token, loaded, loading} = props
+  const {getInfo, getPage, user, token, loaded, loading, selectPage} = props
   let s = props.location?.search
   let code
   if (s) code = s.slice(s.indexOf('=') + 1 , s.indexOf('&state'))
@@ -41,6 +41,7 @@ const ProductInstagramPage = (props) => {
     setPublishProducts(false);
   };
   const updateSetPublishProducts = (page) => {
+    selectPage(page)
     const extraParams = {
       page_id: page.id,
       page_access_token: page.access_token
@@ -144,7 +145,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getInfo: (token, user, extraParams) => dispatch(actions.getFacebookPages(token, user, extraParams)),
-    getPage: (token, user, extraParams) => dispatch(actions.getPageData(token, user, extraParams))
+    getPage: (token, user, extraParams) => dispatch(actions.getPageData(token, user, extraParams)),
+    selectPage: (page) => dispatch(actions.selectPage(page))
   }
 }
 

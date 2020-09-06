@@ -15,6 +15,7 @@ const initialState = {
 	loadedFacebookPages: false,
 	errorFacebookPages: null,
 	pages: [],
+	selectedPage: {},
 
 	loadingFacebookProducts: false,
 	loadedFacebookProducts: false,
@@ -58,6 +59,10 @@ const failedToLoadFacebookPages = ( state, action ) => {
 	} );
 }
 
+const selectPage = (state, action) => {
+	return updateObject(state, {page: action.page})
+}
+
 const loadingFacebookProducts = ( state, action ) => {
 	return updateObject( state, {
 		loadingFacebookProducts: true
@@ -90,6 +95,8 @@ const reducer = ( state = initialState, action ) => {
 			return loadedFacebookPages( state, action );
 		case actionTypes.LOADING_FACEBOOK_PAGES_FAILED:
 			return failedToLoadFacebookPages( state, action )
+		case actionTypes.SELECT_PAGE:
+			return selectPage(state, action)
 		case actionTypes.LOADING_FACEBOOK_PRODUCTS:
 			return loading( state, action );
 		case actionTypes.FINISHED_LOADING_FACEBOOK_PRODUCTS:

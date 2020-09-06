@@ -15,7 +15,6 @@ import * as actions from 'store/actions/index';
 
 const PublishInstagramImageModal = (props) => {
   const {user, token, publishProduct, context} = props
-  console.log(props);
   const [ProductName, setProductName] = useState("")
   const [ProductDescription, setProductDescription] = useState("")
   const [ChangeAmount, setChangeAmount] = useState("")

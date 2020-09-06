@@ -17,6 +17,7 @@ export {
 	getFacebookPages,
 	getPageData,
 	publishSingleProduct,
+	selectPage,
 }
 from './products';
 

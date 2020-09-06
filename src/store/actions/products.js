@@ -189,3 +189,9 @@ export const failedToLoadFacebookProduct = ( error ) => {
 		error: error,
 	}
 }
+export const selectPage = (page) => {
+	return {
+		type: actionTypes.SELECT_PAGE,
+		page: page,
+	}
+}

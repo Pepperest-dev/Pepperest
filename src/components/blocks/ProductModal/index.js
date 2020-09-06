@@ -43,7 +43,6 @@ const ProductModal = (props) => {
     publishProduct(token, user, extraParams)
     context.updateShowPublishInstagramImageModal(false)
   }
-  console.log(props);
   return (
   <>
     <div className="pModal">

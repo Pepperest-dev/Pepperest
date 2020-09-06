@@ -17,7 +17,7 @@ const InstagramBusinessProductsSelect = (props) => {
         <LeftChevron />
         <p className="text--smallest text--gray">Back</p>
       </div>
-      <p className="mx-auto">Instagram A</p>
+      <p className="mx-auto">{props.page.name}</p>
     </div>
     <ul className="instagram-page__main-list">
     { props.items.map((item) => (
@@ -92,7 +92,8 @@ InstagramBusinessProductsSelect.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    items: state.products.items
+    items: state.products.items,
+    page: state.products.page
   }
 }
 
