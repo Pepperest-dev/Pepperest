@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { CloseIcon, RightChevron, SpinnerIcon } from "components/vectors";
 import {
   InputWithoutLabel,
@@ -10,21 +10,51 @@ import {
 } from "components/blocks";
 import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
-const EditProductModal = (props) => (
+const EditProductModal = (props) => {
+  const {user, token, updateProduct, context} = props
+  const { state : {productForUpdate}} = context
+  const [ProductName, setProductName] = useState(productForUpdate.productName)
+  const [ProductDescription, setProductDescription] = useState(productForUpdate.productDescription)
+  const [ChangeAmount, setChangeAmount] = useState(productForUpdate.amount)
+  const [ChangeCurrency, setChangeCurrency] = useState("")
+  const [DeliveryPeriod, setDeliveryPeriod] = useState(productForUpdate.deliveryDate)
+  const [ImageUrl, setImageUrl] = useState(context.state.item)
+  const [error, setError] = useState(false)
+
+  const handleChangeProductName = (e) => setProductName(e.target.value);
+  const handleChangeProductDescription = (e) => setProductDescription(e.target.value);
+  const handleChangeAmount = (e) => setChangeAmount(e.target.value);
+  const handleChangeCurrency = (e) => setChangeCurrency(e.target.value);
+  const handleChangeDeliveryPeriod = (e) => setDeliveryPeriod(e.target.value);
+
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    const extraParams = {
+      productID : productForUpdate.productID,
+      productname: ProductName,
+      description: ProductDescription,
+      price: ChangeAmount,
+      currency: 'NGN',
+      deliveryperiod: DeliveryPeriod,
+      link: ImageUrl,
+    }
+    updateProduct(token, user, extraParams)
+    context.updateShowEditProductModal(false)
+  }
+  return (
   <>
     <div className="pModal">
       <div className="pModal-overlay" />
       <div className="pModal-content">
         <div className="pModal-header pModal-border-bottom">
           <h6 className="text--small">Edit Product / Service</h6>
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div onClick={() => context.updateShowEditProductModal(false)}>
-                <CloseIcon />
-              </div>
-            )}
-          </PepperestContext.Consumer>
+          <div onClick={() => context.updateShowEditProductModal(false)}>
+            <CloseIcon />
+          </div>
         </div>
         <div className="pModal-main">
           <div className="pModal-main__notification text--smallest">
@@ -136,16 +166,12 @@ const EditProductModal = (props) => (
           </div>
         </div>
         <div className="pModal-footer pModal-border-top">
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div
-                className="button button--auto button-md button--neutral"
-                onClick={() => context.updateShowEditProductModal(false)}
-              >
-                CANCEL
-              </div>
-            )}
-          </PepperestContext.Consumer>
+          <div
+            className="button button--auto button-md button--neutral"
+            onClick={() => context.updateShowEditProductModal(false)}
+            >
+            CANCEL
+          </div>
           <div className="button button-md button--orange">
             EDIT PRODUCT
             {/* <SpinnerIcon /> */}
@@ -155,6 +181,22 @@ const EditProductModal = (props) => (
     </div>
     <EscapeCloseModalHelper />
   </>
-);
+)}
 
-export default EditProductModal;
+const mapStateToProps = ( state, {context}) => {
+  return {
+      token: state.auth.token,
+      user: state.auth.userInfo,
+      context: context,
+      loaded: state.products.loaded,
+      loading: state.products.loading,
+      error: state.products.error
+}}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateProduct: (token, user, extraParams) => dispatch(actions.updateProduct(token, user, extraParams)),
+  }
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(EditProductModal);

@@ -26,6 +26,48 @@ export const publishSingleProduct = (token, user, extraParams = {}) => {
 	}
 }
 
+export const publishSingleSocialProduct = (token, user, extraParams = {}) => {
+	return dispatch => {
+		const headers = {
+			Authorization: token,
+			customerID: user.customerID
+		}
+		const body = {
+			merchantID: user.customerID,
+			...extraParams
+		}
+		PepperestAxios.post(Products.PUBLISH_SINGLE_SOCIAL_PRODUCT, body, {headers})
+		.then((response) => {
+			console.log(response.data);
+			const products = response.data.products.data
+			const meta = response.data.products.meta
+			const links = response.data.products.links
+			dispatch( loadedProduct( products, meta, links ) )
+		}).catch((error) => console.error(error.response))
+	}
+}
+
+export const updateProduct = ( token, user, extraParams = {}) => {
+	return dispatch => {
+		const headers = {
+			Authorization: token,
+			customerID: user.customerID
+		}
+		const body = {
+			merchantID: user.customerID,
+			...extraParams
+		}
+		PepperestAxios.post(Products.UPDATE_PRODUCT, body, {headers})
+		.then((response) => {
+			console.log(response.data);
+			const products = response.data.products.data
+			const meta = response.data.products.meta
+			const links = response.data.products.links
+			dispatch( loadedProduct( products, meta, links ) )
+		}).catch((error) => console.error(error.response))
+	}
+}
+
 export const getFacebookPages = ( token, user, extraParams = {} ) => {
 	return dispatch => {
 		dispatch( loadingFacebookPages() )
