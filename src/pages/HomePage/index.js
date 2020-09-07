@@ -19,22 +19,22 @@ import { businessFeatures, extraBusinessFeatures } from "libs/constants";
 const navLinks = [
   {
     title: "Solutions",
-    url: "/solutions",
+    url: "/#solutions",
     exact: false,
   },
   {
     title: "Why Pepperest",
-    url: "/why",
+    url: "/#why",
     exact: false,
   },
   {
     title: "Pricing",
-    url: "/pricing",
+    url: "/#pricing",
     exact: false,
   },
   {
     title: "Support",
-    url: "/support",
+    url: "/#support",
     exact: false,
   },
 ];
@@ -104,23 +104,11 @@ const HomePage = (props) => {
                   <Nav
                     key={getStringHash(title)}
                     title={title}
-                    url="/payments"
+                    url={url}
                     classNames="nav-link"
                     exact={exact}
                   />
                 ))}
-                {/* <a href="#" className="nav-link active">
-                  Solution
-                </a>
-                <a href="#" className="nav-link">
-                  Why Pepperest
-                </a>
-                <a href="#" className="nav-link">
-                  Pricing
-                </a>
-                <a href="#" className="nav-link">
-                  Support
-                </a> */}
               </div>
               <div className="nav-right">
                 <div className="nav-item">
@@ -182,63 +170,60 @@ const HomePage = (props) => {
             </div>
           </div>
         </div>
-        <div className="container-fluid">
-          <div className="section-one">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-6">
-                  <div>
-                    <h3 className="title">
-                      Empowering independent business owners everywhere
-                    </h3>
-                    <p className="info">
-                      One platform that lets you sell wherever your customers
-                      are—online, in‑person, and everywhere in‑between.
-                    </p>
-                    <ul className="section-one__list">
-                      {state.extraBusinessFeatures &&
-                        state.extraBusinessFeatures.map(
-                          ({ isActive, title }, index) => (
-                            <HomePageFeatureItem
-                              index={getStringHash()}
-                              isActive={isActive}
-                              title={title}
-                              handleClick={handleExtraBusinessFeatureClick}
-                              position={index}
-                            />
-                          ),
-                        )}
-                    </ul>
-                  </div>
+        <div className="section-one" id="solutions">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <div>
+                  <h3 className="title">
+                    Empowering independent business owners everywhere
+                  </h3>
+                  <p className="info">
+                    One platform that lets you sell wherever your customers
+                    are—online, in‑person, and everywhere in‑between.
+                  </p>
+                  <ul className="section-one__list">
+                    {state.extraBusinessFeatures &&
+                      state.extraBusinessFeatures.map(
+                        ({ isActive, title }, index) => (
+                          <HomePageFeatureItem
+                            index={getStringHash()}
+                            isActive={isActive}
+                            title={title}
+                            handleClick={handleExtraBusinessFeatureClick}
+                            position={index}
+                          />
+                        ),
+                      )}
+                  </ul>
                 </div>
-                <div className="col-md-6">
-                  <div className="section-one__image-section">
-                    <img
-                      src="/assets/images/pepperest.png"
-                      srcSet="/assets/images/pepperest@2x.png 2x,
-             /assets/images/pepperest@3x.png 3x"
-                      className="Bitmap"
-                      alt="pepperest dashboard"
-                    />
-                  </div>
+              </div>
+              <div className="col-md-6">
+                <div className="section-one__image-section">
+                  <img
+                    src="/assets/images/pepperest.png"
+                    srcSet="/assets/images/pepperest@2x.png 2x,
+            /assets/images/pepperest@3x.png 3x"
+                    className="Bitmap"
+                    alt="pepperest dashboard"
+                  />
                 </div>
               </div>
             </div>
-            {/* <div className="section-one__content-section">
-              
-            </div>
-            <div className="section-one__image-section">
-              <img
-                src="/assets/images/pepperest.png"
-                srcSet="/assets/images/pepperest@2x.png 2x,
-             /assets/images/pepperest@3x.png 3x"
-                className="Bitmap"
-                alt="pepperest dashboard"
-              />
-            </div> */}
           </div>
+          {/* <div className="section-one__content-section">
+          </div>
+          <div className="section-one__image-section">
+            <img
+              src="/assets/images/pepperest.png"
+              srcSet="/assets/images/pepperest@2x.png 2x,
+            /assets/images/pepperest@3x.png 3x"
+              className="Bitmap"
+              alt="pepperest dashboard"
+            />
+          </div> */}
         </div>
-        <div className="section-two">
+        <div className="section-two" id="why">
           <div className="container">
             <div className="row">
               <div className="col-md-5 mr-auto">
@@ -298,65 +283,63 @@ const HomePage = (props) => {
             </div>
           </div>
         </div>
-        <div className="container-fluid">
-          <div className="section-three">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="section-three__content-section">
-                    <h3 className="title">
-                      Grow your business on pepperest with this four easy steps
-                    </h3>
-                    <ul className="section-one__list">
-                      {state.businessFeatures &&
-                        state.businessFeatures.map(
-                          ({ isActive, title }, index) => (
-                            <HomePageFeatureItem
-                              key={getStringHash()}
-                              isActive={isActive}
-                              title={title}
-                              handleClick={handleBusinessFeatureClick}
-                              position={index}
-                            />
-                          ),
-                        )}
-                    </ul>
-                    <div className="section-three__content-section__footer">
-                      <div className="button button-md button-lg button--orange">
-                        Create an Invoice
-                      </div>
-                      <div className="button button-md button-auto button-lg button--white text--gray">
-                        View Fair Pricing
-                      </div>
+        <div className="section-three" id="pricing">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="section-three__content-section">
+                  <h3 className="title">
+                    Grow your business on pepperest with this four easy steps
+                  </h3>
+                  <ul className="section-one__list">
+                    {state.businessFeatures &&
+                      state.businessFeatures.map(
+                        ({ isActive, title }, index) => (
+                          <HomePageFeatureItem
+                            key={getStringHash()}
+                            isActive={isActive}
+                            title={title}
+                            handleClick={handleBusinessFeatureClick}
+                            position={index}
+                          />
+                        ),
+                      )}
+                  </ul>
+                  <div className="section-three__content-section__footer">
+                    <div className="button button-md button-lg button--orange">
+                      Create an Invoice
+                    </div>
+                    <div className="button button-md button-auto button-lg button--white text--gray">
+                      View Fair Pricing
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <div className="section-three__other-section">
-                    <p className="info">
-                      Bring your in-store and online sales together with
-                      pepperest. Gain insights about your business from one view
-                      so you can work smarter, move faster, and think bigger.
-                    </p>
-                    <div className="image-wrapper">
-                      <div className="img">
-                        <img
-                          src="/assets/images/group-9.png"
-                          srcSet="/assets/images/group-9@2x.png 2x,
-             /assets/images/group-9@3x.png 3x"
-                          className="Group-9"
-                          alt="first"
-                        />
-                      </div>
-                      <div className="img">
-                        <img
-                          src="/assets/images/group-11.png"
-                          srcSet="/assets/images/group-11@2x.png 2x,
-             /assets/images/group-11@3x.png 3x"
-                          className="Group-11"
-                          alt="first"
-                        />
-                      </div>
+              </div>
+              <div className="col-md-6">
+                <div className="section-three__other-section">
+                  <p className="info">
+                    Bring your in-store and online sales together with
+                    pepperest. Gain insights about your business from one view
+                    so you can work smarter, move faster, and think bigger.
+                  </p>
+                  <div className="image-wrapper">
+                    <div className="img">
+                      <img
+                        src="/assets/images/group-9.png"
+                        srcSet="/assets/images/group-9@2x.png 2x,
+            /assets/images/group-9@3x.png 3x"
+                        className="Group-9"
+                        alt="first"
+                      />
+                    </div>
+                    <div className="img">
+                      <img
+                        src="/assets/images/group-11.png"
+                        srcSet="/assets/images/group-11@2x.png 2x,
+            /assets/images/group-11@3x.png 3x"
+                        className="Group-11"
+                        alt="first"
+                      />
                     </div>
                   </div>
                 </div>
@@ -364,7 +347,7 @@ const HomePage = (props) => {
             </div>
           </div>
         </div>
-        <div className="section-four">
+        <div className="section-four" id="support">
           <div className="container">
             <div className="row">
               <div className="col-md-5 mr-auto">
