@@ -39,7 +39,7 @@ const ProductModal = (props) => {
       price: ChangeAmount,
       currency: 'NGN',
       deliveryperiod: DeliveryPeriod,
-      image_url: Link,
+      link: ImageUrl,
     }
     publishProduct(token, user, extraParams)
     context.updateShowProductModal(false)

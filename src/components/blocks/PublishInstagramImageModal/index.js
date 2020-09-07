@@ -216,7 +216,7 @@ const mapStateToProps = ( state, {context}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    publishProduct: (token, user, extraParams) => dispatch(actions.publishSingleProduct(token, user, extraParams)),
+    publishProduct: (token, user, extraParams) => dispatch(actions.publishSingleSocialProduct(token, user, extraParams)),
   }
 }
 

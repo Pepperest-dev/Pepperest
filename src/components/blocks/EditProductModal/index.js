@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, {useState, useEffect} from "react";
+import React, { useState, Fragment } from "react";
 import { CloseIcon, RightChevron, SpinnerIcon } from "components/vectors";
 import {
   InputWithoutLabel,
@@ -14,15 +14,15 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions/index';
 
 
-
 const EditProductModal = (props) => {
-  const {user, token, publishProduct, context} = props
-  const [ProductName, setProductName] = useState("")
-  const [ProductDescription, setProductDescription] = useState("")
-  const [ChangeAmount, setChangeAmount] = useState("")
+  const {user, token, updateProduct, context} = props
+  const { state : {productForUpdate}} = context
+  const [ProductName, setProductName] = useState(productForUpdate.productName)
+  const [ProductDescription, setProductDescription] = useState(productForUpdate.productDescription)
+  const [ChangeAmount, setChangeAmount] = useState(productForUpdate.amount)
   const [ChangeCurrency, setChangeCurrency] = useState("")
-  const [DeliveryPeriod, setDeliveryPeriod] = useState("")
-  const [Link, setLink] = useState(context.state.item)
+  const [DeliveryPeriod, setDeliveryPeriod] = useState(productForUpdate.deliveryDate)
+  const [ImageUrl, setImageUrl] = useState(context.state.item)
   const [error, setError] = useState(false)
 
   const handleChangeProductName = (e) => setProductName(e.target.value);
@@ -36,29 +36,37 @@ const EditProductModal = (props) => {
   const handleOnSubmit = (e) => {
     e.preventDefault()
     const extraParams = {
+      productID : productForUpdate.productID,
       productname: ProductName,
       description: ProductDescription,
       price: ChangeAmount,
       currency: 'NGN',
       deliveryperiod: DeliveryPeriod,
-      image_url: Link,
+      link: ImageUrl,
     }
-    publishProduct(token, user, extraParams)
-    context.updateShowProductModal(false)
+    updateProduct(token, user, extraParams)
+    context.updateShowEditProductModal(false)
   }
-
   return (
-    <>
-      <form onSubmit= {handleOnSubmit} >
-        <div className="pModal">
-        <div className="pModal-overlay" />
-        <div className="pModal-content">
-          <div className="pModal-header pModal-border-bottom">
-            <h6 className="text--small">Edit Product / Service</h6>
-            <PepperestContext.Consumer>
-              {(context) => (
-                <div onClick={() => context.updateShowEditProductModal(false)}>
-                  <CloseIcon />
+  <>
+    <div className="pModal">
+      <div className="pModal-overlay" />
+      <div className="pModal-content">
+        <div className="pModal-header pModal-border-bottom">
+          <h6 className="text--small">Edit Product / Service</h6>
+          <div onClick={() => context.updateShowEditProductModal(false)}>
+            <CloseIcon />
+          </div>
+        </div>
+        <div className="pModal-main">
+          <div className="pModal-main__notification text--smallest">
+            A payment link would be created
+          </div>
+          <div className="pModal-form">
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label className="pModal-form__label">Product Name</label>
                 </div>
               )}
             </PepperestContext.Consumer>
@@ -174,21 +182,17 @@ const EditProductModal = (props) => {
               </div>
             </div>
           </div>
-          <div className="pModal-footer pModal-border-top">
-            <PepperestContext.Consumer>
-              {(context) => (
-                <div
-                  className="button button--auto button-md button--neutral"
-                  onClick={() => context.updateShowEditProductModal(false)}
-                >
-                  CANCEL
-                </div>
-              )}
-            </PepperestContext.Consumer>
-            <div className="button button-md button--orange">
-              EDIT PRODUCT
-              {/* <SpinnerIcon /> */}
-            </div>
+        </div>
+        <div className="pModal-footer pModal-border-top">
+          <div
+            className="button button--auto button-md button--neutral"
+            onClick={() => context.updateShowEditProductModal(false)}
+            >
+            CANCEL
+          </div>
+          <div className="button button-md button--orange">
+            EDIT PRODUCT
+            {/* <SpinnerIcon /> */}
           </div>
         </div>
       </div>
@@ -209,7 +213,7 @@ const mapStateToProps = ( state, {context}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    publishProduct: (token, user, extraParams) => dispatch(actions.publishSingleProduct(token, user, extraParams)),
+    updateProduct: (token, user, extraParams) => dispatch(actions.updateProduct(token, user, extraParams)),
   }
 }
 
