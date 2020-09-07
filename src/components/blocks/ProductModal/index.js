@@ -20,7 +20,7 @@ const ProductModal = (props) => {
   const [ChangeAmount, setChangeAmount] = useState("")
   const [ChangeCurrency, setChangeCurrency] = useState("")
   const [DeliveryPeriod, setDeliveryPeriod] = useState("")
-  const [ImageUrl, setImageUrl] = useState(context.state.item)
+  const [Link, setLink] = useState(context.state.item)
   const [error, setError] = useState(false)
 
   const handleChangeProductName = (e) => setProductName(e.target.value);
@@ -28,6 +28,7 @@ const ProductModal = (props) => {
   const handleChangeAmount = (e) => setChangeAmount(e.target.value);
   const handleChangeCurrency = (e) => setChangeCurrency(e.target.value);
   const handleChangeDeliveryPeriod = (e) => setDeliveryPeriod(e.target.value);
+  const handleChangeLink = (e) => setLink(e.target.value);
 
 
   const handleOnSubmit = (e) => {
@@ -41,164 +42,186 @@ const ProductModal = (props) => {
       link: ImageUrl,
     }
     publishProduct(token, user, extraParams)
-    context.updateShowPublishInstagramImageModal(false)
+    context.updateShowProductModal(false)
   }
+
   return (
   <>
-    <div className="pModal">
-      <div className="pModal-overlay" />
-      <div className="pModal-content">
-        <div className="pModal-header">
-          <h6 className="text--small">Add Product / Service</h6>
-          <div onClick={() => context.updateShowProductModal(false)}>
-            <CloseIcon />
-          </div>
-        </div>
-        {/* <div className="pModal-sub__header row mx-0">
-          <div className="col-12 col-lg-6 px-0">
-            <div className="pModal-sub__header-half left">
-              <h6 className="text--smaller text--gray">Total Amount</h6>
-              <p className="text--smaller">NGN 0</p>
+    <form onSubmit= {handleOnSubmit} >
+      <div className="pModal">
+        <div className="pModal-overlay" />
+        <div className="pModal-content">
+          <div className="pModal-header">
+            <h6 className="text--small">Add Product / Service</h6>
+            <div onClick={() => context.updateShowProductModal(false)}>
+              <CloseIcon />
             </div>
           </div>
-          <div className="col-12 col-lg-6 px-0">
-            <div className="pModal-sub__header-half right">
-              <h6 className="text--smaller text--gray">Pepperest Fee</h6>
-              <p className="text--smaller">NGN 0</p>
+          {/* <div className="pModal-sub__header row mx-0">
+            <div className="col-12 col-lg-6 px-0">
+              <div className="pModal-sub__header-half left">
+                <h6 className="text--smaller text--gray">Total Amount</h6>
+                <p className="text--smaller">NGN 0</p>
+              </div>
+            </div>
+            <div className="col-12 col-lg-6 px-0">
+              <div className="pModal-sub__header-half right">
+                <h6 className="text--smaller text--gray">Pepperest Fee</h6>
+                <p className="text--smaller">NGN 0</p>
+              </div>
+            </div>
+          </div> */}
+          <div className="pModal-main">
+            <div className="pModal-main__notification text--smallest">
+              A payment link would be created
+            </div>
+            <div className="pModal-form">
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label className="pModal-form__label">Product Name</label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <InputWithoutLabel
+                    name="product"
+                    type="text"
+                    placeholder=""
+                    id="product"
+                    value={ProductName}
+                    onChange={handleChangeProductName}
+                    classNames="nsForm-input__alternate"
+                    errorMessage={error ? "Enter product name": ''}
+                  />
+                </div>
+              </div>
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label className="pModal-form__label">
+                      Product Description
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <TextArea 
+                    name="description" 
+                    value={ProductDescription}
+                    placeholder=""
+                    onChange={handleChangeProductDescription} 
+                    required
+                    errorMessage={error ? "Enter product description": ''}
+                    />
+                </div>
+              </div>
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label className="pModal-form__label">Amount</label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <InputWithoutLabel
+                    name="cost_item"
+                    type="text"
+                    placeholder=""
+                    id="cost_item"
+                    value={ChangeAmount}
+                    onChange={handleChangeAmount}
+                    required
+                    errorMessage={error ? "Enter product amount": ''}
+                    classNames="nsForm-input__alternate"
+                  />
+                </div>
+              </div>
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label className="pModal-form__label">Currency</label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <SelectInputWithoutLabel
+                    options={[]}
+                    name="currency"
+                    id="currency"
+                    value={ChangeCurrency}
+                    onChange={handleChangeCurrency}
+                    defaultValue="Nigerian Naira"
+                    required
+                    errorMessage={error ? "Select currency": ''}
+                    classNames="nsForm-select__alternate"
+                  />
+                </div>
+              </div>
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label className="pModal-form__label">Delivery Period</label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <InputWithoutLabel
+                    name="delivery_days"
+                    type="number"
+                    placeholder=""
+                    id="cost_item"
+                    value={DeliveryPeriod}
+                    onChange={handleChangeDeliveryPeriod}
+                    required
+                    errorMessage={error ? "Enter delivery period": ''}
+                    classNames="nsForm-input__alternate"
+                  />
+                </div>
+                {/* <div className="col-md-7">
+                  <div className="pModal-form__datepicker">
+                    <p className="text--smaller">12 Jul 2019</p>
+                    <RightChevron />
+                    <p className="text--smaller">12 Jul 2019</p>
+                  </div>
+                </div> */}
+              </div>
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label className="pModal-form__label">Display Image</label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <InputWithoutLabel
+                    name="display_image"
+                    type="text"
+                    placeholder=""
+                    id="cost_item"
+                    required
+                    errorMessage={error ? "Upload Product Image": ''}
+                    value={Link}
+                    onChange={handleChangeLink}
+                    classNames="nsForm-input__alternate"
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div> */}
-        <div className="pModal-main">
-          <div className="pModal-main__notification text--smallest">
-            A payment link would be created
-          </div>
-          <div className="pModal-form">
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Product Name</label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <InputWithoutLabel
-                  name="product"
-                  type="text"
-                  placeholder=""
-                  id="product"
-                  value=""
-                  onChange={() => {}}
-                  classNames="nsForm-input__alternate"
-                />
-              </div>
+          <div className="pModal-footer">
+            <div
+              className="button button--auto button-md button--neutral"
+              onClick={() => context.updateShowProductModal(false)}
+              >
+              CANCEL
             </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">
-                    Product Description
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <TextArea name="description" value="" onChange={() => {}} />
-              </div>
-            </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Amount</label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <InputWithoutLabel
-                  name="cost_item"
-                  type="text"
-                  placeholder=""
-                  id="cost_item"
-                  value=""
-                  onChange={() => {}}
-                  classNames="nsForm-input__alternate"
-                />
-              </div>
-            </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Currency</label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <SelectInputWithoutLabel
-                  options={[]}
-                  name="currency"
-                  id="currency"
-                  value=""
-                  onChange={() => {}}
-                  defaultValue="American Dollars"
-                  classNames="nsForm-select__alternate"
-                />
-              </div>
-            </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Delivery Period</label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <InputWithoutLabel
-                  name="delivery_days"
-                  type="number"
-                  placeholder=""
-                  id="cost_item"
-                  value=""
-                  onChange={() => {}}
-                  classNames="nsForm-input__alternate"
-                />
-              </div>
-              {/* <div className="col-md-7">
-                <div className="pModal-form__datepicker">
-                  <p className="text--smaller">12 Jul 2019</p>
-                  <RightChevron />
-                  <p className="text--smaller">12 Jul 2019</p>
-                </div>
-              </div> */}
-            </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label className="pModal-form__label">Display Image</label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <InputWithoutLabel
-                  name="display_image"
-                  type="file"
-                  placeholder=""
-                  id="cost_item"
-                  value=""
-                  onChange={() => {}}
-                  classNames="nsForm-input__alternate"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="pModal-footer">
-          <div
-            className="button button--auto button-md button--neutral"
-            onClick={() => context.updateShowProductModal(false)}
+            <button 
+            type= "submit" 
+            className="button button-md button--orange"
             >
-            CANCEL
-          </div>
-          <div className="button button-md button--orange">
-            ADD A PRODUCT
-            {/* <SpinnerIcon /> */}
+              ADD A PRODUCT
+              {/* <SpinnerIcon /> */}
+            </button>
           </div>
         </div>
       </div>
-    </div>
     <EscapeCloseModalHelper />
+    </form>
   </>
 )}
 
