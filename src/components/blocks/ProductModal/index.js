@@ -39,7 +39,7 @@ const ProductModal = (props) => {
       price: ChangeAmount,
       currency: 'NGN',
       deliveryperiod: DeliveryPeriod,
-      link: ImageUrl,
+      link: Link,
     }
     publishProduct(token, user, extraParams)
     context.updateShowProductModal(false)
@@ -104,11 +104,11 @@ const ProductModal = (props) => {
                   </div>
                 </div>
                 <div className="col-md-7">
-                  <TextArea 
-                    name="description" 
+                  <TextArea
+                    name="description"
                     value={ProductDescription}
                     placeholder=""
-                    onChange={handleChangeProductDescription} 
+                    onChange={handleChangeProductDescription}
                     required
                     errorMessage={error ? "Enter product description": ''}
                     />
@@ -210,8 +210,8 @@ const ProductModal = (props) => {
               >
               CANCEL
             </div>
-            <button 
-            type= "submit" 
+            <button
+            type= "submit"
             className="button button-md button--orange"
             >
               ADD A PRODUCT

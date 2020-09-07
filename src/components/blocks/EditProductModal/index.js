@@ -22,7 +22,7 @@ const EditProductModal = (props) => {
   const [ChangeAmount, setChangeAmount] = useState(productForUpdate.amount)
   const [ChangeCurrency, setChangeCurrency] = useState("")
   const [DeliveryPeriod, setDeliveryPeriod] = useState(productForUpdate.deliveryDate)
-  const [ImageUrl, setImageUrl] = useState(context.state.item)
+  const [Link, setLink] = useState(context.state.item)
   const [error, setError] = useState(false)
 
   const handleChangeProductName = (e) => setProductName(e.target.value);
@@ -33,7 +33,7 @@ const EditProductModal = (props) => {
   const handleChangeLink = (e) => setLink(e.target.value);
 
 
-  const handleOnSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const extraParams = {
       productID : productForUpdate.productID,
@@ -42,13 +42,14 @@ const EditProductModal = (props) => {
       price: ChangeAmount,
       currency: 'NGN',
       deliveryperiod: DeliveryPeriod,
-      link: ImageUrl,
+      link: Link,
     }
     updateProduct(token, user, extraParams)
     context.updateShowEditProductModal(false)
   }
   return (
   <>
+  <form onSubmit={handleSubmit}>
     <div className="pModal">
       <div className="pModal-overlay" />
       <div className="pModal-content">
@@ -68,8 +69,6 @@ const EditProductModal = (props) => {
                 <div className="pModal-form__label-control">
                   <label className="pModal-form__label">Product Name</label>
                 </div>
-              )}
-            </PepperestContext.Consumer>
           </div>
           <div className="pModal-main">
             <div className="pModal-main__notification text--smallest">
@@ -196,6 +195,9 @@ const EditProductModal = (props) => {
           </div>
         </div>
       </div>
+    </div>
+    </div>
+    </div>
       <EscapeCloseModalHelper />
       </form>
   </>
