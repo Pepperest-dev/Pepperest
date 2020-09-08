@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { NavLink as Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+// import { NavLink as Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 
-
-const NavLink = ({
-  url, title, classNames, exact,
-}) => (
+const NavLink = ({ url, title, classNames, exact }) => (
   <Link to={url} className={classNames} activeClassName="active" exact={exact}>
     {title}
   </Link>
