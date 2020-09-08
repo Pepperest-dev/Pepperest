@@ -4,15 +4,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { PepperestContext } from "components/helpers/constant";
 import useResizeObserver from "components/customHook/useResizeObserver";
+import { getStringHash } from 'libs/utils';
 
-const CustomerListItemDetailMobileModal = () => {
+const CustomerListItemDetailMobileModal = ({customerDetails :{status, recentTransactions, phone, totalSpent, totalTransactions,
+  customerEmail, customerName, updateListDetailsOpen}}) => {
   const pepperestContext = useContext(PepperestContext);
   const [state, setState] = useState({
     isRecentTransactionActive: false,
     style: {},
   });
   const [ref, { contentRect }] = useResizeObserver();
-
+  
   useEffect(() => {
     if (contentRect) {
       setState({
@@ -83,7 +85,7 @@ const CustomerListItemDetailMobileModal = () => {
                     Full Name
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    James Blunt
+                    {customerName}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
@@ -91,7 +93,7 @@ const CustomerListItemDetailMobileModal = () => {
                     Email Address
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    Tohbeey@gmail.com
+                    {customerEmail}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
@@ -99,27 +101,29 @@ const CustomerListItemDetailMobileModal = () => {
                     Phone Number
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    080959032343
+                    {phone}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
                     Total Transactions
                   </p>
-                  <p className="list-item-detail__main-item__details">4</p>
+                  <p className="list-item-detail__main-item__details">
+                    {totalTransactions}
+                  </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
                     Total Spent
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    NGN 53,0000,23
+                    {totalSpent}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">Status</p>
                   <p className="list-item-detail__main-item__details list-item__status-text text--active">
-                    Active
+                    {status}
                   </p>
                 </li>
                 <div className="list-modal__list-item list-modal__list-item__alternate">
@@ -143,16 +147,20 @@ const CustomerListItemDetailMobileModal = () => {
               </>
             ) : (
               <>
-                <li className="list-modal__list-item list-modal__list-item--alt">
+
+              {recentTransactions.length > 0 && recentTransactions.map((item) => (
+                <li key={getStringHash()} className="list-modal__list-item list-modal__list-item--alt">
                   <p className="list-item-detail__main-item__title">
-                    NGN 5,0000
+                    {item.amount}
                   </p>
                   <div className="list-item__status-container">
                     <div className="list-item__status-tag list-item__status-tag--initial text--initial">
-                      Initial Payment
+                      {item.trans_status}
                     </div>
                   </div>
                 </li>
+              ))}
+
                 {/* <li className="list-modal__list-item list-modal__list-item--alt">
                   <p className="list-item-detail__main-item__title">
                     NGN 5,0000

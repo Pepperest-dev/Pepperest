@@ -39,7 +39,7 @@ const ProductsPage = ({ match }) => (
       </div>
       <PepperestContext.Consumer>
         {(context) =>
-          context.state.showProductModal ? <ProductModal /> : null
+          context.state.showProductModal ? <ProductModal context={context}/> : null
         }
       </PepperestContext.Consumer>
       <PepperestContext.Consumer>
@@ -59,7 +59,7 @@ const ProductsPage = ({ match }) => (
       </PepperestContext.Consumer>
       <PepperestContext.Consumer>
         {(context) =>
-          context.state.showEditProductModal ? <EditProductModal /> : null
+          context.state.showEditProductModal ? <EditProductModal context={context} /> : null
         }
       </PepperestContext.Consumer>
       <PepperestContext.Consumer>

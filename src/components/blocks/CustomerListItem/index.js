@@ -19,7 +19,9 @@ const CustomerListItem = ({
   const pepperestContext = useContext(PepperestContext);
   const updateListDetailsOpen = (value) => setListDetailsOpen(value);
   const handleListClick = () => {
-    pepperestContext.updateShowCustomerListModal(true);
+    pepperestContext.updateShowCustomerListModal(true,
+      {status, recentTransactions, phone, totalSpent, totalTransactions,
+        customerEmail, customerName, updateListDetailsOpen});
     updateListDetailsOpen(!isListDetailsOpen);
   };
 

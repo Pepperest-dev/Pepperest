@@ -19,6 +19,14 @@ const ProductListItemDetails = ({
   onClick,
 }) => {
   const [showProductInfo, setShowProductInfo] = useState(true);
+  const product = {
+    productID,
+    productName,
+    dateCreated,
+    deliveryDate,
+    productDescription,
+    amount,
+}
   return (
     <div className="list-item-detail__container">
       <div className="list-item-detail__header">
@@ -88,7 +96,7 @@ const ProductListItemDetails = ({
                     role="presentation"
                     className="button button-md button--grey"
                     onClick={() => {
-                      context.updateShowEditProductModal(true);
+                      context.updateShowEditProductModal(true, product);
                     }}
                   >
                     Edit Product
