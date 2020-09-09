@@ -131,7 +131,7 @@ const ProductListItemDetailMobileModal = ({ productDetails : { productID,
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">Product Description</p>
-                  <p className="list-item-detail__main-item__details list-item__status-text text--active">
+                  <p className="list-item-detail__main-item__details ">
                     {productDescription}
                   </p>
                 </li>
