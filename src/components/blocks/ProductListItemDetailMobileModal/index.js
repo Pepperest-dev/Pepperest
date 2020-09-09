@@ -8,7 +8,7 @@ import { getStringHash } from 'libs/utils';
 
 
 
-const ProductListItemDetailMobileModal = ({ productDetails : { 
+const ProductListItemDetailMobileModal = ({  productID,
   productName,
   dateCreated,
   deliveryDate,
@@ -18,7 +18,7 @@ const ProductListItemDetailMobileModal = ({ productDetails : {
   recentTransactions,
   onClick,
 
-}}) => {
+}) => {
   const pepperestContext = useContext(PepperestContext);
   const [state, setState] = useState({
     isRecentTransactionActive: false,
