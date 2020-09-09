@@ -8,7 +8,7 @@ import { getStringHash } from 'libs/utils';
 
 
 
-const ProductListItemDetailMobileModal = ({ productDetails : { productID,
+const ProductListItemDetailMobileModal = ({ productDetails : { 
   productName,
   dateCreated,
   deliveryDate,
