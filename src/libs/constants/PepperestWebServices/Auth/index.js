@@ -14,12 +14,12 @@ export const ErrorMessages = {
 export const SOCIAL_PROVIDERS = {
     google : {
         client_id : '1085614773661-e36tjkli9oen6laocn1hra8anuedhn0f',
-        redirectURL : 'https://pepperest-app.netlify.app/login',
+        redirectURL : 'https://pepperest-live.herokuapp.com/login',
         baseURL : 'https://accounts.google.com/o/oauth2/v2/auth',
     },
     facebook : {
         client_id : '2253727468182840',
-        redirectURL : 'http://localhost:3001/login',
+        redirectURL : 'https://pepperest-live.herokuapp.com/login',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }
@@ -27,7 +27,7 @@ export const SOCIAL_PROVIDERS = {
 export const SOCIAL_STORE_PROVIDERS = {
     facebook : {
         merchant_id : '2253727468182840',
-        redirectURL : 'http://localhost:3001/products/instagram',
+        redirectURL : 'https://pepperest-live.herokuapp.com/products/instagram',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }

@@ -4,8 +4,21 @@
 import React, { useContext, useState, useEffect } from "react";
 import { PepperestContext } from "components/helpers/constant";
 import useResizeObserver from "components/customHook/useResizeObserver";
+import { getStringHash } from 'libs/utils';
 
-const ProductListItemDetailMobileModal = () => {
+
+
+const ProductListItemDetailMobileModal = ({  productID,
+  productName,
+  dateCreated,
+  deliveryDate,
+  productDescription,
+  amount,
+  transactions,
+  recentTransactions,
+  onClick,
+
+}) => {
   const pepperestContext = useContext(PepperestContext);
   const [state, setState] = useState({
     isRecentTransactionActive: false,
@@ -80,46 +93,46 @@ const ProductListItemDetailMobileModal = () => {
               <>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
-                    Full Name
+                    Product Name
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    James Blunt
+                    {productName}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
-                    Email Address
+                    Date Created
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    Tohbeey@gmail.com
+                    {dateCreated}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
-                    Phone Number
+                    Transactions
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    080959032343
+                    {transactions}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
-                    Total Transactions
+                    Delivery Date
                   </p>
-                  <p className="list-item-detail__main-item__details">4</p>
+                  <p className="list-item-detail__main-item__details">{deliveryDate} </p>
                 </li>
                 <li className="list-modal__list-item">
                   <p className="list-item-detail__main-item__title">
-                    Total Spent
+                    Amount
                   </p>
                   <p className="list-item-detail__main-item__details">
-                    NGN 53,0000,23
+                    {amount}
                   </p>
                 </li>
                 <li className="list-modal__list-item">
-                  <p className="list-item-detail__main-item__title">Status</p>
-                  <p className="list-item-detail__main-item__details list-item__status-text text--active">
-                    Active
+                  <p className="list-item-detail__main-item__title">Product Description</p>
+                  <p className="list-item-detail__main-item__details ">
+                    {productDescription}
                   </p>
                 </li>
                 <div className="list-modal__list-item list-modal__list-item__alternate">
@@ -166,7 +179,20 @@ const ProductListItemDetailMobileModal = () => {
               </>
             ) : (
               <>
-                <li className="list-modal__list-item list-modal__list-item--alt">
+
+              {recentTransactions.length > 0 && recentTransactions.map((item) => (
+                <li key={getStringHash()} className="list-modal__list-item list-modal__list-item--alt">
+                  <p className="list-item-detail__main-item__title">
+                    {item.amount}
+                  </p>
+                  <div className="list-item__status-container">
+                    <div className="list-item__status-tag list-item__status-tag--initial text--initial">
+                      {item.trans_status}
+                    </div>
+                  </div>
+                </li>
+              ))}                
+                {/* <li className="list-modal__list-item list-modal__list-item--alt">
                   <p className="list-item-detail__main-item__title">
                     NGN 5,0000
                   </p>
@@ -245,7 +271,7 @@ const ProductListItemDetailMobileModal = () => {
                       Awaiting Payment
                     </div>
                   </div>
-                </li>
+                </li> */}
                 <div className="list-modal__list-item list-modal__list-item__alternate">
                   <div className="button button-md button--grey">
                     View All Transactions
