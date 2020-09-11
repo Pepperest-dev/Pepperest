@@ -3,10 +3,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import { CloseIcon } from "components/vectors";
-import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
+import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
 
-const DeleteProductModal = (props) => (
+const DeleteProductModal = (props) => {
+  const {user, token, removeProduct, context} = props
+  const {state: {productForDeleting:{productID, productName}}} = context
+  console.log(productID, productName);
+
+  const deleteProduct = () => {
+    removeProduct(token, user, {productID});
+    context.updateShowDeleteProductModal(false);
+    context.updateShowProductListModal(false);
+  }
+
+  return (
   <>
     <div className="pModal">
       <div className="pModal-overlay" />
@@ -14,32 +26,26 @@ const DeleteProductModal = (props) => (
         <div className="pModal-header">
           {/* <h6 className="text--small">Delete Product / Service</h6> */}
           <span />
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div onClick={() => context.updateShowDeleteProductModal(false)}>
-                <CloseIcon />
-              </div>
-            )}
-          </PepperestContext.Consumer>
+          <div onClick={() => context.updateShowDeleteProductModal(false)}>
+            <CloseIcon />
+          </div>
         </div>
         <div className="pModal-main">
           <p>
             Are you sure you want to delete
-            <span className="product-name">Product Name</span>?
+            <span className="product-name">{productName}</span>?
           </p>
         </div>
         <div className="pModal-footer">
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div
-                className="button button--auto button-md button--neutral"
-                onClick={() => context.updateShowDeleteProductModal(false)}
-              >
-                CANCEL
-              </div>
-            )}
-          </PepperestContext.Consumer>
-          <div className="button button-md button--orange">
+          <div
+            className="button button--auto button-md button--neutral"
+            onClick={() => context.updateShowDeleteProductModal(false)}
+            >
+            CANCEL
+          </div>
+          <div
+            className="button button-md button--orange"
+            onClick={() => deleteProduct()}>
             DELETE PRODUCT
             {/* <SpinnerIcon /> */}
           </div>
@@ -48,6 +54,22 @@ const DeleteProductModal = (props) => (
     </div>
     <EscapeCloseModalHelper />
   </>
-);
+)}
 
-export default DeleteProductModal;
+const mapStateToProps = ( state, {context}) => {
+  return {
+      token: state.auth.token,
+      user: state.auth.userInfo,
+      context: context,
+      loaded: state.products.loaded,
+      loading: state.products.loading,
+      error: state.products.error
+}}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeProduct: (token, user, extraParams) => dispatch(actions.removeProduct(token, user, extraParams)),
+  }
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(DeleteProductModal);

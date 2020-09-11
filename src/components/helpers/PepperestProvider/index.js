@@ -24,6 +24,8 @@ const PepperestProvider = (props) => {
     paymentDetails: null,
     item: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     productForUpdate: {},
+    productDetails: {},
+    productForDeleting: {},
   });
   return (
     <PepperestContext.Provider
@@ -45,8 +47,8 @@ const PepperestProvider = (props) => {
         updateShowCustomerListModal: (value, customerDetails) => {
           setLocalState({ ...localState, customerDetails, showCustomerListModal: value });
         },
-        updateShowProductListModal: (value) => {
-          setLocalState({ ...localState, showProductListModal: value });
+        updateShowProductListModal: (value, productDetails = {}) => {
+          setLocalState({ ...localState, productDetails, showProductListModal: value });
         },
         updateShowOrdersListModal: (value) => {
           setLocalState({ ...localState, showOrdersListModal: value });
@@ -59,8 +61,8 @@ const PepperestProvider = (props) => {
         },
         updateShowEditProductModal: (value, product) => {
           setLocalState({ ...localState,
+            productForUpdate: product,
             showEditProductModal: value,
-            productForUpdate: product
            });
         },
         updateShowReportIssueModal: (value) => {
@@ -69,8 +71,8 @@ const PepperestProvider = (props) => {
         updateShowBlockCustomerModal: (value) => {
           setLocalState({ ...localState, showBlockCustomerModal: value });
         },
-        updateShowDeleteProductModal: (value) => {
-          setLocalState({ ...localState, showDeleteProductModal: value });
+        updateShowDeleteProductModal: (value, productForDeleting={}) => {
+          setLocalState({ ...localState, productForDeleting, showDeleteProductModal: value });
         },
         updateShowRefundCustomerModal: (value) => {
           setLocalState({ ...localState, showRefundCustomerModal: value });

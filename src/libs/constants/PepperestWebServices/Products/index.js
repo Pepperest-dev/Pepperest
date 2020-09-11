@@ -5,6 +5,7 @@ export default {
 	PUBLISH_SINGLE_PRODUCT: '/EscrowBackend/api/product/add',
 	PUBLISH_SINGLE_SOCIAL_PRODUCT: '/EscrowBackend/api/product/social/publishSingleProducts',
 	UPDATE_PRODUCT: '/EscrowBackend/api/product/update',
+	REMOVE_PRODUCT: '/EscrowBackend/api/product/remove',
 }
 
 export const ErrorMessages = {

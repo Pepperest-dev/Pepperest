@@ -19,7 +19,8 @@ export const SOCIAL_PROVIDERS = {
     },
     facebook : {
         client_id : '2253727468182840',
-        redirectURL : 'https://pepperest-live.herokuapp.com/login',
+        redirectURL : 'http://localhost:3001/login',
+        // redirectURL : 'https://pepperest-live.herokuapp.com/login',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }
@@ -27,7 +28,8 @@ export const SOCIAL_PROVIDERS = {
 export const SOCIAL_STORE_PROVIDERS = {
     facebook : {
         merchant_id : '2253727468182840',
-        redirectURL : 'https://pepperest-live.herokuapp.com/products/instagram',
+        redirectURL : 'http://localhost:3001/products/instagram',
+        // redirectURL : 'https://pepperest-live.herokuapp.com/products/instagram',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }
@@ -44,5 +46,3 @@ export const SOCIAL_STORE_PROVIDERS = {
 // "options":{"raw":{"language":"json"}}},"url":"https://pepperest.com/EscrowBackend/api/product/social/getInfo","description":"This endpoint fetches a users pages from facebook or instagram using the code sent to the callback url."},"response":[]},
 
 // http://localhost:3001/login?code=AQAGaH0WRRqrwgm7PdGIN46WP0ZGzn34hEwlCpk7-HLpzp26ntnxW2Bgfm4Xx6S0HBGYIV_RUl9Ubpf_4bmCzh0m1QNZf6cNMf1Cs-W59ryU8NB6_JbFw-Xb4gxFdda1N6lPc4fEAcl7pU8VxvJWWhVwROcsLuBP775L4Bi51zJ3BiLjv6QekwJSpx9r1EUtaon1Ty3TiQOFv4MtHQ14gnXTEGrIrrTCWfjHA9kZvp5fnaHCQJcyhEgrSGjcB-Anl1f3D98XEpZLheKFC9Aso1zGlEvisVvW2QKmMag7Z4O4JmRfA_3PwyQy6cLVYnnhai0&state=%7B%22provider%22%3A%22facebook%22%7D#_=_
-
-

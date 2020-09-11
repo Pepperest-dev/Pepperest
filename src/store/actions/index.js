@@ -20,6 +20,7 @@ export {
 	publishSingleSocialProduct,
 	selectPage,
 	updateProduct,
+	removeProduct,
 }
 from './products';
 

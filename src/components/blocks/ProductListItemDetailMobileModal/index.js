@@ -8,18 +8,20 @@ import { getStringHash } from 'libs/utils';
 
 
 
-const ProductListItemDetailMobileModal = ({  productID,
-  productName,
-  dateCreated,
-  deliveryDate,
-  productDescription,
-  amount,
-  transactions,
-  recentTransactions,
-  onClick,
+const ProductListItemDetailMobileModal = (props) => {
+  const context = useContext(PepperestContext);
+  const {  productID,
+    productName,
+    dateCreated,
+    deliveryDate,
+    productDescription,
+    amount,
+    transactions,
+    recentTransactions,
+    onClick,
 
-}) => {
-  const pepperestContext = useContext(PepperestContext);
+  } = context.state.productDetails
+  console.log(context);
   const [state, setState] = useState({
     isRecentTransactionActive: false,
     style: {},
@@ -54,7 +56,7 @@ const ProductListItemDetailMobileModal = ({  productID,
       <div
         className="list-modal"
         onClick={() => {
-          pepperestContext.updateShowProductListModal(false);
+          context.updateShowProductListModal(false);
         }}
       >
         <div
@@ -136,45 +138,34 @@ const ProductListItemDetailMobileModal = ({  productID,
                   </p>
                 </li>
                 <div className="list-modal__list-item list-modal__list-item__alternate">
-                  <PepperestContext.Consumer>
-                    {(context) => (
-                      <div
-                        role="presentation"
-                        className="button button-md button--grey"
-                        onClick={() => {
-                          context.updateShowEditProductModal(true);
-                        }}
-                      >
-                        Edit Product
-                      </div>
-                    )}
-                  </PepperestContext.Consumer>
-                  <PepperestContext.Consumer>
-                    {(context) => (
-                      <div
-                        role="presentation"
-                        className="button button-md button--grey"
-                        onClick={() => {
-                          context.updateShowDeleteProductModal(true);
-                        }}
-                      >
-                        Delete Product
-                      </div>
-                    )}
-                  </PepperestContext.Consumer>
-                  <PepperestContext.Consumer>
-                    {(context) => (
-                      <div
-                        role="presentation"
-                        className="button button-md button--grey"
-                        onClick={() => {
-                          context.updateShowReportIssueModal(true);
-                        }}
-                      >
-                        Report an issue
-                      </div>
-                    )}
-                  </PepperestContext.Consumer>
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowEditProductModal(true , context.state.productDetails);
+                    }}
+                    >
+                    Edit Product
+                  </div>
+
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowDeleteProductModal(true, {productID,productName});
+                    }}
+                    >
+                    Delete Product
+                  </div>
+                  <div
+                    role="presentation"
+                    className="button button-md button--grey"
+                    onClick={() => {
+                      context.updateShowReportIssueModal(true);
+                    }}
+                    >
+                    Report an issue
+                  </div>
                 </div>
               </>
             ) : (
@@ -191,7 +182,7 @@ const ProductListItemDetailMobileModal = ({  productID,
                     </div>
                   </div>
                 </li>
-              ))}                
+              ))}
                 {/* <li className="list-modal__list-item list-modal__list-item--alt">
                   <p className="list-item-detail__main-item__title">
                     NGN 5,0000
