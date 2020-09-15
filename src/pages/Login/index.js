@@ -1,17 +1,16 @@
-import React from 'react';
-import { withAuthLayout } from 'components/layouts';
-import {
-  AuthFooter, Alert,
-} from 'components/blocks';
-import { LoginForm } from 'components/forms'
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from "react";
+import { withAuthLayout } from "components/layouts";
+import { AuthFooter, Alert } from "components/blocks";
+import { LoginForm } from "components/forms";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Login = (props) => {
-  if(props.token){
-    return <Redirect to="/payments"/>;
+  if (props.token) {
+    return <Redirect to="/onboarding" />;
+    // return <Redirect to="/payments"/>;
   }
-  return(
+  return (
     <>
       <div className="auth-panel">
         <div className="auth-panel__head">
@@ -27,21 +26,17 @@ const Login = (props) => {
         url="/register"
         label="I DON'T HAVE AN ACCOUNT ?"
         isAlternate
-      />{
-        <Alert
-          message= {props.error}
-          isError = {true}
-        />
-      }
+      />
+      {<Alert message={props.error} isError={true} />}
     </>
-  )
-}
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-      token: state.auth.token,
-      error: state.auth.error
+    token: state.auth.token,
+    error: state.auth.error,
   };
 };
 
-export default withAuthLayout(connect(mapStateToProps, null )(Login), {});
+export default withAuthLayout(connect(mapStateToProps, null)(Login), {});

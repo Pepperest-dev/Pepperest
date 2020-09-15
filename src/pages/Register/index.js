@@ -1,30 +1,29 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useState } from 'react';
-import { withAuthLayout } from 'components/layouts';
-import { getStringHash } from 'libs/utils';
-import {
-  AuthFooter, FeatureListItem, Alert
-} from 'components/blocks';
-import { RegisterForm } from 'components/forms'
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from "react";
+import { withAuthLayout } from "components/layouts";
+import { getStringHash } from "libs/utils";
+import { AuthFooter, FeatureListItem, Alert } from "components/blocks";
+import { RegisterForm } from "components/forms";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const FEATURES = [
-  '24/7 Customer Care Support',
-  'Fastest refunds',
-  'Zero setup costs',
-  'Merchant Financing available',
+  "24/7 Customer Care Support",
+  "Fastest refunds",
+  "Zero setup costs",
+  "Merchant Financing available",
 ];
 const OPTIONS = [
-  { value: '', label: 'View less about pepperest' },
-  { value: 'view-more', label: 'View more about pepperest' },
+  { value: "", label: "View less about pepperest" },
+  { value: "view-more", label: "View more about pepperest" },
 ];
 const Register = (props) => {
   const [viewMore, setViewMore] = useState(false);
   const updateViewMore = () => setViewMore(!viewMore);
-  if(props.token){
-    return <Redirect to="/payments"/>;
+  if (props.token) {
+    return <Redirect to="/onboarding" />;
+    // return <Redirect to="/payments"/>;
   }
   return (
     <>
@@ -35,9 +34,7 @@ const Register = (props) => {
           </h2>
           <p
             className={`auth-register__info-section-detail ${
-              !viewMore
-                ? 'hide-mobile'
-                : 'show-mobile-block'
+              !viewMore ? "hide-mobile" : "show-mobile-block"
             }`}
           >
             Get on board with Pepperest and start selling to your customers or
@@ -46,9 +43,7 @@ const Register = (props) => {
           <div>
             <ul
               className={`auth-register__info-section-feature__list ${
-                !viewMore
-                  ? 'hide-mobile'
-                  : 'show-mobile-flex'
+                !viewMore ? "hide-mobile" : "show-mobile-flex"
               }`}
             >
               {FEATURES.map((feature, index) => (
@@ -56,8 +51,15 @@ const Register = (props) => {
               ))}
             </ul>
           </div>
-          <div className="button button--orange-outline d-flex d-lg-none flex-row justify-content-between px-3 mt-4" onClick={() => { updateViewMore(); }}>
-            { !viewMore ? 'View more about pepperest' : 'View less about pepperest'}
+          <div
+            className="button button--orange-outline d-flex d-lg-none flex-row justify-content-between px-3 mt-4"
+            onClick={() => {
+              updateViewMore();
+            }}
+          >
+            {!viewMore
+              ? "View more about pepperest"
+              : "View less about pepperest"}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
@@ -76,7 +78,8 @@ const Register = (props) => {
         <div className="auth-register__form-section">
           <RegisterForm />
           <p className="auth-terms-condition">
-            I agree to the <a href="/">Pepperest Agreement</a> and <a href="/">Terms</a>.
+            I agree to the <a href="/">Pepperest Agreement</a> and{" "}
+            <a href="/">Terms</a>.
           </p>
         </div>
       </div>
@@ -86,20 +89,15 @@ const Register = (props) => {
         label="ALREADY HAVE AN ACCOUNT ?"
         isAlternate={false}
       />
-      {
-        <Alert
-          message= {props.error}
-          isError = {true}
-        />
-      }
+      {<Alert message={props.error} isError={true} />}
     </>
   );
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-      token: state.auth.token,
-      error: state.auth.error
+    token: state.auth.token,
+    error: state.auth.error,
   };
 };
 
-export default withAuthLayout(connect(mapStateToProps, null )(Register), {});
+export default withAuthLayout(connect(mapStateToProps, null)(Register), {});
