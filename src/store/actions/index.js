@@ -20,6 +20,7 @@ export {
 	publishSingleSocialProduct,
 	selectPage,
 	updateProduct,
+	removeProduct,
 }
 from './products';
 
@@ -48,3 +49,13 @@ export {
 	removeItemFromCart
 }
 from './cart'
+
+export {
+	getMerchantStoreProducts,
+}
+from './merchant'
+
+export {
+	setAlert,
+}
+from './alert'

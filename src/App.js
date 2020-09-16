@@ -5,6 +5,7 @@ import {
 import { PageNotFound } from 'pages';
 import { getStringHash } from 'libs/utils';
 import PepperestProvider from 'components/helpers/PepperestProvider';
+import Alert from 'components/shared/Alert';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 
@@ -23,20 +24,23 @@ function App(props) {
     <PepperestProvider>
       <Router>
         <Suspense fallback={<div>Loading....</div>}>
+          <>
+          <Alert/>
           <Switch>
             {routes.map(({
               path, component, exact, isProtected,
-            }) => 
+            }) =>
               <Route
                 key={getStringHash(path)}
                 path={path}
                 exact={exact}
                 component={component}
-              /> 
+              />
             )}
             <Route path="/404" component={PageNotFound} />
             <Redirect to={{ pathname: '/404' }} />
           </Switch>
+          </>
         </Suspense>
       </Router>
     </PepperestProvider>

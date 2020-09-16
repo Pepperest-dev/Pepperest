@@ -68,6 +68,30 @@ export const updateProduct = ( token, user, extraParams = {}) => {
 	}
 }
 
+export const removeProduct = ( token, user, extraParams = {}) => {
+	return dispatch => {
+		const headers = {
+			Authorization: token,
+			customerID: user.customerID
+		}
+		const params = {
+			merchantID: user.customerID,
+			...extraParams
+		}
+		PepperestAxios.get(Products.REMOVE_PRODUCT,{
+				params,
+				headers
+			})
+		.then((response) => {
+			console.log(response.data);
+			const products = response.data.products.data
+			// const meta = response.data.products.meta
+			// const links = response.data.products.links
+			dispatch( updateStoreProducts( products ) )
+		}).catch((error) => console.error(error.response))
+	}
+}
+
 export const getFacebookPages = ( token, user, extraParams = {} ) => {
 	return dispatch => {
 		dispatch( loadingFacebookPages() )
@@ -176,6 +200,13 @@ export const loadedProduct = ( products, meta, links ) => {
 		update: update,
 	};
 }
+const updateStoreProducts = (products) =>{
+	return {
+		type: actionTypes.UPDATE_STORE_PRODUCTS,
+		products
+	}
+}
+
 export const failedToLoadProduct = ( error ) => {
 	return {
 		type: actionTypes.LOADING_PRODUCTS,

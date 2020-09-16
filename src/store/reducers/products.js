@@ -33,6 +33,10 @@ const loadedProducts = ( state, action ) => {
 	return updateObject( state, action.update );
 }
 
+const updateStoreProducts = (state, action) => {
+	return updateObject(state, {products: action.products})
+}
+
 const failedToLoadProducts = ( state, action ) => {
 	return updateObject( state, {
 		loading: false,
@@ -87,6 +91,8 @@ const reducer = ( state = initialState, action ) => {
 			return loading( state, action );
 		case actionTypes.FINISHED_LOADING_PRODUCTS:
 			return loadedProducts( state, action );
+		case actionTypes.UPDATE_STORE_PRODUCTS:
+			return updateStoreProducts(state, action);
 		case actionTypes.LOADING_PRODUCTS_FAILED:
 			return failedToLoadProducts( state, action )
 		case actionTypes.LOADING_FACEBOOK_PAGES:

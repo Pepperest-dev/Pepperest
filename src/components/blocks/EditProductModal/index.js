@@ -17,11 +17,11 @@ import * as actions from 'store/actions/index';
 const EditProductModal = (props) => {
   const {user, token, updateProduct, context} = props
   const { state : {productForUpdate}} = context
-  const [ProductName, setProductName] = useState(productForUpdate.productName)
-  const [ProductDescription, setProductDescription] = useState(productForUpdate.productDescription)
-  const [ChangeAmount, setChangeAmount] = useState(productForUpdate.amount)
+  const [ProductName, setProductName] = useState(productForUpdate?.productName)
+  const [ProductDescription, setProductDescription] = useState(productForUpdate?.productDescription)
+  const [ChangeAmount, setChangeAmount] = useState(productForUpdate?.amount)
   const [ChangeCurrency, setChangeCurrency] = useState("")
-  const [DeliveryPeriod, setDeliveryPeriod] = useState(productForUpdate.deliveryDate)
+  const [DeliveryPeriod, setDeliveryPeriod] = useState(productForUpdate?.deliveryDate)
   const [Link, setLink] = useState(context.state.item)
   const [error, setError] = useState(false)
 
@@ -189,10 +189,10 @@ const EditProductModal = (props) => {
             >
             CANCEL
           </div>
-          <div className="button button-md button--orange">
+          <button type='submit' className="button button-md button--orange">
             EDIT PRODUCT
             {/* <SpinnerIcon /> */}
-          </div>
+          </button>
         </div>
       </div>
     </div>

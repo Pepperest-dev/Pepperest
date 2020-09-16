@@ -23,6 +23,7 @@ const UserAccountPage = lazy(() => import("pages/UserAccountPage"));
 const MerchantProductsPage = lazy(() => import("pages/MerchantProductsPage"));
 const CheckoutPage = lazy(() => import("pages/CheckoutPage"));
 const InvoicePage = lazy(() => import("pages/InvoicePage"));
+const OnboardingPage = lazy(() => import("pages/OnboardingPage"));
 const ShoppingCartPage = lazy(() => import("pages/ShoppingCartPage"));
 const ConfirmationPage = lazy(() => import("pages/ConfirmationPage"));
 const ConfirmCheckoutPage = lazy(() => import("pages/ConfirmCheckoutPage"));
@@ -113,8 +114,8 @@ const routes = [
     isProtected: true,
   },
   {
-    path: "/merchant",
-    exact: true,
+    path: "/merchant/:id",
+    exact: false,
     component: MerchantProductsPage,
     isProtected: false,
   },
@@ -146,6 +147,12 @@ const routes = [
     path: "/invoice",
     exact: true,
     component: InvoicePage,
+    isProtected: true,
+  },
+  {
+    path: "/onboarding",
+    exact: true,
+    component: OnboardingPage,
     isProtected: true,
   },
 ];
