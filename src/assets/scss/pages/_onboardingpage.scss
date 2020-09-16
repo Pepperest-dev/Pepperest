@@ -1,0 +1,121 @@
+.onboarding_page {
+  padding: 0px;
+
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    @include desktop {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+  }
+  .onboarding-header > h1 {
+    padding: 50px 0 20px 20px;
+    font-weight: 600;
+    @include desktop {
+      padding: 50px 0 20px 0;
+    }
+  }
+  .onboarding-header > p {
+    padding: 0 0 20px 20px;
+    @include desktop {
+      padding: 0 0 20px 0;
+    }
+  }
+  .onboarding-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    padding: 0 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    animation: moveUpAndDown 2s linear 0s infinite forwards;
+    @include desktop {
+      flex-basis: 100%;
+    }
+  }
+  .onboarding-item:hover {
+    box-shadow: 0 1px 5px #ff721b27;
+  }
+  .onboarding-item:nth-child(1),
+  .onboarding-item:nth-child(2),
+  .onboarding-item:nth-child(3) {
+    margin: 10px 10px;
+
+    @include desktop {
+      margin-right: 10px;
+      margin-left: 0;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+  .onboarding-item:nth-child(4) {
+    margin: 10px 10px;
+    @include desktop {
+      margin-right: 10px;
+      margin-left: 0;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+  .onboarding-item > button {
+    display: inline-block;
+    width: 100%;
+    font: inherit;
+    position: relative;
+    color: #fff;
+    background-color: #ff721b;
+    border: 0px solid transparent;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.625rem 0.9rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 1px #ffffff inset, 0 1px 3px rgba(34, 25, 25, 0.4);
+  }
+  .ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+  .ripple::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #ddd 10%, transparent 10.01%);
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 1s;
+  }
+  .ripple:active::after {
+    transform: scale(0, 0);
+    opacity: 0.3;
+    transition: 0s;
+  }
+  .onboarding-item > button:focus {
+    outline: none;
+  }
+  @keyframes moveUpAndDown {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    95% {
+      transform: translateY(10px);
+    }
+  }
+}
