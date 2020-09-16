@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductIcon } from 'components/vectors';
 import PropTypes from 'prop-types';
 
-const MerchantProductCard = ({productID, productName, dateCreated, transactions, deliveryDate, amount, productDescription,}) => (
+const MerchantProductCard = ({item: {productID, productName, dateCreated, transactions, deliveryDate, amount, productDescription,}}) => (
   <div className="merchant-product-card">
     <div className="merchant-product-card__top">
       <div className="merchant-product-card__image-wrapper">

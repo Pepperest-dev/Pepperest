@@ -6,6 +6,7 @@ import { MerchantStoreHeader, HeaderAlternate, CommonHeader } from "components/s
 import { SettingsNavigationBar } from "components/blocks";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import * as actions from 'store/actions/index';
 
 
 const config = {
@@ -36,6 +37,9 @@ class MerchantProductsPage extends Component {
     }
 
     componentDidMount() {
+      // console.log(this.props.match.params.id);
+      console.log(this.props);
+      this.props.getMerchant(this.props.match.params.id)
       this.updateIsDesktop();
       window.addEventListener("resize", this.updateIsDesktop);
     }
@@ -61,6 +65,10 @@ class MerchantProductsPage extends Component {
         showCommonHeaderOnDesktop,
         navBarTitle,
       } = this.state;
+
+      const {
+        products,
+      } = this.props;
       return (
         <div>
 
@@ -89,15 +97,15 @@ class MerchantProductsPage extends Component {
               <div className="max-content">
                 <div className="">
                   <ul className="row">
-                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((x) => (
+                    {products.map((item) => (
                       <div className="col-12 col-md-6 col-lg-3" key={getStringHash()}>
-                        <MerchantProductCard />
+                        <MerchantProductCard item={item} />
                       </div>
                     ))}
                   </ul>
                 </div>
               </div>
-          
+
             </div>
           </div>
 
@@ -126,16 +134,27 @@ class MerchantProductsPage extends Component {
                   </span>
                 </div>
               </div>
-        
+
         </div>
       )
-    } 
+    }
   };
   const mapStateToProps = (state) => {
     return {
       user: state.auth.userInfo,
+      products: state.merchant.products,
+    	meta: state.merchant.meta,
+    	links: state.merchant.links,
+      loaded: state.merchant.loaded,
+      loading: state.merchant.loading,
+      error: state.merchant.error
     };
   };
 
-export default connect(mapStateToProps, null)(MerchantProductsPage);
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      getMerchant: merchantCode => dispatch(actions.getMerchantStoreProducts(merchantCode))
+    }
+  }
 
+export default connect(mapStateToProps, mapDispatchToProps)(MerchantProductsPage);

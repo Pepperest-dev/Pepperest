@@ -113,8 +113,8 @@ const routes = [
     isProtected: true,
   },
   {
-    path: "/merchant",
-    exact: true,
+    path: "/merchant/:id",
+    exact: false,
     component: MerchantProductsPage,
     isProtected: false,
   },
