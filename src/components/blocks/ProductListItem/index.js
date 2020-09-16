@@ -6,14 +6,17 @@ import { ProductListItemDetails } from 'components/blocks';
 import { PepperestContext } from 'components/helpers/constant';
 
 
-const ProductListItem = ({
-  date, productName, productDescription, amount, productID, dateCreated, deliveryDate, transactions, recentTransactions,
-}) => {
+const ProductListItem = (props) => {
+  const {
+    date, productName, productDescription, amount,
+    productID, dateCreated, deliveryDate, transactions,
+    recentTransactions,
+  } = props
   const [isProductListDetailsOpen, setProductListDetailsOpen] = useState(false);
   const updateProductListDetailsOpen = (value) => setProductListDetailsOpen(value);
   const pepperestContext = useContext(PepperestContext);
   const handleListClick = () => {
-    pepperestContext.updateShowProductListModal(true);
+    pepperestContext.updateShowProductListModal(true, props);
     updateProductListDetailsOpen(!isProductListDetailsOpen);
   };
 
