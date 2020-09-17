@@ -72,7 +72,9 @@ class MerchantProductsPage extends Component {
       return (
         <div>
 
-          <div className="merchant">
+          <div >
+          {/* <div className="merchant"> */}
+
             <div className="list">
               {/* <ListHeader /> */}
               {isSettings && !isDesktop ? null : <MerchantStoreHeader />}
