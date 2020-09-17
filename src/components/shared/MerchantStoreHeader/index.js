@@ -133,7 +133,7 @@ const MerchantStoreHeader = (props) => {
                   Settings
                 </a>
                 <a type="text" value={`/merchant/${props.user?.merchantCode}`} id="storelink" className="dropdown__list-item"> {`/merchant/${props.user?.merchantCode}`}
-                 <button onClick={() => handleCopy(`http://localhost:3001/merchant/${props.user?.merchantCode}`)} style={{float:'right', color:'#fff', backgroundColor:'#ff721b'}} aria-label="Copy link"> Click To Copy</button>
+                 <button onClick={() => handleCopy(`http://pepperest-live.herokuapp.com/merchant/${props.user?.merchantCode}`)} style={{float:'right', color:'#fff', backgroundColor:'#ff721b'}} aria-label="Copy link"> Click To Copy</button>
                 </a>
                 <a href="/user-account/loans" className="dropdown__list-item">
                   Request Loan
