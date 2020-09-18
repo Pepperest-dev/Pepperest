@@ -118,6 +118,7 @@ const Header = (props) => {
                 <a href="/user-account/loans" className="dropdown__list-item">
                   Request Loan
                 </a>
+                <a type="text" href={`/merchant/${props.user.merchantCode}`} id="storelink" className="dropdown__list-item"> My Merchant Store</a>
                 <Link 
                   to={"/logout"}
                   className="dropdown__list-item">Logout
