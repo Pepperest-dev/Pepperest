@@ -34,7 +34,7 @@ const ShoppingCartPage = (props) => {
       <div className="row">
         <div className="col-12 col-lg-8">
           <div className="cart-list">
-            {cart.items.map((item) => (
+            {cart.items?.map((item) => (
               <CartItem key={item.id} item={item}/>
             ))}
           </div>
