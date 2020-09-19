@@ -2,8 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import * as actions from 'store/actions/index';
 
-const CommonHeader = ({ history, showCart, commonHeaderTitle }) => (
+const CommonHeader = ({ history, showCart, commonHeaderTitle, cart }) => (
   <div className="nsHeader-alternate">
     <div className="nsHeader-main">
       <h4 className="nsHeader-main-title">{commonHeaderTitle}</h4>
@@ -11,7 +13,7 @@ const CommonHeader = ({ history, showCart, commonHeaderTitle }) => (
           showCart ? (
             <div role="button" tabIndex="0" className="button button-md button--orange d-flex flex-row" onClick={() => { history.push('/cart'); }}>
               My Cart
-              <div className="mBadge-alt">12</div>
+              {cart != null ? <div className="mBadge-alt">{cart.items?.length}</div>: ''}
             </div>
           ) : null
       }
@@ -28,4 +30,10 @@ CommonHeader.propTypes = {
   commonHeaderTitle: PropTypes.string.isRequired,
 };
 
-export default withRouter(CommonHeader);
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart.cart
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(CommonHeader))
