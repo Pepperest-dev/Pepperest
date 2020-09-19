@@ -73,7 +73,7 @@ export const removeItemFromCart = (token, user, cart_id, productID, quantity=1) 
      }
      PepperestAxios.post(Cart.REMOVE, body, headers)
      .then(response => {
-       const cart = { cart: response.data.cart }
+       const cart = { cart: response.data.cart, loaded: true }
        dispatch(loadedCart(cart))
        dispatch( setAlert('Item removed', 'success', getStringHash()))
 

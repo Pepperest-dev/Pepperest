@@ -13,7 +13,7 @@ const CommonHeader = ({ history, showCart, commonHeaderTitle, cart }) => (
           showCart ? (
             <div role="button" tabIndex="0" className="button button-md button--orange d-flex flex-row" onClick={() => { history.push('/cart'); }}>
               My Cart
-              {cart != null ? <div className="mBadge-alt">{cart.items?.length}</div>: ''}
+              {cart != null ? <div className="mBadge-alt">{cart?.items_count}</div>: ''}
             </div>
           ) : null
       }
