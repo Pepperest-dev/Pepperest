@@ -7,8 +7,8 @@ import { DownChevron, HamburgerIcon } from 'components/vectors';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+// import { ToastContainer, toast } from "react-toastify"
+// import "react-toastify/dist/ReactToastify.css"
 
 const navLinks = [
   {
@@ -37,15 +37,15 @@ const MerchantStoreHeader = (props) => {
   console.log(props);
   const [state, setState] = useState({ isMobileMenuOpen: false });
 
-  const handleCopy = (text) => {
-    var textField = document.createElement('textarea')
-    textField.innerText = text
-    document.body.appendChild(textField)
-    textField.select()
-    document.execCommand('copy')
-    textField.remove()
-    toast.success(`Copied: ${textField.value} `)
-  }
+  // const handleCopy = (text) => {
+  //   var textField = document.createElement('textarea')
+  //   textField.innerText = text
+  //   document.body.appendChild(textField)
+  //   textField.select()
+  //   document.execCommand('copy')
+  //   textField.remove()
+  //   toast.success(`Copied: ${textField.value} `)
+  // }
 
 
   return (
@@ -132,9 +132,10 @@ const MerchantStoreHeader = (props) => {
                 <a href="/user-account/profile" className="dropdown__list-item">
                   Settings
                 </a>
-                <a type="text" value={`/merchant/${props.user?.merchantCode}`} id="storelink" className="dropdown__list-item"> {`/merchant/${props.user?.merchantCode}`}
-                 <button onClick={() => handleCopy(`http://localhost:3001/merchant/${props.user?.merchantCode}`)} style={{float:'right', color:'#fff', backgroundColor:'#ff721b'}} aria-label="Copy link"> Click To Copy</button>
+                {/* <a type="text" value={`/merchant/${props.user?.merchantCode}`} id="storelink" className="dropdown__list-item"> {`/merchant/${props.user?.merchantCode}`}
+                 <button onClick={() => handleCopy(`http://pepperest-live.herokuapp.com/merchant/${props.user?.merchantCode}`)} style={{float:'right', color:'#fff', backgroundColor:'#ff721b'}} aria-label="Copy link"> Click To Copy</button>
                 </a>
+                 */}
                 <a href="/user-account/loans" className="dropdown__list-item">
                   Request Loan
                 </a>

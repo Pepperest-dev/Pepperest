@@ -7,6 +7,8 @@ import { DownChevron, HamburgerIcon } from 'components/vectors';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const navLinks = [
   {
@@ -33,6 +35,18 @@ const navLinks = [
 
 const Header = (props) => {
   const [state, setState] = useState({ isMobileMenuOpen: false });
+
+  
+  const handleCopy = (text) => {
+    var textField = document.createElement('textarea')
+    textField.innerText = text
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+    toast.success(`Copied: ${textField.value} `)
+  }
+
   return (
     <div className="nsHeader">
       <div className="nsHeader-main">
@@ -118,7 +132,9 @@ const Header = (props) => {
                 <a href="/user-account/loans" className="dropdown__list-item">
                   Request Loan
                 </a>
-                <a type="text" href={`/merchant/${props.user.merchantCode}`} id="storelink" className="dropdown__list-item"> My Merchant Store</a>
+                <a href={`/merchant/${props.user?.merchantCode}`} id="storelink" className="dropdown__list-item"> My Store
+                 <button onClick={() => handleCopy(`http://pepperest-live.herokuapp.com/merchant/${props.user?.merchantCode}`)} style={{float:'right', color:'#fff', backgroundColor:'#ff721b'}} aria-label="Copy link"> Click To Copy</button>
+                </a>
                 <Link 
                   to={"/logout"}
                   className="dropdown__list-item">Logout
