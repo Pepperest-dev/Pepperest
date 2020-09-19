@@ -46,7 +46,9 @@ from './userAccount';
 
 export {
 	loadCustomerCart,
-	removeItemFromCart
+	addToCart,
+	removeItemFromCart,
+	productCheck
 }
 from './cart'
 
