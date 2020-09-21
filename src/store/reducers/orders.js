@@ -2,7 +2,10 @@ import { PAGE_TYPES as OrdersPageTypes } from "libs/constants/PepperestWebServic
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
-const initialState = {};
+const initialState = {
+  addresses: [],
+  addressError: null
+};
 Object.values(OrdersPageTypes).forEach((pageTypes) => {
   initialState[pageTypes] =
     pageTypes !== OrdersPageTypes.DASHBOARD
@@ -36,6 +39,17 @@ const loading = (state, action) => {
   return updateObject(state, update);
 };
 
+const setAddress = (state, action) => {
+  const update = {
+    addresses: action.addresses
+  }
+  return updateObject(state, update)
+}
+
+const addressError = (state, action) => {
+  return updateObject(state, {addressError: true})
+}
+
 const loadedOrder = (state, action) => {
   const update = {};
   update[action.pageType] = action.pageTypeUpdate;
@@ -65,6 +79,10 @@ const reducer = (state = initialState, action) => {
       return loadedOrder(state, action);
     case actionTypes.LOADING_ORDERS_FAILED:
       return failedToLoadOrder(state, action);
+    case actionTypes.LOAD_ADDRESS:
+      return setAddress(state, action)
+    case actionTypes.LOAD_ADDRESS_ERROR:
+      return addressError(state, action)
     default:
       return state;
   }

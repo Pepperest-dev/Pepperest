@@ -26,6 +26,7 @@ const PepperestProvider = (props) => {
     productForUpdate: {},
     productDetails: {},
     productForDeleting: {},
+    address: {},
   });
   return (
     <PepperestContext.Provider
@@ -80,11 +81,11 @@ const PepperestProvider = (props) => {
         updateShowAddNewAddressModal: (value) => {
           setLocalState({ ...localState, showAddNewAddressModal: value });
         },
-        updateShowEditAddressModal: (value) => {
-          setLocalState({ ...localState, showEditAddressModal: value });
+        updateShowEditAddressModal: (value, address={}) => {
+          setLocalState({ ...localState, address, showEditAddressModal: value });
         },
-        updateShowRemoveAddressModal: (value) => {
-          setLocalState({ ...localState, showRemoveAddressModal: value });
+        updateShowRemoveAddressModal: (value, address={}) => {
+          setLocalState({ ...localState, address, showRemoveAddressModal: value });
         },
         updateShowPublishInstagramImageModal: (value, item) => {
           setLocalState({

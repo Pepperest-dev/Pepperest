@@ -2,6 +2,10 @@ import PepperestAxios from '../../libs/utils/PepperestAxios'
 import { Orders, OrdersErrorMessages } from '../../libs/constants/PepperestWebServices';
 import * as actionTypes from './actionTypes';
 import { PAGE_TYPES as OrdersPageTypes } from 'libs/constants/PepperestWebServices/Orders';
+import {setAlert} from './alert'
+import { getStringHash } from 'libs/utils';
+
+// dispatch( setAlert('An error occurred.', 'error', getStringHash()))
 
 export const loadOrders = (token, user, pageType, extraParams = {}) => {
     return dispatch => {
@@ -36,6 +40,107 @@ export const loadOrders = (token, user, pageType, extraParams = {}) => {
             dispatch(failedToLoadOrders(pageType, OrdersErrorMessages.getHistoryFailed))
         })
     };
+}
+
+export const getAddress = (token, user) => {
+    return dispatch => {
+        // dispatch(loadingOrders(pageType))
+        const headers = {
+            Authorization : token,
+            customerID : user.customerID
+        }
+        const params = {
+            customerID : user.customerID,
+        }
+        PepperestAxios.get(Orders.ADDRESS, { params, headers })
+          .then(response => {
+            dispatch( setAddress(response.data.addresses))
+            }
+        )
+        .catch(error => {
+            dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+            dispatch( addressError())
+            // dispatch(failedToLoadOrders(pageType, OrdersErrorMessages.getHistoryFailed))
+        })
+    };
+}
+
+export const addAddress = (token, user, extraParams={}) => {
+  return dispatch => {
+    const headers = {
+        Authorization : token,
+        customerID : user.customerID
+    }
+    const body = {
+        customerID : user.customerID,
+        name: user.name,
+        ...extraParams
+    }
+    PepperestAxios.post(Orders.ADD_ADDRESS, body, headers)
+        .then(response => {
+          dispatch( setAddress(response.data.addresses))
+          dispatch( setAlert('Address added.', 'success', getStringHash()))
+        }).catch(error => {
+            console.error(error.response);
+            dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+        })
+  }
+}
+
+// export const deleteAddress = (token, user, extraParams={}) => {
+//   return dispatch => {
+//     const headers = {
+//         Authorization : token,
+//         customerID : user.customerID
+//     }
+//     const body = {
+//         customerID : user.customerID,
+//         ...extraParams
+//     }
+//     PepperestAxios.post(Orders.ADD_ADDRESS, body, headers)
+//         .then(response => {
+//           dispatch( setAddress(response.data.addresses))
+//           dispatch( setAlert('Address added.', 'success', getStringHash()))
+//         }).catch(error => {
+//             console.error(error.response);
+//             dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+//         })
+//   }
+// }
+
+export const editAddress = (token, user, extraParams={}) => {
+  return dispatch => {
+    const headers = {
+        Authorization : token,
+        customerID : user.customerID
+    }
+    const body = {
+        customerID : user.customerID,
+        name: user.name,
+        ...extraParams
+    }
+    PepperestAxios.post(Orders.UPDATE_ADDRESS, body, headers)
+        .then(response => {
+          dispatch( setAddress(response.data.addresses))
+          dispatch( setAlert('Address updated.', 'success', getStringHash()))
+        }).catch(error => {
+            console.error(error.response);
+            dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+        })
+  }
+}
+
+const setAddress = (addresses) => {
+  return {
+    type: actionTypes.LOAD_ADDRESS,
+    addresses
+  }
+}
+
+const addressError = () => {
+  return {
+    type: actionTypes.LOAD_ADDRESS_ERROR
+  }
 }
 
 export const loadingOrders  = (pageType) => {

@@ -1,10 +1,13 @@
 export default {
-    ORDERS : '/EscrowBackend/api/myOrders'
+    ORDERS : '/EscrowBackend/api/myOrders',
+    ADDRESS: '/EscrowBackend/api/order/buyerAddress',
+    ADD_ADDRESS: '/EscrowBackend/api/order/buyerAddress/add',
+    UPDATE_ADDRESS: '/EscrowBackend/api/order/buyerAddress/update'
 }
 
 export const PAGE_TYPES =
 {
-    DASHBOARD : 'Dashboard', 
+    DASHBOARD : 'Dashboard',
     ALL : 'All',
     PENDING : 'Pending',
     CANCELED : 'Canceled',
