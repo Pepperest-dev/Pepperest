@@ -4,7 +4,8 @@ import { updateObject } from "../utility";
 
 const initialState = {
   addresses: [],
-  addressError: null
+  addressError: null,
+  redirectUrl: null,
 };
 Object.values(OrdersPageTypes).forEach((pageTypes) => {
   initialState[pageTypes] =
@@ -71,6 +72,11 @@ const failedToLoadOrder = (state, action) => {
   return updateObject(state, update);
 };
 
+const redirect = (state, action) => {
+  const update = {redirectUrl: action.redirectUrl}
+  return updateObject(state, update);
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOADING_ORDERS:
@@ -83,6 +89,8 @@ const reducer = (state = initialState, action) => {
       return setAddress(state, action)
     case actionTypes.LOAD_ADDRESS_ERROR:
       return addressError(state, action)
+    case actionTypes.ORDER_REDIRECT:
+      return redirect(state, action)
     default:
       return state;
   }

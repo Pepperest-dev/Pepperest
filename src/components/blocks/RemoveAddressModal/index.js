@@ -6,7 +6,9 @@ import { CloseIcon } from "components/vectors";
 import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 
-const RemoveAddressModal = (props) => (
+const RemoveAddressModal = (props) => {
+  const {context, deleteAddress} = props
+  return (
   <>
     <div className="pModal">
       <div className="pModal-overlay" />
@@ -14,29 +16,22 @@ const RemoveAddressModal = (props) => (
         <div className="pModal-header">
           {/* <h6 className="text--small">Delete Product / Service</h6> */}
           <span />
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div onClick={() => context.updateShowRemoveAddressModal(false)}>
-                <CloseIcon />
-              </div>
-            )}
-          </PepperestContext.Consumer>
+          <div onClick={() => context.updateShowRemoveAddressModal(false)}>
+            <CloseIcon />
+          </div>
         </div>
         <div className="pModal-main">
           <p>Are you sure you want to delete this address?</p>
         </div>
         <div className="pModal-footer">
-          <PepperestContext.Consumer>
-            {(context) => (
-              <div
-                className="button button--auto button-md button--neutral"
-                onClick={() => context.updateShowRemoveAddressModal(false)}
-              >
-                CANCEL
-              </div>
-            )}
-          </PepperestContext.Consumer>
-          <div className="button button-md button--orange">
+          <div
+            className="button button--auto button-md button--neutral"
+            onClick={() => context.updateShowRemoveAddressModal(false)}
+            >
+            CANCEL
+          </div>
+          <div className="button button-md button--orange"
+            onClick={() => deleteAddress({addressId: context.state.address.address_id})}>
             DELETE ADDRESS
             {/* <SpinnerIcon /> */}
           </div>
@@ -45,6 +40,6 @@ const RemoveAddressModal = (props) => (
     </div>
     <EscapeCloseModalHelper />
   </>
-);
+)}
 
 export default RemoveAddressModal;

@@ -31,10 +31,11 @@ from './customers';
 
 export {
 	loadOrders,
+	placeOrder,
 	getAddress,
 	addAddress,
 	editAddress,
-	// deleteAddress
+	deleteAddress
 }
 from './orders';
 

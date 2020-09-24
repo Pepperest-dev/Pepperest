@@ -42,6 +42,28 @@ export const loadOrders = (token, user, pageType, extraParams = {}) => {
     };
 }
 
+export const placeOrder = (token, user, extraParams={}) => {
+  return dispatch => {
+    const headers = {
+        Authorization : token,
+        customerID : user.customerID
+    }
+    const body = {
+        customerID : user.customerID,
+        ...extraParams
+    }
+    PepperestAxios.post(Orders.PLACE_ORDER, body, headers)
+        .then(response => {
+          console.log(response.data);
+          dispatch(redirect(response.data.paymentUrl))
+          dispatch( setAlert('Order placed successfully.', 'success', getStringHash()))
+        }).catch(error => {
+            console.error(error.response);
+            dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+        })
+  }
+}
+
 export const getAddress = (token, user) => {
     return dispatch => {
         // dispatch(loadingOrders(pageType))
@@ -87,26 +109,26 @@ export const addAddress = (token, user, extraParams={}) => {
   }
 }
 
-// export const deleteAddress = (token, user, extraParams={}) => {
-//   return dispatch => {
-//     const headers = {
-//         Authorization : token,
-//         customerID : user.customerID
-//     }
-//     const body = {
-//         customerID : user.customerID,
-//         ...extraParams
-//     }
-//     PepperestAxios.post(Orders.ADD_ADDRESS, body, headers)
-//         .then(response => {
-//           dispatch( setAddress(response.data.addresses))
-//           dispatch( setAlert('Address added.', 'success', getStringHash()))
-//         }).catch(error => {
-//             console.error(error.response);
-//             dispatch( setAlert('An error occurred.', 'error', getStringHash()))
-//         })
-//   }
-// }
+export const deleteAddress = (token, user, extraParams={}) => {
+  return dispatch => {
+    const headers = {
+        Authorization : token,
+        customerID : user.customerID
+    }
+    const body = {
+        customerID : user.customerID,
+        ...extraParams
+    }
+    PepperestAxios.post(Orders.REMOVE_ADDRESS, body, headers)
+        .then(response => {
+          dispatch( setAddress(response.data.addresses))
+          dispatch( setAlert('Address deleted.', 'success', getStringHash()))
+        }).catch(error => {
+            console.error(error.response);
+            dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+        })
+  }
+}
 
 export const editAddress = (token, user, extraParams={}) => {
   return dispatch => {
@@ -134,6 +156,13 @@ const setAddress = (addresses) => {
   return {
     type: actionTypes.LOAD_ADDRESS,
     addresses
+  }
+}
+
+const redirect = url => {
+  return {
+    type: actionTypes.ORDER_REDIRECT,
+    redirectUrl: url
   }
 }
 

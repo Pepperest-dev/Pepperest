@@ -28,21 +28,53 @@ const CheckoutPage = (props) => {
   const [ selectedAddress, setSelected ] = useState('')
   const context = useContext(PepperestContext)
   const {
-    history, user, token, cart, onLoadCart, getAddress, addresses
+    history, user, token, cart, onLoadCart, getAddress, addresses, redirect
   } = props
   useEffect(() => {
     if (!props.loaded && !props.loading) {
-      getAddress(token, user);
       onLoadCart(token, user);
     }
   },[])
-
+  useEffect(() => {
+    getAddress(token, user);
+  }, [])
+  useEffect(() => {
+    if(redirect){
+      window.location.href = redirect
+    }
+  })
   const postAddress = extraParams => {
     props.addAddress(token, user, extraParams)
   }
 
   const editAddress = extraParams => {
     props.editAddress(token, user, extraParams)
+  }
+
+  const deleteAddress = extraParams => {
+    props.deleteAddress(token, user, extraParams)
+    context.updateShowRemoveAddressModal(false)
+  }
+
+  const placeOrder = () => {
+    if (selectedAddress){
+      const extraParams = {
+        cart_id: cart.cart_id,
+        // total_sum: cart.total_sum,
+        // totalprice: cart.totalprice,
+        // shipping : cart.shipping,
+        // pepperestfees : cart.pepperestfees,
+        // maxdeliverydate : cart.max_delivery_period,
+        // mindeliverydate : cart.min_delivery_period,
+        address_id : selectedAddress,
+        paymentProvider : "paystack"
+      }
+      console.log(extraParams);
+      props.placeOrder(token, user, extraParams)
+      // history.push("/confirm")
+    } else {
+      props.alert(getStringHash)
+    }
   }
   return (
   <>
@@ -69,8 +101,8 @@ const CheckoutPage = (props) => {
                   <div className="flex-content_child">
                     <label className="radio-container">
                       <input type="radio"
-                        value={address.address}
-                        checked={selectedAddress === address.address}
+                        value={address.address_id}
+                        checked={selectedAddress == address.address_id}
                         onChange={event => setSelected(event.target.value)}
                         name="radio" />
                       <span className="radio-checkmark"></span>
@@ -106,7 +138,7 @@ const CheckoutPage = (props) => {
                     <div
                       className="button button-rounded"
                       onClick={() => {
-                        context.updateShowRemoveAddressModal(true);
+                        context.updateShowRemoveAddressModal(true, address);
                       }}
                       >
                       <svg
@@ -148,9 +180,7 @@ const CheckoutPage = (props) => {
             <div className="col-12 col-lg-6 mx-auto mt-lg-4 mb-3 mb-lg-0">
               <div
                 className="button button-lg button--orange"
-                onClick={() => {
-                  history.push("/confirm");
-                }}
+                onClick={() => placeOrder()}
               >
                 PLACE ORDER
               </div>
@@ -166,7 +196,7 @@ const CheckoutPage = (props) => {
               <p className="text--smaller">{cart?.items_count}</p>
             </div>
             <div className="">
-              { cart && cart.items.map((item) => (
+              { cart && cart.items?.map((item) => (
                 <div className="checkout-item" key={getStringHash()}>
                   <div className="checkout-item-image__wrapper">
                     <img
@@ -184,7 +214,7 @@ const CheckoutPage = (props) => {
                         NGN {item.price}
                       </p>
                       <p className="text--smallest text--orange">
-                        {item.deliveryPeriod} Delivery days
+                        {item.deliveryperiod} Delivery days
                       </p>
                     </div>
                   </div>
@@ -212,7 +242,7 @@ const CheckoutPage = (props) => {
     </div>
     {context.state.showAddNewAddressModal ? <AddNewAddressModal addAddress={postAddress} context={context}/> : null}
     {context.state.showEditAddressModal ? <EditAddressModal editAddress={editAddress} context={context}/> : null}
-    {context.state.showRemoveAddressModal ? <RemoveAddressModal context={context}/> : null}
+    {context.state.showRemoveAddressModal ? <RemoveAddressModal deleteAddress={deleteAddress} context={context}/> : null}
   </>
 )}
 
@@ -224,7 +254,8 @@ const mapStateToProps = state => {
     loaded: state.cart.loaded,
     cart: state.cart.cart,
     error: state.cart.error,
-    addresses: state.orders.addresses
+    addresses: state.orders.addresses,
+    redirect: state.orders.redirectUrl
   }
 }
 
@@ -233,7 +264,10 @@ const mapDispatchToProps = dispatch => {
     onLoadCart: (token, user) => dispatch(actions.loadCustomerCart(token, user)),
     getAddress: (token, user) => dispatch(actions.getAddress(token, user)),
     addAddress: (token, user, extraParams) => dispatch(actions.addAddress(token, user, extraParams)),
-    editAddress: (token, user, extraParams) => dispatch(actions.editAddress(token, user, extraParams))
+    editAddress: (token, user, extraParams) => dispatch(actions.editAddress(token, user, extraParams)),
+    deleteAddress: (token, user, extraParams) => dispatch(actions.deleteAddress(token, user, extraParams)),
+    alert: (getStringHash) => dispatch(actions.setAlert('Please select an address.', 'error', getStringHash())),
+    placeOrder: (token, user, extraParams) => dispatch(actions.placeOrder(token, user, extraParams))
   }
 }
 

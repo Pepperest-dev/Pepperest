@@ -47,7 +47,7 @@ export const addToCart = (token, user, productID, quantity=1) => {
      }
      PepperestAxios.post(Cart.ADD, body, headers)
      .then(response => {
-       const cart = { cart: response.data.cart }
+       const cart = { cart: response.data.cart, loaded: true }
        dispatch(loadedCart(cart))
        dispatch( setAlert('Item added to cart', 'success', getStringHash()))
 

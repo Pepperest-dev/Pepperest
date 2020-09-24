@@ -14,14 +14,14 @@ const EditAddressModal = (props) => {
   const [city, setCity] = useState(address.city)
   const [state, setState] = useState(address.state)
   const [postal_code, setPostal_code] = useState(address.postal_code)
-  const [country_id, setCountry_id] = useState(address.country_id)
+  const [country_id, setCountry_id] = useState("247")
   const [phone, setPhone] = useState(address.phone)
 
   const edit = (event) => {
     event.preventDefault()
     const extraParams = {
       street_1, street_2, city, state, postal_code, country_id, phone,
-      addressId: address.addressId
+      addressId: address.address_id
     }
     editAddress(extraParams)
     context.updateShowEditAddressModal(false)
