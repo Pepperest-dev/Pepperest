@@ -283,7 +283,7 @@ const HomePage = (props) => {
             </div>
           </div>
         </div>
-        <div className="section-three" id="pricing">
+        <div className="section-three">
           <div className="container">
             <div className="row">
               <div className="col-md-6">
@@ -429,7 +429,7 @@ const HomePage = (props) => {
           </div>
         </div>
         <div className="container">
-          <div className="section-five">
+          <div className="section-five" id="pricing">
             <div className="row">
               <div className="col-md-5 mr-auto">
                 <div className="mycard">
