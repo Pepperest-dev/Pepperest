@@ -32,6 +32,7 @@ from './customers';
 export {
 	loadOrders,
 	placeOrder,
+	confirmOrder,
 	getAddress,
 	addAddress,
 	editAddress,

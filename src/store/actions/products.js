@@ -17,7 +17,6 @@ export const publishSingleProduct = (token, user, extraParams = {}) => {
 		}
 		PepperestAxios.post(Products.PUBLISH_SINGLE_PRODUCT, body, {headers})
 		.then((response) => {
-			console.log(response.data);
 			const products = response.data.products.data
 			const meta = response.data.products.meta
 			const links = response.data.products.links
@@ -38,7 +37,6 @@ export const publishSingleSocialProduct = (token, user, extraParams = {}) => {
 		}
 		PepperestAxios.post(Products.PUBLISH_SINGLE_SOCIAL_PRODUCT, body, {headers})
 		.then((response) => {
-			console.log(response.data);
 			const products = response.data.products.data
 			const meta = response.data.products.meta
 			const links = response.data.products.links
@@ -59,7 +57,6 @@ export const updateProduct = ( token, user, extraParams = {}) => {
 		}
 		PepperestAxios.post(Products.UPDATE_PRODUCT, body, {headers})
 		.then((response) => {
-			console.log(response.data);
 			const products = response.data.products.data
 			const meta = response.data.products.meta
 			const links = response.data.products.links
@@ -83,7 +80,6 @@ export const removeProduct = ( token, user, extraParams = {}) => {
 				headers
 			})
 		.then((response) => {
-			console.log(response.data);
 			const products = response.data.products.data
 			// const meta = response.data.products.meta
 			// const links = response.data.products.links

@@ -21,6 +21,7 @@ export const loadOrders = (token, user, pageType, extraParams = {}) => {
         }
         PepperestAxios.get(Orders.ORDERS, { params, headers })
         .then(response => {
+            console.log(Orders.ORDERS);
             if(pageType === OrdersPageTypes.DASHBOARD) {
                 const total = response.data.total
                 const canceled = response.data.canceled
@@ -54,7 +55,6 @@ export const placeOrder = (token, user, extraParams={}) => {
     }
     PepperestAxios.post(Orders.PLACE_ORDER, body, headers)
         .then(response => {
-          console.log(response.data);
           dispatch(redirect(response.data.paymentUrl))
           dispatch( setAlert('Order placed successfully.', 'success', getStringHash()))
         }).catch(error => {
@@ -62,6 +62,29 @@ export const placeOrder = (token, user, extraParams={}) => {
             dispatch( setAlert('An error occurred.', 'error', getStringHash()))
         })
   }
+}
+
+export const confirmOrder = (token, user, extraParams = {}) => {
+  return dispatch => {
+      // dispatch(loadingOrders(pageType))
+      const headers = {
+          Authorization : token,
+          customerID : user.customerID
+      }
+      const params = {
+          customerID : user.customerID,
+          ...extraParams
+      }
+      PepperestAxios.get(Orders.CONFIRM_ORDER, { params, headers })
+      .then(response => {
+        console.log(response.data);
+          // dispatch(loadedOrders(orders, meta, links, pageType))
+      })
+      .catch(error => {
+        console.error(error.response)
+        dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+      })
+  };
 }
 
 export const getAddress = (token, user) => {

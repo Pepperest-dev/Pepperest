@@ -1,6 +1,7 @@
 export default {
     ORDERS : '/EscrowBackend/api/myOrders',
     PLACE_ORDER : '/EscrowBackend/api/order/placeOrder',
+    CONFIRM_ORDER : 'EscrowBackend/api/order/payment/callback',
     ADDRESS: '/EscrowBackend/api/order/buyerAddress',
     ADD_ADDRESS: '/EscrowBackend/api/order/buyerAddress/add',
     UPDATE_ADDRESS: '/EscrowBackend/api/order/buyerAddress/update',

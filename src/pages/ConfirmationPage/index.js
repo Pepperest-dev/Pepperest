@@ -1,8 +1,9 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import { withDefaultLayout } from 'components/layouts';
 import { WhiteTick } from 'components/vectors';
 import { getStringHash } from 'libs/utils';
+import { connect } from "react-redux";
+import * as actions from 'store/actions/index';
 
 const config = {
   hasAlternateHeader: false,
@@ -14,7 +15,14 @@ const config = {
   isSettings: true,
   navBarTitle: 'Confirmation',
 };
-const ConfirmationPage = () => (
+const ConfirmationPage = (props) => {
+  useEffect(() => {
+    const params = new URLSearchParams(props.location.search)
+    const trxref = params.get('trxref')
+    const reference = params.get('reference')
+    props.confirmOrder(props.token, props.user, {trxref, reference})
+  })
+  return (
   <div className="confirmation">
     <div className="confirmation-content">
       <div className="confirmation-card">
@@ -51,6 +59,19 @@ const ConfirmationPage = () => (
       </div>
     </div>
   </div>
-);
+)}
 
-export default withDefaultLayout(ConfirmationPage, config);
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.userInfo,
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    confirmOrder: (token, user, extraParams) => dispatch(actions.confirmOrder(token, user, extraParams))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withDefaultLayout(ConfirmationPage, config));
