@@ -36,17 +36,6 @@ const navLinks = [
 const MerchantStoreHeader = (props) => {
   const [state, setState] = useState({ isMobileMenuOpen: false });
 
-  // const handleCopy = (text) => {
-  //   var textField = document.createElement('textarea')
-  //   textField.innerText = text
-  //   document.body.appendChild(textField)
-  //   textField.select()
-  //   document.execCommand('copy')
-  //   textField.remove()
-  //   toast.success(`Copied: ${textField.value} `)
-  // }
-
-
   return (
     <div className="nsHeader">
       <div className="nsHeader-main">

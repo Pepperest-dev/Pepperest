@@ -5,6 +5,21 @@ import { withDefaultLayout } from "components/layouts";
 import { getStringHash } from "libs/utils";
 import { LockIcon } from "components/vectors";
 import { PepperestContext } from "components/helpers/constant";
+import { Link } from "react-router-dom";
+import {
+  CloseIcon,
+  RightChevron,
+  CalendarIcon,
+  SpinnerIcon,
+} from "components/vectors";
+import {
+  InputWithoutLabel,
+  SelectInputWithoutLabel,
+  TextArea,
+} from "components/blocks";
+// import { PepperestContext } from "components/helpers/constant";
+import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
+
 
 const config = {
   hasAlternateHeader: false,
@@ -14,13 +29,233 @@ const config = {
   links: [],
   page: "invoice",
   isSettings: true,
-  navBarTitle: "Customer Invoice",
+  navBarTitle: "Create Customer Invoice",
 };
 const InvoicePage = ({ history }) => (
   <>
     <div className="invoice">
       <div className="row">
+
+      <div className="pModal-main">
+          <div className="pModal-main__notification text--smallest">
+            A payment link would be created and sent to the customer email
+            address
+          </div>
+          <div className="pModal-form">
+
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="billedto" className="pModal-form__label">
+                    Billed to address
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="billedto"
+                  type="text"
+                  placeholder=""
+                  id="billedto"
+                  value=""
+                  onChange={() => {}}
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="email" className="pModal-form__label">
+                    Customer Email Address
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="email"
+                  type="email"
+                  placeholder=""
+                  id="email"
+                  value=""
+                  onChange={() => {}}
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="customer_phone" className="pModal-form__label">
+                    Phone Number
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="customer_phone"
+                  type="tel"
+                  placeholder=""
+                  id="customer_phone"
+                  value=""
+                  onChange={() => {}}
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="currency" className="pModal-form__label">
+                    Currency
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <SelectInputWithoutLabel
+                  options={[]}
+                  name="currency"
+                  id="currency"
+                  value=""
+                  onChange={() => {}}
+                  defaultValue="American Dollars"
+                  classNames="nsForm-select__alternate"
+                />
+              </div>
+            </div>
+
+            <hr />
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="product" className="pModal-form__label">
+                    Product
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="product"
+                  type="text"
+                  placeholder=""
+                  id="product"
+                  value=""
+                  onChange={() => {}}
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label className="pModal-form__label">
+                    Describe Item / Service
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <TextArea name="description" value="" onChange={() => {}} />
+              </div>
+            </div>
+
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="cost_item" className="pModal-form__label">
+                    Cost of Item
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="cost_item"
+                  type="text"
+                  placeholder=""
+                  id="cost_item"
+                  value=""
+                  onChange={() => {}}
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="quantity" className="pModal-form__label">
+                    Quantity
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="quantity"
+                  type="text"
+                  placeholder=""
+                  id="quantity"
+                  value=""
+                  onChange={() => {}}
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label className="pModal-form__label">
+                    Pick Start and End Date
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <div className="pModal-form__datepicker">
+                  <p className="text--smaller">12 Jul 2019</p>
+                  <RightChevron />
+                  <p className="text--smaller">12 Jul 2019</p>
+                </div>
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5" />
+              <div className="col-md-7">
+                <div className="pModal-main__notification pModal-main__notification--small">
+                  <CalendarIcon />
+                  <span className="text--smallest">
+                    Your expected delivery date is
+                    <strong>2 days</strong>
+                    from payment date.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pModal-footer">
+        <div className="button button--auto button-md button--orange">
+           + ITEM
+        </div>
+          {/* <PepperestContext.Consumer>
+            {(context) => (
+              <div
+                role="button"
+                tabIndex={0}
+                className="button button--auto button-md button--neutral"
+                onClick={() => {
+                  context.updateShowPaymentModal(false);
+                }}
+              >
+                CANCEL
+              </div>
+            )}
+          </PepperestContext.Consumer> */}
+
+        </div>
+    
+
         <div className="col-12 col-lg-12">
+          
           <div className="invoice-card">
             <div className="invoice-header">
               <img
