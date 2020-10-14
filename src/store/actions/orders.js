@@ -66,7 +66,7 @@ export const placeOrder = (token, user, extraParams={}) => {
 
 export const confirmOrder = (token, user, extraParams = {}) => {
   return dispatch => {
-      // dispatch(loadingOrders(pageType))
+      dispatch(confirmLoading(true))
       const headers = {
           Authorization : token,
           customerID : user.customerID
@@ -77,12 +77,18 @@ export const confirmOrder = (token, user, extraParams = {}) => {
       }
       PepperestAxios.get(Orders.CONFIRM_ORDER, { params, headers })
       .then(response => {
-        console.log(response.data);
-          // dispatch(loadedOrders(orders, meta, links, pageType))
+          dispatch({
+            type: actionTypes.CONFIRM_ORDER_DETAILS,
+            payload: {
+              confirmOrderDetails: response.data
+            }
+          })
+          dispatch(confirmLoading(false))
       })
       .catch(error => {
         console.error(error.response)
         dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+        dispatch(confirmLoading(false))
       })
   };
 }
@@ -186,6 +192,13 @@ const redirect = url => {
   return {
     type: actionTypes.ORDER_REDIRECT,
     redirectUrl: url
+  }
+}
+
+const confirmLoading = value => {
+  return {
+    type: actionTypes.CONFIRM_LOADING,
+    loading: value
   }
 }
 

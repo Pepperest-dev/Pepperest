@@ -6,6 +6,8 @@ const initialState = {
   addresses: [],
   addressError: null,
   redirectUrl: null,
+  loading: false,
+  confirmOrderDetails: null
 };
 Object.values(OrdersPageTypes).forEach((pageTypes) => {
   initialState[pageTypes] =
@@ -77,6 +79,14 @@ const redirect = (state, action) => {
   return updateObject(state, update);
 }
 
+const confirmLoading = (state, action) => {
+  return updateObject(state, {loading: action.loading})
+}
+
+const orderConfirmed = (state, action) => {
+  return updateObject(state, action.payload)
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOADING_ORDERS:
@@ -91,6 +101,10 @@ const reducer = (state = initialState, action) => {
       return addressError(state, action)
     case actionTypes.ORDER_REDIRECT:
       return redirect(state, action)
+    case actionTypes.CONFIRM_LOADING:
+      return confirmLoading(state, action)
+    case actionTypes.CONFIRM_ORDER_DETAILS:
+      return orderConfirmed(state, action)
     default:
       return state;
   }
