@@ -4,6 +4,9 @@ import {
 	ProductsErrorMessages
 } from '../../libs/constants/PepperestWebServices';
 import * as actionTypes from './actionTypes';
+import { setAddress } from './orders'
+import { Orders } from '../../libs/constants/PepperestWebServices';
+import axios from "axios"
 
 export const publishSingleProduct = (token, user, extraParams = {}) => {
 	return dispatch => {
@@ -174,6 +177,30 @@ export const loadProduct = ( token, user, extraParams = {} ) => {
 				dispatch( failedToLoadProduct( ProductsErrorMessages.getHistoryFailed ) )
 			} )
 	};
+}
+
+export const loadProductsAndAddress = ( token, user, extraParams = {} ) => {
+	return dispatch => {
+		const headers = {
+			Authorization: token,
+			customerID: user.customerID
+		}
+		const params = {
+			merchantID: user.customerID,
+			customerID: user.customerID,
+			...extraParams
+		}
+		axios.all([
+			PepperestAxios.get( Products.PRODUCTS, {params, headers}),
+			PepperestAxios.get(Orders.ADDRESS, { params, headers })
+		]).then(axios.spread((...responses) => {
+			const products = responses[0].data.products.data
+			const meta = responses[0].data.products.meta
+			const links = responses[0].data.products.links
+			dispatch( loadedProduct( products, meta, links ) )
+			dispatch(setAddress(responses[1].data.addresses))
+		})).catch(error => console.error(error))
+	}
 }
 
 export const loadingProduct = () => {

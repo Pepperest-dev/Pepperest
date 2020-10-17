@@ -181,7 +181,7 @@ export const editAddress = (token, user, extraParams={}) => {
   }
 }
 
-const setAddress = (addresses) => {
+export const setAddress = (addresses) => {
   return {
     type: actionTypes.LOAD_ADDRESS,
     addresses

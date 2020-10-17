@@ -21,6 +21,7 @@ export {
 	selectPage,
 	updateProduct,
 	removeProduct,
+	loadProductsAndAddress
 }
 from './products';
 
