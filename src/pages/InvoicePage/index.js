@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { withDefaultLayout } from "components/layouts";
 import { getStringHash } from "libs/utils";
 import { LockIcon } from "components/vectors";
@@ -20,7 +20,8 @@ import {
 // import { PepperestContext } from "components/helpers/constant";
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 import { connect } from "react-redux";
-
+import * as actions from 'store/actions/index';
+import {useReactToPrint} from "react-to-print";
 
 const config = {
   hasAlternateHeader: false,
@@ -32,7 +33,7 @@ const config = {
   isSettings: true,
   navBarTitle: "Create Customer Invoice",
 };
-const InvoicePage = ({ history }) => {
+const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
   const [addressLine1, setAL1] = useState("")
   const [addressLine2, setAL2] = useState("")
   const [addressLine3, setAL3] = useState("")
@@ -44,8 +45,15 @@ const InvoicePage = ({ history }) => {
   const [productQuantity, setPQ] = useState("")
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
+  const [userAddress, setUA] = useState("")
   const date = new Date();
 
+  useEffect(() => {
+    load(token, user)
+  },[])
+
+  const [address] = addresses.filter(a => a.address_id == userAddress)
+  console.log(address);
   const add = () => {
     const product = {
       name: productName,
@@ -59,7 +67,13 @@ const InvoicePage = ({ history }) => {
     setPQ("")
     setPP("")
   }
-
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  // const handlePrint = () => {
+  //   console.log("print")
+  // }
   const remove = (i) => {
     let p = [...products]
     p.splice(i, 1)
@@ -120,6 +134,7 @@ const InvoicePage = ({ history }) => {
                   value={addressLine1}
                   onChange={e => setAL1(e.target.value)}
                   classNames="nsForm-input__alternate"
+                  errorMessage=""
                 />
               </div>
             </div>
@@ -139,6 +154,7 @@ const InvoicePage = ({ history }) => {
                   id="addressLine2"
                   value={addressLine2}
                   onChange={e => setAL2(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -159,6 +175,7 @@ const InvoicePage = ({ history }) => {
                   id="addressLine3"
                   value={addressLine3}
                   onChange={e => setAL3(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -180,6 +197,7 @@ const InvoicePage = ({ history }) => {
                   id="email"
                   value={customerEmail}
                   onChange={e => setCE(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -200,6 +218,7 @@ const InvoicePage = ({ history }) => {
                   id="customer_phone"
                   value={phoneNumber}
                   onChange={e => setPhone(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -220,30 +239,65 @@ const InvoicePage = ({ history }) => {
                   id="customer_phone"
                   value={tax}
                   onChange={e => setTax(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
             </div>
-            {/*<div className="pModal-form-control row mx-0">
+            <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
                   <label htmlFor="currency" className="pModal-form__label">
-                    Currency
+                    Your Address
                   </label>
                 </div>
               </div>
               <div className="col-md-7">
-                <SelectInputWithoutLabel
-                  options={[]}
-                  name="currency"
-                  id="currency"
-                  value=""
-                  onChange={() => {}}
-                  defaultValue="American Dollars"
-                  classNames="nsForm-select__alternate"
-                />
+                {addresses?.length > 0 && addresses.map(address => (
+                  <div className="flex-content" key={getStringHash()}>
+                    <div className="flex-content_child">
+                      <label className="radio-container">
+                        <input type="radio"
+                          value={address.address_id}
+                          checked={userAddress == address.address_id}
+                          onChange={event => setUA(event.target.value)}
+                          name="radio" />
+                        <span className="radio-checkmark"></span>
+                      </label>
+                      <p style={{marginLeft: '3em'}} className="text--smaller text--gray ml-10">
+                        {`${address.address}`}
+                      </p>
+                    </div>
+                    {/*<div className="space-between">
+                      <div
+                        className="button button-rounded"
+                        onClick={() => {
+                          context.updateShowEditAddressModal(true, address);
+                        }}
+                        >
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          >
+                          <path
+                            d="M1.125 14.625H16.875V15.75H1.125V14.625Z"
+                            fill="#777777"
+                            />
+                          <path
+                            d="M14.2875 5.0625C14.7375 4.6125 14.7375 3.9375 14.2875 3.4875L12.2625 1.4625C11.8125 1.0125 11.1375 1.0125 10.6875 1.4625L2.25 9.9V13.5H5.85L14.2875 5.0625ZM11.475 2.25L13.5 4.275L11.8125 5.9625L9.7875 3.9375L11.475 2.25ZM3.375 12.375V10.35L9 4.725L11.025 6.75L5.4 12.375H3.375Z"
+                            fill="#777777"
+                            />
+                        </svg>
+                      </div>
+                    </div>*/}
+                  </div>
+                ))
+                }
               </div>
-            </div>*/}
+            </div>
 
             <hr />
             <div className="pModal-form-control row mx-0">
@@ -262,6 +316,7 @@ const InvoicePage = ({ history }) => {
                   id="product"
                   value={productName}
                   onChange={e => setPN(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -276,7 +331,10 @@ const InvoicePage = ({ history }) => {
                 </div>
               </div>
               <div className="col-md-7">
-                <TextArea name="description" value={productDescription} onChange={e => setPD(e.target.value)} />
+                <TextArea name="description"
+                  value={productDescription}
+                  errorMessage=""
+                  onChange={e => setPD(e.target.value)} />
               </div>
             </div>
 
@@ -296,6 +354,7 @@ const InvoicePage = ({ history }) => {
                   id="cost_item"
                   value={productPrice}
                   onChange={e => setPP(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -316,6 +375,7 @@ const InvoicePage = ({ history }) => {
                   id="quantity"
                   value={productQuantity}
                   onChange={e => setPQ(e.target.value)}
+                  errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -343,9 +403,8 @@ const InvoicePage = ({ history }) => {
           </PepperestContext.Consumer> */}
 
         </div>
-
-
-        <div className="col-12 col-lg-12">
+        // ReactToPrint
+        <div ref={componentRef} className="col-12 col-lg-12">
 
           <div className="invoice-card">
             <div className="invoice-header">
@@ -356,15 +415,17 @@ const InvoicePage = ({ history }) => {
               />
               <div className="details-container">
                 <div className="invoice-userdetails">
-                  <p>657-36363-366262</p>
-                  <p>email@gmail.com</p>
+                  <p>{user?.phone}</p>
+                  <p>{user?.email}</p>
                 </div>
                 <div className="invoice-address">
-                  <p>
-                    No 21, Yemi Adenuga street, <br />
-                    Yaba, Lagos State
-                  </p>
-                  <p>10011</p>
+                  {address ?
+                    (<><p>{address.street_1}</p>
+                    <p>{address.street_2}</p>
+                    <p>{address.city}</p>
+                    <p>{address.state}</p>
+                    <p></p></>):
+                    (<p>Select your address</p>)}
                 </div>
               </div>
             </div>
@@ -435,7 +496,7 @@ const InvoicePage = ({ history }) => {
             </div>
             <div className="invoice-footer">
               <div className="invoice-footer-child">
-                <div className="button button--auto button-md button--orange">
+                <div className="button button--auto button-md button--orange" onClick={handlePrint}>
                   Download
                 </div>
                 <div className="button button--auto button-md button--neutral ml-15">
@@ -452,9 +513,17 @@ const InvoicePage = ({ history }) => {
 
 const mapStateToProps = (state) => {
   return {
-    addresses: state.auth.userInfo,
-    products: state.products.products,
+    user: state.auth.userInfo,
+    token: state.auth.token,
+    storeProducts: state.products.products,
+    addresses: state.orders.addresses
   };
 };
 
-export default withDefaultLayout(connect(mapStateToProps, null)(InvoicePage), config);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    load: (token, user, extraParams) => dispatch(actions.loadProductsAndAddress(token, user, extraParams))
+  }
+}
+
+export default withDefaultLayout(connect(mapStateToProps, mapDispatchToProps)(InvoicePage), config);
