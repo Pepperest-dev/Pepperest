@@ -34,7 +34,6 @@ const navLinks = [
 ];
 
 const MerchantStoreHeader = (props) => {
-  console.log(props);
   const [state, setState] = useState({ isMobileMenuOpen: false });
 
   return (
@@ -60,12 +59,12 @@ const MerchantStoreHeader = (props) => {
           ))}
         </nav>
         <div className="nsHeader-nav__item-profile__wrapper">
-            
+
           <div role="button" tabIndex={0} onClick={() => { setState({ ...state, isMobileMenuOpen: true }); }}>
             <HamburgerIcon />
           </div>
-          
-          
+
+
           <Avatar imageUrl="/assets/images/avatar.jpg" avatarSize="xs" />
           <div className="nsHeader-nav__item-profile">
             <li className="nsHeader-nav__item nsHeader-nav__item-alternate">
@@ -128,7 +127,7 @@ const MerchantStoreHeader = (props) => {
                 <a href="/user-account/loans" className="dropdown__list-item">
                   Request Loan
                 </a>
-                <Link 
+                <Link
                   to={"/logout"}
                   className="dropdown__list-item">Logout
                 </Link>

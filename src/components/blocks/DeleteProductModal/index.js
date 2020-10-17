@@ -10,7 +10,6 @@ import * as actions from 'store/actions/index';
 const DeleteProductModal = (props) => {
   const {user, token, removeProduct, context} = props
   const {state: {productForDeleting:{productID, productName}}} = context
-  console.log(productID, productName);
 
   const deleteProduct = () => {
     removeProduct(token, user, {productID});

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { HashLink as Link } from "react-router-hash-link";
 
 const NavLink = ({ url, title, classNames, exact }) => (
-  <Link to={url} className={classNames} activeClassName="active" exact={exact}>
+  <Link to={url} className={classNames} activeClassName="active" exact={`${exact}`}>
     {title}
   </Link>
 );

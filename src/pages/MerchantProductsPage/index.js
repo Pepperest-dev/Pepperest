@@ -37,8 +37,6 @@ class MerchantProductsPage extends Component {
     }
 
     componentDidMount() {
-      // console.log(this.props.match.params.id);
-      console.log(this.props);
       this.props.getMerchant(this.props.match.params.id)
       this.updateIsDesktop();
       window.addEventListener("resize", this.updateIsDesktop);

@@ -1,4 +1,65 @@
 .invoice {
+  .flex-content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    & .flex-content_child {
+      width: 70%;
+      display: flex;
+      /* Create a custom radio button */
+      & .radio-checkmark {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+        @include desktop {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 25px;
+          width: 25px;
+          background-color: #eee;
+          border-radius: 50%;
+        }
+      }
+
+      /* On mouse-over, add a grey background color */
+      & .radio-container:hover input ~ .radio-checkmark {
+        background-color: #ccc;
+      }
+
+      /* When the radio button is checked, add a blue background */
+      & .radio-container input:checked ~ .radio-checkmark {
+        background-color: #ff721b;
+      }
+
+      /* Create the indicator (the dot/circle - hidden when not checked) */
+      & .radio-checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      /* Show the indicator (dot/circle) when checked */
+      & .radio-container input:checked ~ .radio-checkmark:after {
+        display: block;
+      }
+
+      /* Style the indicator (dot/circle) */
+      & .radio-container .radio-checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+      }
+    }}
   & .invoice-card {
     @include desktop {
       margin-top: 20px;

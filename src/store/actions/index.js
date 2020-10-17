@@ -21,6 +21,7 @@ export {
 	selectPage,
 	updateProduct,
 	removeProduct,
+	loadProductsAndAddress
 }
 from './products';
 
@@ -31,6 +32,12 @@ from './customers';
 
 export {
 	loadOrders,
+	placeOrder,
+	confirmOrder,
+	getAddress,
+	addAddress,
+	editAddress,
+	deleteAddress
 }
 from './orders';
 
