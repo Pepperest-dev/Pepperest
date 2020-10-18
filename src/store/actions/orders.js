@@ -21,7 +21,6 @@ export const loadOrders = (token, user, pageType, extraParams = {}) => {
         }
         PepperestAxios.get(Orders.ORDERS, { params, headers })
         .then(response => {
-            console.log(Orders.ORDERS);
             if(pageType === OrdersPageTypes.DASHBOARD) {
                 const total = response.data.total
                 const canceled = response.data.canceled

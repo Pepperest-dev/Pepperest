@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withDefaultLayout } from 'components/layouts';
 import { WhiteTick, SpinnerIcon, CloseIcon } from 'components/vectors';
 import { getStringHash } from 'libs/utils';
 import { connect } from "react-redux";
 import * as actions from 'store/actions/index';
+import Modal from "components/blocks/ViewOrderModal/index"
 
 const config = {
   hasAlternateHeader: false,
@@ -16,12 +17,15 @@ const config = {
   navBarTitle: 'Confirmation',
 };
 const ConfirmationPage = (props) => {
+  const [showM, setShow] = useState(false)
+
   useEffect(() => {
     const params = new URLSearchParams(props.location.search)
     const trxref = params.get('trxref')
     const reference = params.get('reference')
     props.confirmOrder(props.token, props.user, {trxref, reference})
   }, [])
+
   if (props.loading){
     return <SpinnerIcon />
   }
@@ -49,6 +53,7 @@ const ConfirmationPage = (props) => {
     )
   }
   return (
+    <>
   <div className="confirmation">
     <div className="confirmation-content">
       <div className="confirmation-card">
@@ -67,8 +72,8 @@ const ConfirmationPage = (props) => {
           </div>
           <div className="confirmation-card-body-order__content">
             <p className="text--xs text--orange text-font--medium">YOUR ORDER NUMBER IS</p>
-            <div className="button button-md button--orange-outline">
-              {props.orders.order.id}
+            <div className="button button-md button--orange-outline" onClick={() => setShow(true)}>
+              {props.orders.order.orderId}
             </div>
           </div>
         </div>
@@ -85,6 +90,13 @@ const ConfirmationPage = (props) => {
       </div>
     </div>
   </div>
+  {showM ?
+    <Modal
+      close={setShow}
+      orders = {props.orders}
+      />
+    : null}
+  </>
 )}
 
 const mapStateToProps = (state) => {
