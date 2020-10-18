@@ -21,7 +21,7 @@ import {
 import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 import { connect } from "react-redux";
 import * as actions from 'store/actions/index';
-import {useReactToPrint} from "react-to-print";
+// import {useReactToPrint} from "react-to-print";
 
 const config = {
   hasAlternateHeader: false,
@@ -68,9 +68,9 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
     setPP("")
   }
   const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
   // const handlePrint = () => {
   //   console.log("print")
   // }
@@ -325,6 +325,32 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
+                  <label htmlFor="product" className="pModal-form__label">
+                  Add Product From Store
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                {/* <option
+                  name="product"
+                  type="text"
+                  placeholder=""
+                  id="product"
+                  value={productName}
+                  onChange={e => setPN(e.target.value)}
+                  errorMessage=""
+                  classNames="nsForm-input__alternate"
+                /> */}
+               <select className="nsForm-input__alternate" value={productName}>
+                        <option   value={productName}>Product 1</option>
+                </select>                
+              </div>
+            </div>
+
+
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
                   <label className="pModal-form__label">
                     Describe Item / Service
                   </label>
@@ -496,7 +522,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
             </div>
             <div className="invoice-footer">
               <div className="invoice-footer-child">
-                <div className="button button--auto button-md button--orange" onClick={handlePrint}>
+                <div className="button button--auto button-md button--orange" >
                   Download
                 </div>
                 <div className="button button--auto button-md button--neutral ml-15">
