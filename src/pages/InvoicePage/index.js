@@ -298,8 +298,39 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 }
               </div>
             </div>
-
             <hr />
+              <div className="pModal-main__notification text--smallest">
+                Select products from store to add to invoice
+              </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="product" className="pModal-form__label">
+                    Add Product From Store
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <SelectInputWithoutLabel
+                  name="store_product"
+                  options={products}
+                  type="text"
+                  placeholder=""
+                  id="store_product"
+                  value="store_products"
+                  // onChange={e => setPN(e.target.value)}
+                  errorMessage=""
+                  classNames="nsForm-input__alternate"
+                  />
+                {/* <select className="nsForm-input__alternate" value={productName}>
+                <option   className="nsForm-input__alternate" value={productName}>Product 1</option>
+                </select>                 */}
+              </div>
+            </div>
+            <hr />
+              <div className="pModal-main__notification text--smallest">
+                Enter details for product not in store to be added to Invoice
+              </div>
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
@@ -322,31 +353,6 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
               </div>
             </div>
 
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label htmlFor="product" className="pModal-form__label">
-                  Add Product From Store
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <SelectInputWithoutLabel
-                  name="store_product"
-                  options={products}
-                  type="text"
-                  placeholder=""
-                  id="store_product"
-                  value="store_products"
-                  // onChange={e => setPN(e.target.value)}
-                  errorMessage=""
-                  classNames="nsForm-input__alternate"
-                />
-               {/* <select className="nsForm-input__alternate" value={productName}>
-                        <option   className="nsForm-input__alternate" value={productName}>Product 1</option>
-                </select>                 */}
-              </div>
-            </div>
 
 
             <div className="pModal-form-control row mx-0">
@@ -430,7 +436,6 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
           </PepperestContext.Consumer> */}
 
         </div>
-        // ReactToPrint
         <div ref={componentRef} className="col-12 col-lg-12">
 
           <div className="invoice-card">
