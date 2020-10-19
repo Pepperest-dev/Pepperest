@@ -331,19 +331,20 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 </div>
               </div>
               <div className="col-md-7">
-                {/* <option
-                  name="product"
+                <SelectInputWithoutLabel
+                  name="store_product"
+                  options={products}
                   type="text"
                   placeholder=""
-                  id="product"
-                  value={productName}
-                  onChange={e => setPN(e.target.value)}
+                  id="store_product"
+                  value="store_products"
+                  // onChange={e => setPN(e.target.value)}
                   errorMessage=""
                   classNames="nsForm-input__alternate"
-                /> */}
-               <select className="nsForm-input__alternate" value={productName}>
-                        <option   value={productName}>Product 1</option>
-                </select>                
+                />
+               {/* <select className="nsForm-input__alternate" value={productName}>
+                        <option   className="nsForm-input__alternate" value={productName}>Product 1</option>
+                </select>                 */}
               </div>
             </div>
 
