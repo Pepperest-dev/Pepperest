@@ -46,12 +46,36 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
+  const [productz, setProductz] = React.useState("");
+
   const date = new Date();
 
   useEffect(() => {
     load(token, user)
   },[])
 
+  const handleChangeSelectProducts = (event) => {
+    setProductz(event.target.value);
+  };
+
+  const productStore = [
+    {
+      id: 1,
+      productName: 'imin'
+    },
+    {
+      id: 2,
+      productName: 'timasa'
+    },
+    {
+      id: 3,
+      productName: 'samowa'
+    },
+    {
+      id: 4,
+      productName: 'supersa'
+    },
+  ];
   const [address] = addresses.filter(a => a.address_id == userAddress)
   console.log(address);
   const add = () => {
@@ -331,7 +355,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 </div>
               </div>
               <div className="col-md-7">
-                <SelectInputWithoutLabel
+                {/* <SelectInputWithoutLabel
                   name="store_product"
                   options={products}
                   type="text"
@@ -341,10 +365,13 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                   // onChange={e => setPN(e.target.value)}
                   errorMessage=""
                   classNames="nsForm-input__alternate"
-                />
-               {/* <select className="nsForm-input__alternate" value={productName}>
-                        <option   className="nsForm-input__alternate" value={productName}>Product 1</option>
-                </select>                 */}
+                /> */}
+               <select  style={{width:'100%', height: '50px'}} className="nsForm-select__alternate" value={productz} onChange={handleChangeSelectProducts}  >
+
+               {productStore.map((productItem) => (
+                  <option  style={{width:'fit-content', height: '50px'}} key={productItem.id} value={productItem.id}> {productItem.productName} </option>
+                ))}
+                </select>                
               </div>
             </div>
 
