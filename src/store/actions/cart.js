@@ -7,7 +7,7 @@ import { getStringHash } from 'libs/utils';
 
 export const loadCustomerCart = (token, user) => {
   return (dispatch) => {
-    dispatch(loadedCart())
+    dispatch(loadingCart())
     const headers = {
       Authorization: token,
       customerID: user.customerID
@@ -15,8 +15,8 @@ export const loadCustomerCart = (token, user) => {
     const params = { customerID: user.customerID }
     PepperestAxios.get(Cart.BUYER_CART, { params, headers})
     .then(response => {
-      const cart = { cart: response.data.cart }
-      dispatch(loadedCart(cart))
+      console.log(response.data);
+      dispatch(loadedCart(response.data.cart))
     }).catch(error => {
       console.error(error)
       dispatch(failedLoadingCart(error))
@@ -47,8 +47,8 @@ export const addToCart = (token, user, productID, quantity=1) => {
      }
      PepperestAxios.post(Cart.ADD, body, headers)
      .then(response => {
-       const cart = { cart: response.data.cart }
-       dispatch(loadedCart(cart))
+       const cart = { cart: response.data.cart, loaded: true }
+       dispatch(loadedCart(response.data.cart))
        dispatch( setAlert('Item added to cart', 'success', getStringHash()))
 
      }).catch(error => {
@@ -73,8 +73,7 @@ export const removeItemFromCart = (token, user, cart_id, productID, quantity=1) 
      }
      PepperestAxios.post(Cart.REMOVE, body, headers)
      .then(response => {
-       const cart = { cart: response.data.cart, loaded: true }
-       dispatch(loadedCart(cart))
+       dispatch(loadedCart(response.data.cart))
        dispatch( setAlert('Item removed', 'success', getStringHash()))
 
      }).catch(error => {
@@ -93,7 +92,11 @@ export const loadingCart = () => {
 export const loadedCart = (cart) => {
   return {
     type: actionTypes.FINISHED_LOADING_CART,
-    cart,
+    cart: {
+      loaded: true,
+      loading: false,
+      cart,
+    }
   }
 }
 
