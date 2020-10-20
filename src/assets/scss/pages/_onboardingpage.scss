@@ -32,7 +32,6 @@
     padding: 0 10px;
     background-color: #fff;
     border-radius: 5px;
-    animation: moveUpAndDown 2s linear 0s infinite forwards;
     @include desktop {
       flex-basis: 100%;
     }
@@ -108,14 +107,13 @@
   .onboarding-item > button:focus {
     outline: none;
   }
-  @keyframes moveUpAndDown {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
 
-    95% {
-      transform: translateY(10px);
+  .homepage-footer {
+    background-color: transparent;
+    margin-top: 50px;
+    @include desktop {
+      background-color: transparent;
+      margin-top: 200px;
     }
   }
 }
