@@ -46,14 +46,38 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
+  const [productz, setProductz] = useState("");
+
   const date = new Date();
 
   useEffect(() => {
     load(token, user)
   },[])
 
+  const handleChangeSelectProducts = (event) => {
+    // setProductz(event.target.value);
+    const [p] = storeProducts.filter(x => x.id == event.target.value)
+    // const [q] = products.filter(x => x.name === p.productName)
+    var indexOfq = products.findIndex(i => i.name === p.productName);
+    if (indexOfq < 0) {
+      const product = {
+        name: p.productName,
+        des: p.productDescription,
+        price: p.amount,
+        quantity: 1,
+      }
+      setProducts([...products, product])
+    } else {
+      const q = products[indexOfq]
+      q.quantity += 1
+      console.log(q);
+      let np = [...products]
+      np[indexOfq] = q
+      setProducts(np)
+    }
+  };
+
   const [address] = addresses.filter(a => a.address_id == userAddress)
-  console.log(address);
   const add = () => {
     const product = {
       name: productName,
@@ -311,20 +335,12 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 </div>
               </div>
               <div className="col-md-7">
-                <SelectInputWithoutLabel
-                  name="store_product"
-                  options={products}
-                  type="text"
-                  placeholder=""
-                  id="store_product"
-                  value="store_products"
-                  // onChange={e => setPN(e.target.value)}
-                  errorMessage=""
-                  classNames="nsForm-input__alternate"
-                  />
-                {/* <select className="nsForm-input__alternate" value={productName}>
-                <option   className="nsForm-input__alternate" value={productName}>Product 1</option>
-                </select>                 */}
+                <select  style={{width:'100%', height: '50px'}} className="nsForm-select__alternate" value={productz} onChange={handleChangeSelectProducts}  >
+                    <option style={{width:'fit-content', height: '50px'}} value={0}> Select Product </option>
+                  {storeProducts.map((productItem) => (
+                    <option  style={{width:'fit-content', height: '50px'}} key={productItem.id} value={productItem.id}> {productItem.productName} </option>
+                  ))}
+                </select>
               </div>
             </div>
             <hr />
@@ -493,10 +509,13 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
               <div className="item-container">
                 {products.length > 0 && products.map((item, index) =>
                 (<div key={getStringHash()} className="item-content">
-                  <div className="item-content-description">
-                    <p>{item.name}</p>
-                    <p>{item.des}</p>
-                    <AlertCloseIcon onClick={(index) => remove(index)} className="alert-icon"/>
+                  <div className="item-content-description col-md-5">
+                    <div className="col-md-3" style={{maxWidth:'100%'}}>
+                      <p><strong>{item.name}</strong></p>
+                      <p>{item.des}</p>
+                      <AlertCloseIcon onClick={(index) => remove(index)} className="alert-icon"/>
+                    </div>
+
                   </div>
                   <div className="item-content-children">
                     <p className="item-quantity">{item.quantity}</p>
