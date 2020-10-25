@@ -8,11 +8,11 @@ import {setAlert} from './alert'
 import { getStringHash } from 'libs/utils';
 
 
-export const getMerchantStoreProducts = (merchantCode) => {
+export const getMerchantStoreProducts = (merchantCode, page = 1) => {
 	return (dispatch) => {
     dispatch(loadingMerchantPage())
     const params = { merchantCode }
-    PepperestAxios.get( Products.MERCHANT_STORE, { params })
+    PepperestAxios.get( `${Products.MERCHANT_STORE}?page=${page}`, { params })
     .then((response) => {
       const products = response.data.products.data
       const meta = response.data.products.meta
