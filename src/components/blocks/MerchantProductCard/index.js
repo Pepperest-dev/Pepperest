@@ -9,7 +9,7 @@ const MerchantProductCard = (props) => {
   const {
     user, token, addToCart,
     item: {
-      id, productName, dateCreated,
+      id, productName, dateCreated, image_url,
       transactions, deliveryDate, amount, productDescription
     }
   } = props
@@ -27,7 +27,7 @@ const MerchantProductCard = (props) => {
   <div className="merchant-product-card">
     <div className="merchant-product-card__top">
       <div className="merchant-product-card__image-wrapper">
-        <ProductIcon />
+        <img src={image_url} className="merchant-product-card__image" alt="Product Image"/>
       </div>
       <div className="merchant-product-card__details">
         <h5 className="merchant-product-card__title">
