@@ -33,14 +33,16 @@ const config = {
   isSettings: true,
   navBarTitle: "Create Customer Invoice",
 };
-const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
+const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoice }) => {
   const [addressLine1, setAL1] = useState("")
   const [addressLine2, setAL2] = useState("")
   const [addressLine3, setAL3] = useState("")
   const [customerEmail, setCE] = useState("")
+  const [customerName, setCN] = useState("")
   const [phoneNumber, setPhone] = useState("")
   const [tax, setTax] = useState(7.5)
   const [productName, setPN] = useState("")
+  const [deliveryPeriod, setDP] = useState("")
   const [productDescription, setPD] = useState("")
   const [productQuantity, setPQ] = useState("")
   const [productPrice, setPP] = useState("")
@@ -128,6 +130,24 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
     </svg>
   );
 
+  const submit = () => {
+    if (products.length){
+      const extraParams = {
+      userAddress: addressLine1,
+      addressLine_1: addressLine2,
+      addressLine_2: addressLine3,
+      customerEmail: customerEmail,
+      customerPhone: phoneNumber,
+      customerName: customerName,
+      totalcost: calcTotal(),
+      deliveryPeriod: deliveryPeriod,
+      vat:tax,
+      products: products,
+      currency: "NGN",
+      }
+      createInvoice(token, user, extraParams)
+    }
+  }
 
   return (
   <>
@@ -265,6 +285,27 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                   id="customer_phone"
                   value={tax}
                   onChange={e => setTax(e.target.value)}
+                  errorMessage=""
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="customer_phone" className="pModal-form__label">
+                    Delivery Period
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="deliveryPeriod"
+                  type="number"
+                  placeholder=""
+                  id="deliveryPeriod"
+                  value={deliveryPeriod}
+                  onChange={e => setDP(e.target.value)}
                   errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
@@ -523,7 +564,9 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 <div className="button button--auto button-md button--orange" >
                   Download
                 </div>
-                <div className="button button--auto button-md button--neutral ml-15">
+                <div
+                  onClick={submit}
+                  className="button button--auto button-md button--neutral ml-15">
                   Send Via Email
                 </div>
               </div>
@@ -546,7 +589,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    load: (token, user, extraParams) => dispatch(actions.loadProductsAndAddress(token, user, extraParams))
+    load: (token, user, extraParams) => dispatch(actions.loadProductsAndAddress(token, user, extraParams)),
+    createInvoice: (token, user, extraParams) => dispatch(actions.createInvoice(token, user, extraParams))
   }
 }
 

@@ -61,6 +61,7 @@ from './cart'
 
 export {
 	getMerchantStoreProducts,
+	createInvoice
 }
 from './merchant'
 

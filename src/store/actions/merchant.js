@@ -25,6 +25,21 @@ export const getMerchantStoreProducts = (merchantCode, page = 1) => {
   }
 }
 
+export const createInvoice = (token, user, extraParams = {}) => dispatch => {
+	const headers = {
+			Authorization : token,
+			customerID : user.customerID
+	}
+	const body = {
+		merchant_id: user.customerID,
+		...extraParams
+	}
+	console.log(extraParams);
+	PepperestAxios.post(Products.CREATE_INVOICE, body, headers).then((response) =>{
+		console.log(response);
+	}).catch((error) => console.error(error.response))
+}
+
 export const loadingMerchantPage = () => {
 	return {
 		type: actionTypes.LOADING_MERCHANT_PAGE,
