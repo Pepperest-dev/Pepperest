@@ -1,6 +1,6 @@
 .list{
     width: 100%;
-    
+
     &-header{
         height: 56px;
         display: flex;
@@ -35,7 +35,7 @@
         }
 
         &__action{
-            
+
             width: 32px;
             height: 32px;
             border-radius: $border-radius-2;
@@ -50,7 +50,7 @@
             transition: all 0.2s ease-in-out;
             position: relative;
 
-            
+
             @include desktop{
                 &:hover {
                     background-color: $white;
@@ -80,7 +80,7 @@
                         }
                     }
                 }
-                
+
 
             }
 
@@ -109,13 +109,13 @@
                 //             display: block;
                 //             opacity: 1;
                 //         }
-                        
+
                 //     }
                 // }
             }
             &:last-child{
                 margin-right: 0px;
-                
+
                 // &:hover {
                 //     @include desktop {
                 //         & .list-header__action-menu__alt {
@@ -186,7 +186,7 @@
                         &:last-child {
                             margin-right: 0px;
                         }
-                        
+
                     }
                 }
             }
@@ -256,11 +256,17 @@
                 margin: 0px 8px;
             }
             &-next{
+                border: 0;
+                padding: 0;
+                background-color: none;
                 margin-right: 24px;
                 margin-left: 8px;
                 // font-weight: 600;
             }
             &-prev{
+                border: 0;
+                padding: 0;
+                background-color: none;
                 margin-left: 24px;
                 margin-right: 8px;
                 // font-weight: 600;
@@ -387,7 +393,7 @@
                 @include medium-font;
                 color: $black;
                 text-align: left;
-                margin-bottom: 4px;  
+                margin-bottom: 4px;
                 @include desktop{
                     width: 50%;
                     margin-left: auto;
@@ -430,7 +436,7 @@
                 color: $black;
                 text-align: left;
                 margin-top: 4px;
-                
+
                 @include desktop{
                     width: 50%;
                     margin-right: auto;
@@ -578,7 +584,7 @@
         }
 
         &-detail{
-           
+
             &__header{
                 display: none;
                 @include desktop{
@@ -609,7 +615,7 @@
                         &.active{
                            @include medium-font;
                            border-bottom: 2px solid $orange;
-                            
+
                         }
                     }
                 }
@@ -847,7 +853,7 @@
         .list-header__action-menu__alt__body{
             padding: 24px;
         }
-        
+
 
 
     }

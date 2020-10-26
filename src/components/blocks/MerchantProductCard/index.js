@@ -27,8 +27,7 @@ const MerchantProductCard = (props) => {
   <div className="merchant-product-card">
     <div className="merchant-product-card__top">
       <div className="merchant-product-card__image-wrapper">
-        {/* <ProductIcon /> */}
-        <img src={image_url} width="201" height="215" />
+        <img src={image_url} className="merchant-product-card__image" alt="Product Image"/>
       </div>
       <div className="merchant-product-card__details">
         <h5 className="merchant-product-card__title">
