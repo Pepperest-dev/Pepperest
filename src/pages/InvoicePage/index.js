@@ -185,7 +185,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 />
               </div>
             </div>
-            <div className="pModal-form-control row mx-0">
+            {/* <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
                   <label htmlFor="billedto" className="pModal-form__label">
@@ -205,7 +205,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                   classNames="nsForm-input__alternate"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
