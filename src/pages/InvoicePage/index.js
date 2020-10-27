@@ -162,12 +162,14 @@ const InvoicePage = ({
       <div className="row">
 
       <div className="pModal-main">
+
+          <div className="pModal-form">
+        <div style={{display: 'flex'}}>
+        <div classname="spanex" style={{display: 'inline'}} >
           <div className="pModal-main__notification text--smallest">
             A payment link would be created and sent to the customer email
             address
           </div>
-          <div className="pModal-form">
-
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
@@ -210,7 +212,7 @@ const InvoicePage = ({
                 />
               </div>
             </div>
-            <div className="pModal-form-control row mx-0">
+            {/* <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
                   <label htmlFor="billedto" className="pModal-form__label">
@@ -230,28 +232,8 @@ const InvoicePage = ({
                   classNames="nsForm-input__alternate"
                 />
               </div>
-            </div>
-            <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label htmlFor="email" className="pModal-form__label">
-                    Customer Name
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <InputWithoutLabel
-                  name="customerName"
-                  type="text"
-                  placeholder=""
-                  id="customerName"
-                  value={customerName}
-                  onChange={e => setCN(e.target.value)}
-                  errorMessage=""
-                  classNames="nsForm-input__alternate"
-                />
-              </div>
-            </div>
+            </div> */}
+
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
@@ -355,42 +337,20 @@ const InvoicePage = ({
                           onChange={event => setUA(event.target.value)}
                           name="radio" />
                         <span className="radio-checkmark"></span>
-                      </label>
-                      <p style={{marginLeft: '3em'}} className="text--smaller text--gray ml-10">
-                        {`${address.address}`}
-                      </p>
-                    </div>
-                    {/*<div className="space-between">
-                      <div
-                        className="button button-rounded"
-                        onClick={() => {
-                          context.updateShowEditAddressModal(true, address);
-                        }}
-                        >
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          >
-                          <path
-                            d="M1.125 14.625H16.875V15.75H1.125V14.625Z"
-                            fill="#777777"
-                            />
-                          <path
-                            d="M14.2875 5.0625C14.7375 4.6125 14.7375 3.9375 14.2875 3.4875L12.2625 1.4625C11.8125 1.0125 11.1375 1.0125 10.6875 1.4625L2.25 9.9V13.5H5.85L14.2875 5.0625ZM11.475 2.25L13.5 4.275L11.8125 5.9625L9.7875 3.9375L11.475 2.25ZM3.375 12.375V10.35L9 4.725L11.025 6.75L5.4 12.375H3.375Z"
-                            fill="#777777"
-                            />
-                        </svg>
-                      </div>
-                    </div>*/}
+                          </label>
+                          <p style={{marginLeft: '3em'}} className="text--smaller text--gray ml-10">
+                            {`${address.address}`}
+                          </p>
+                        </div>
                   </div>
                 ))
-                }
+              }
+              </div>
               </div>
             </div>
-            <hr />
+
+
+            <div style={{marginLeft:'20px'}}>
               <div className="pModal-main__notification text--smallest">
                 Select products from store to add to invoice
               </div>
@@ -499,25 +459,14 @@ const InvoicePage = ({
             </div>
           </div>
         </div>
+      </div>
+      </div>
+
 
         <div className="pModal-footer">
         <div className="button button--auto button-md button--orange" onClick={add}>
            + ITEM
         </div>
-          {/* <PepperestContext.Consumer>
-            {(context) => (
-              <div
-                role="button"
-                tabIndex={0}
-                className="button button--auto button-md button--neutral"
-                onClick={() => {
-                  context.updateShowPaymentModal(false);
-                }}
-              >
-                CANCEL
-              </div>
-            )}
-          </PepperestContext.Consumer> */}
 
         </div>
         <div ref={componentRef} className="col-12 col-lg-12">
@@ -553,7 +502,7 @@ const InvoicePage = ({
                   <p>{addressLine2}</p>
                   <p>{addressLine3}</p>
                 </div>
-                <div className="invoice-number">
+                <div className="invoice-number" style={{marginLeft: '100px'}}>
                   <p className="grey-format">Invoice Number</p>
                   <p>{getStringHash()}</p>
                   <p className="grey-format">Date of Issue</p>
@@ -607,8 +556,12 @@ const InvoicePage = ({
                     <p>{pepperestFees}%</p>
                   </div>
                   <div className="total-items-content">
+                    <p>Pepperest Fees</p>
+                    <p>2.5%</p>
+                  </div>
+                  <div className="total-items-content">
                     <p>Total</p>
-                      <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
+                    <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
                   </div>
                   <div className="total-items-content mt-20">
                     <p>Amount Due(Naira)</p>

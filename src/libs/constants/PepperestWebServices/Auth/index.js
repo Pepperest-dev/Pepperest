@@ -19,8 +19,8 @@ export const SOCIAL_PROVIDERS = {
     },
     facebook : {
         client_id : '2253727468182840',
-        redirectURL : 'http://localhost:3001/login',
-        // redirectURL : 'https://pepperest-live.herokuapp.com/login',
+        // redirectURL : 'http://localhost:3001/login',
+        redirectURL : 'https://pepperest-live.herokuapp.com/login',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }
@@ -28,11 +28,14 @@ export const SOCIAL_PROVIDERS = {
 export const SOCIAL_STORE_PROVIDERS = {
     facebook : {
         merchant_id : '2253727468182840',
-        redirectURL : 'http://localhost:3001/products/instagram',
-        // redirectURL : 'https://pepperest-live.herokuapp.com/products/instagram',
+        // redirectURL : 'http://localhost:3001/products/instagram',
+        redirectURL : 'https://pepperest-live.herokuapp.com/products/instagram',
         baseURL : 'https://www.facebook.com/v7.0/dialog/oauth',
     }
 }
+
+
+
 
 
 // code=AQAefXKygT-ArvxnDpZa8_hNN9tkQrRHBMg6ErYpjZl_PXvtqOiKYEff6984JsaBsUu29ZDyTOp4Ge-Hupwf38ESgnSDn4M1U15ERQW8vHRayaidrjxYqfStkuim3-MrwYcVMtLJNzFf5hxoZqIozlcsf5HUXiTcoi-n8xc6lYzTRdV8v3yb5MBkn8hsf9IiUTXUvspdAotxOk4Ld5H87yAtMUr8WzOc-WGsIsmi1WHO3-nd0Bo3HZNNR-DsEOrMXSCD8OrZH0cS9q08QBI5Tk0QakHSe5dWSeFQg8_cmFg7FwIVTGwPdTc6Uq98OljPmtCUzRXlX36rlrOM6N5fJKp1&state=%7B"provider"%3A"facebook"%7D#_=_
