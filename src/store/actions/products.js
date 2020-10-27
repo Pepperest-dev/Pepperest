@@ -7,6 +7,8 @@ import * as actionTypes from './actionTypes';
 import { setAddress } from './orders'
 import { Orders } from '../../libs/constants/PepperestWebServices';
 import axios from "axios"
+import {setAlert} from './alert'
+import { getStringHash } from 'libs/utils';
 
 export const publishSingleProduct = (token, user, extraParams = {}) => {
 	return dispatch => {
@@ -24,8 +26,10 @@ export const publishSingleProduct = (token, user, extraParams = {}) => {
 			const meta = response.data.products.meta
 			const links = response.data.products.links
 			dispatch( loadedProduct( products, meta, links ) )
-		}).catch((error) => console.error(error.response))
-	}
+		}).catch((error) => {
+			console.error(error.response)
+			dispatch( setAlert('An error occurred', 'error', getStringHash()))
+		})	}
 }
 
 export const publishSingleSocialProduct = (token, user, extraParams = {}) => {
@@ -44,8 +48,10 @@ export const publishSingleSocialProduct = (token, user, extraParams = {}) => {
 			const meta = response.data.products.meta
 			const links = response.data.products.links
 			dispatch( loadedProduct( products, meta, links ) )
-		}).catch((error) => console.error(error.response))
-	}
+		}).catch((error) => {
+			console.error(error.response)
+			dispatch( setAlert('An error occurred', 'error', getStringHash()))
+		})	}
 }
 
 export const updateProduct = ( token, user, extraParams = {}) => {
@@ -64,7 +70,10 @@ export const updateProduct = ( token, user, extraParams = {}) => {
 			const meta = response.data.products.meta
 			const links = response.data.products.links
 			dispatch( loadedProduct( products, meta, links ) )
-		}).catch((error) => console.error(error.response))
+		}).catch((error) => {
+			console.error(error.response)
+			dispatch( setAlert('An error occurred', 'error', getStringHash()))
+		})
 	}
 }
 
@@ -87,8 +96,10 @@ export const removeProduct = ( token, user, extraParams = {}) => {
 			// const meta = response.data.products.meta
 			// const links = response.data.products.links
 			dispatch( updateStoreProducts( products ) )
-		}).catch((error) => console.error(error.response))
-	}
+		}).catch((error) => {
+			console.error(error.response)
+			dispatch( setAlert('An error occurred', 'error', getStringHash()))
+		})	}
 }
 
 export const getFacebookPages = ( token, user, extraParams = {} ) => {
@@ -199,7 +210,10 @@ export const loadProductsAndAddress = ( token, user, extraParams = {} ) => {
 			const links = responses[0].data.products.links
 			dispatch( loadedProduct( products, meta, links ) )
 			dispatch(setAddress(responses[1].data.addresses))
-		})).catch(error => console.error(error))
+		})).catch((error) => {
+		console.error(error.response)
+		dispatch( setAlert('An error occurred', 'error', getStringHash()))
+	})
 	}
 }
 

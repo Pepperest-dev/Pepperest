@@ -33,21 +33,26 @@ const config = {
   isSettings: true,
   navBarTitle: "Create Customer Invoice",
 };
-const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
+const InvoicePage = ({
+  user, token, storeProducts,
+  addresses, load, createInvoice,
+  setAlert }) => {
   const [addressLine1, setAL1] = useState("")
   const [addressLine2, setAL2] = useState("")
   const [addressLine3, setAL3] = useState("")
   const [customerEmail, setCE] = useState("")
+  const [customerName, setCN] = useState("")
   const [phoneNumber, setPhone] = useState("")
   const [tax, setTax] = useState(7.5)
   const [productName, setPN] = useState("")
+  const [deliveryPeriod, setDP] = useState("")
   const [productDescription, setPD] = useState("")
   const [productQuantity, setPQ] = useState("")
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
   const [productz, setProductz] = useState("");
-
+  const pepperestFees = 2.5
   const date = new Date();
 
   useEffect(() => {
@@ -67,13 +72,14 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
         quantity: 1,
       }
       setProducts([...products, product])
+      setAlert('Product added to invoice', 'success', getStringHash())
     } else {
       const q = products[indexOfq]
       q.quantity += 1
-      console.log(q);
       let np = [...products]
       np[indexOfq] = q
       setProducts(np)
+      setAlert('Product added to invoice', 'success', getStringHash())
     }
   };
 
@@ -90,6 +96,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
     setPD("")
     setPQ("")
     setPP("")
+    setAlert('Product added to invoice', 'success', getStringHash())
   }
   const componentRef = useRef();
   // const handlePrint = useReactToPrint({
@@ -102,6 +109,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
     let p = [...products]
     p.splice(i, 1)
     setProducts(p)
+    setAlert('Product removed from invoice', 'success', getStringHash())
   }
 
   const calcTotal = () => {
@@ -114,7 +122,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
 
   const AlertCloseIcon = ({ className, onClick }) => (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
+      xm0lns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -127,7 +135,26 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
       />
     </svg>
   );
-
+  const submit = () => {
+    if (products.length && address){
+      const extraParams = {
+      userAddress: address.address,
+      addressLine_1: addressLine1,
+      addressLine_2: addressLine2,
+      addressLine_3: addressLine3,
+      customerEmail: customerEmail,
+      customerPhone: phoneNumber,
+      customerName: customerName,
+      totalcost: calcTotal() * ((tax + pepperestFees + 100)/100),
+      deliveryPeriod: deliveryPeriod,
+      vat:tax,
+      products: products,
+      currency: "NGN",
+      pepperest_fee: calcTotal() * (pepperestFees/100)
+      }
+      createInvoice(token, user, extraParams)
+    }
+  }
 
   return (
   <>
@@ -185,7 +212,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 />
               </div>
             </div>
-            <div className="pModal-form-control row mx-0">
+            {/* <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
                   <label htmlFor="billedto" className="pModal-form__label">
@@ -205,7 +232,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                   classNames="nsForm-input__alternate"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
@@ -265,6 +292,27 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                   id="customer_phone"
                   value={tax}
                   onChange={e => setTax(e.target.value)}
+                  errorMessage=""
+                  classNames="nsForm-input__alternate"
+                />
+              </div>
+            </div>
+            <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="customer_phone" className="pModal-form__label">
+                    Delivery Period
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="deliveryPeriod"
+                  type="number"
+                  placeholder=""
+                  id="deliveryPeriod"
+                  value={deliveryPeriod}
+                  onChange={e => setDP(e.target.value)}
                   errorMessage=""
                   classNames="nsForm-input__alternate"
                 />
@@ -463,7 +511,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
               </div>
               <div className="invoice-total">
                 <p className="grey-format">Invoice Total</p>
-                  <p>N{calcTotal() * ((tax + 100)/100)}</p>
+                  <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
               </div>
             </div>
             <div className="invoice-content">
@@ -501,19 +549,19 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                   </div>
                   <div className="total-items-content">
                     <p>Tax</p>
-                    <p>{tax}</p>
+                    <p>{tax}%</p>
                   </div>
                   <div className="total-items-content">
                     <p>Pepperest Fees</p>
-                    <p>2.5%</p>
+                    <p>{pepperestFees}%</p>
                   </div>
                   <div className="total-items-content">
                     <p>Total</p>
-                    <p>N{calcTotal() * ((tax + 100)/100) }</p>
+                    <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
                   </div>
                   <div className="total-items-content mt-20">
                     <p>Amount Due(Naira)</p>
-                    <p>N{calcTotal() * ((tax + 100)/100) * 0.25}</p>
+                      <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
                   </div>
                 </div>
               </div>
@@ -523,7 +571,9 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load }) => {
                 <div className="button button--auto button-md button--orange" >
                   Download
                 </div>
-                <div className="button button--auto button-md button--neutral ml-15">
+                <div
+                  onClick={submit}
+                  className="button button--auto button-md button--neutral ml-15">
                   Send Via Email
                 </div>
               </div>
@@ -546,7 +596,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    load: (token, user, extraParams) => dispatch(actions.loadProductsAndAddress(token, user, extraParams))
+    load: (token, user, extraParams) => dispatch(actions.loadProductsAndAddress(token, user, extraParams)),
+    createInvoice: (token, user, extraParams) => dispatch(actions.createInvoice(token, user, extraParams)),
+    setAlert: (message, type, id) => dispatch( actions.setAlert(message, type, id))
   }
 }
 
