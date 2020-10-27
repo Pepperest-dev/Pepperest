@@ -33,7 +33,10 @@ const config = {
   isSettings: true,
   navBarTitle: "Create Customer Invoice",
 };
-const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoice }) => {
+const InvoicePage = ({
+  user, token, storeProducts,
+  addresses, load, createInvoice,
+  setAlert }) => {
   const [addressLine1, setAL1] = useState("")
   const [addressLine2, setAL2] = useState("")
   const [addressLine3, setAL3] = useState("")
@@ -49,7 +52,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
   const [productz, setProductz] = useState("");
-
+  const pepperestFees = 1
   const date = new Date();
 
   useEffect(() => {
@@ -69,13 +72,14 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
         quantity: 1,
       }
       setProducts([...products, product])
+      setAlert('Product added to invoice', 'success', getStringHash())
     } else {
       const q = products[indexOfq]
       q.quantity += 1
-      console.log(q);
       let np = [...products]
       np[indexOfq] = q
       setProducts(np)
+      setAlert('Product added to invoice', 'success', getStringHash())
     }
   };
 
@@ -92,6 +96,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
     setPD("")
     setPQ("")
     setPP("")
+    setAlert('Product added to invoice', 'success', getStringHash())
   }
   const componentRef = useRef();
   // const handlePrint = useReactToPrint({
@@ -104,6 +109,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
     let p = [...products]
     p.splice(i, 1)
     setProducts(p)
+    setAlert('Product removed from invoice', 'success', getStringHash())
   }
 
   const calcTotal = () => {
@@ -116,7 +122,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
 
   const AlertCloseIcon = ({ className, onClick }) => (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
+      xm0lns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -129,21 +135,22 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
       />
     </svg>
   );
-
   const submit = () => {
-    if (products.length){
+    if (products.length && address){
       const extraParams = {
-      userAddress: addressLine1,
-      addressLine_1: addressLine2,
-      addressLine_2: addressLine3,
+      userAddress: address.address,
+      addressLine_1: addressLine1,
+      addressLine_2: addressLine2,
+      addressLine_3: addressLine3,
       customerEmail: customerEmail,
       customerPhone: phoneNumber,
       customerName: customerName,
-      totalcost: calcTotal(),
+      totalcost: calcTotal() * ((tax + pepperestFees + 100)/100),
       deliveryPeriod: deliveryPeriod,
       vat:tax,
       products: products,
       currency: "NGN",
+      pepperest_fee: calcTotal() * (pepperestFees/100)
       }
       createInvoice(token, user, extraParams)
     }
@@ -555,7 +562,7 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
               </div>
               <div className="invoice-total">
                 <p className="grey-format">Invoice Total</p>
-                  <p>N{calcTotal() * ((tax + 100)/100)}</p>
+                  <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
               </div>
             </div>
             <div className="invoice-content">
@@ -593,15 +600,19 @@ const InvoicePage = ({ user, token, storeProducts, addresses, load, createInvoic
                   </div>
                   <div className="total-items-content">
                     <p>Tax</p>
-                    <p>{tax}</p>
+                    <p>{tax}%</p>
+                  </div>
+                  <div className="total-items-content">
+                    <p>Pepperest Fees</p>
+                    <p>{pepperestFees}%</p>
                   </div>
                   <div className="total-items-content">
                     <p>Total</p>
-                    <p>N{calcTotal() * ((tax + 100)/100)}</p>
+                      <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
                   </div>
                   <div className="total-items-content mt-20">
                     <p>Amount Due(Naira)</p>
-                    <p>N{calcTotal() * ((tax + 100)/100)}</p>
+                      <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
                   </div>
                 </div>
               </div>
@@ -637,7 +648,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     load: (token, user, extraParams) => dispatch(actions.loadProductsAndAddress(token, user, extraParams)),
-    createInvoice: (token, user, extraParams) => dispatch(actions.createInvoice(token, user, extraParams))
+    createInvoice: (token, user, extraParams) => dispatch(actions.createInvoice(token, user, extraParams)),
+    setAlert: (message, type, id) => dispatch( actions.setAlert(message, type, id))
   }
 }
 

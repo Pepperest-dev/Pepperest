@@ -34,11 +34,14 @@ export const createInvoice = (token, user, extraParams = {}) => dispatch => {
 		merchant_id: user.customerID,
 		...extraParams
 	}
-	console.log(extraParams);
 	PepperestAxios.post(Products.CREATE_INVOICE, body, headers).then((response) =>{
 		console.log(response);
-	}).catch((error) => console.error(error.response))
-}
+		dispatch( setAlert('Operation Successful', 'success', getStringHash()))
+
+	}).catch((error) => {
+	console.error(error.response)
+	dispatch( setAlert('An error occurred', 'error', getStringHash()))
+	})}
 
 export const loadingMerchantPage = () => {
 	return {
