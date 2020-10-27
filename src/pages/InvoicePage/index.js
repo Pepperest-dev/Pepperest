@@ -52,7 +52,7 @@ const InvoicePage = ({
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
   const [productz, setProductz] = useState("");
-  const pepperestFees = 1
+  const pepperestFees = 2.5
   const date = new Date();
 
   useEffect(() => {
@@ -554,10 +554,6 @@ const InvoicePage = ({
                   <div className="total-items-content">
                     <p>Pepperest Fees</p>
                     <p>{pepperestFees}%</p>
-                  </div>
-                  <div className="total-items-content">
-                    <p>Pepperest Fees</p>
-                    <p>2.5%</p>
                   </div>
                   <div className="total-items-content">
                     <p>Total</p>
