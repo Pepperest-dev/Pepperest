@@ -52,7 +52,7 @@ const InvoicePage = ({
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
   const [productz, setProductz] = useState("");
-  const pepperestFees = 1
+  const pepperestFees = 2.5
   const date = new Date();
 
   useEffect(() => {
@@ -112,12 +112,18 @@ const InvoicePage = ({
     setAlert('Product removed from invoice', 'success', getStringHash())
   }
 
+  var numeral = require('numeral')
+
   const calcTotal = () => {
     let total = 0
     for ( var i = 0, _len = products.length; i < _len; i++ ) {
-        total += (products[i].quantity * products[i].price)
+      total += (products[i].quantity * products[i].price)
     }
     return total
+  }
+  const amount = () => {
+  let total=  calcTotal() * ((tax + pepperestFees + 100)/100)
+  return numeral(total).format('0,0.00')
   }
 
   const AlertCloseIcon = ({ className, onClick }) => (
@@ -511,7 +517,8 @@ const InvoicePage = ({
               </div>
               <div className="invoice-total">
                 <p className="grey-format">Invoice Total</p>
-                  <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
+                  {/* <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p> */}
+                  <p>N{amount()}</p>
               </div>
             </div>
             <div className="invoice-content">
@@ -556,16 +563,14 @@ const InvoicePage = ({
                     <p>{pepperestFees}%</p>
                   </div>
                   <div className="total-items-content">
-                    <p>Pepperest Fees</p>
-                    <p>2.5%</p>
-                  </div>
-                  <div className="total-items-content">
                     <p>Total</p>
-                    <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
+                    {/* <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p> */}
+                    <p>N{amount()}</p>
                   </div>
                   <div className="total-items-content mt-20">
                     <p>Amount Due(Naira)</p>
-                      <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p>
+                      {/* <p>N{calcTotal() * ((tax + pepperestFees + 100)/100)}</p> */}
+                      <p>N{amount()}</p>
                   </div>
                 </div>
               </div>
