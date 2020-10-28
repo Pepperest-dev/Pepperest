@@ -171,7 +171,7 @@ const InvoicePage = ({
 
           <div className="pModal-form">
         <div style={{display: 'flex'}}>
-        <div classname="spanex" style={{display: 'inline'}} >
+        <div className="spanex" style={{display: 'inline'}} >
           <div className="pModal-main__notification text--smallest">
             A payment link would be created and sent to the customer email
             address
