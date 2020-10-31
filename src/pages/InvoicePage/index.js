@@ -176,6 +176,27 @@ const InvoicePage = ({
             A payment link would be created and sent to the customer email
             address
           </div>
+          <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="billedto" className="pModal-form__label">
+                    Customer Name
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="customerName"
+                  type="text"
+                  placeholder=""
+                  id="customerName"
+                  value={customerName}
+                  onChange={e => setCN(e.target.value)}
+                  classNames="nsForm-input__alternate"
+                  errorMessage=""
+                />
+              </div>
+            </div>
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
@@ -503,12 +524,12 @@ const InvoicePage = ({
             <div className="invoice-subcontent">
               <div className="subcontent-address">
                 <div className="billed-to">
-                  <p className="grey-format">Billed To</p>
-                  <p>{addressLine1}</p>
-                  <p>{addressLine2}</p>
-                  <p>{addressLine3}</p>
+                  <p className="grey-format" >Billed To</p>
+                  <p style={{width: 'max-content'}}>Customer Name: {customerName}</p>
+                  <p style={{width: 'max-content'}}>Address: {addressLine1}</p>
+                  <p style={{width: 'max-content'}}>Address 2: {addressLine2}</p>
                 </div>
-                <div className="invoice-number" style={{marginLeft: '100px'}}>
+                <div className="invoice-number" style={{marginLeft: '200px'}}>
                   <p className="grey-format">Invoice Number</p>
                   <p>{getStringHash()}</p>
                   <p className="grey-format">Date of Issue</p>
