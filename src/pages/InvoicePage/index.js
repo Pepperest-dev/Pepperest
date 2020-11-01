@@ -51,7 +51,7 @@ const InvoicePage = ({
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
-  const [productz, setProductz] = useState("");
+  // const [productz, setProductz] = useState("");
   const pepperestFees = 2.5
   const date = new Date();
 
@@ -168,14 +168,35 @@ const InvoicePage = ({
       <div className="row">
 
       <div className="pModal-main">
-
-          <div className="pModal-form">
+      <form  className="pModal-form">
         <div style={{display: 'flex'}}>
-        <div classname="spanex" style={{display: 'inline'}} >
+        <div className="spanex" style={{display: 'inline'}} >
           <div className="pModal-main__notification text--smallest">
             A payment link would be created and sent to the customer email
             address
           </div>
+          <div className="pModal-form-control row mx-0">
+              <div className="col-md-5">
+                <div className="pModal-form__label-control">
+                  <label htmlFor="billedto" className="pModal-form__label">
+                    Customer Name
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <InputWithoutLabel
+                  name="customerName"
+                  type="text"
+                  placeholder=""
+                  id="customerName"
+                  required
+                  value={customerName}
+                  onChange={e => setCN(e.target.value)}
+                  classNames="nsForm-input__alternate"
+                  errorMessage=""
+                />
+              </div>
+            </div>
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
                 <div className="pModal-form__label-control">
@@ -190,6 +211,7 @@ const InvoicePage = ({
                   type="text"
                   placeholder=""
                   id="addressLine1"
+                  required
                   value={addressLine1}
                   onChange={e => setAL1(e.target.value)}
                   classNames="nsForm-input__alternate"
@@ -218,27 +240,7 @@ const InvoicePage = ({
                 />
               </div>
             </div>
-            {/* <div className="pModal-form-control row mx-0">
-              <div className="col-md-5">
-                <div className="pModal-form__label-control">
-                  <label htmlFor="billedto" className="pModal-form__label">
-                    Billed to address Line 3
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-7">
-                <InputWithoutLabel
-                  name="addressLine3"
-                  type="text"
-                  placeholder=""
-                  id="addressLine3"
-                  value={addressLine3}
-                  onChange={e => setAL3(e.target.value)}
-                  errorMessage=""
-                  classNames="nsForm-input__alternate"
-                />
-              </div>
-            </div> */}
+
 
             <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
@@ -254,6 +256,7 @@ const InvoicePage = ({
                   type="email"
                   placeholder=""
                   id="email"
+                  required
                   value={customerEmail}
                   onChange={e => setCE(e.target.value)}
                   errorMessage=""
@@ -274,6 +277,7 @@ const InvoicePage = ({
                   name="customer_phone"
                   type="tel"
                   placeholder=""
+                  required
                   id="customer_phone"
                   value={phoneNumber}
                   onChange={e => setPhone(e.target.value)}
@@ -297,6 +301,7 @@ const InvoicePage = ({
                   placeholder=""
                   id="customer_phone"
                   value={tax}
+                  required
                   onChange={e => setTax(e.target.value)}
                   errorMessage=""
                   classNames="nsForm-input__alternate"
@@ -317,6 +322,7 @@ const InvoicePage = ({
                   type="number"
                   placeholder=""
                   id="deliveryPeriod"
+                  required
                   value={deliveryPeriod}
                   onChange={e => setDP(e.target.value)}
                   errorMessage=""
@@ -369,7 +375,7 @@ const InvoicePage = ({
                 </div>
               </div>
               <div className="col-md-7">
-                <select  style={{width:'100%', height: '50px'}} className="nsForm-select__alternate" value={productz} onChange={handleChangeSelectProducts}  >
+                <select  style={{width:'100%', height: '50px'}} className="nsForm-select__alternate" value={products} onChange={handleChangeSelectProducts}  >
                     <option style={{width:'fit-content', height: '50px'}} value={0}> Select Product </option>
                   {storeProducts.map((productItem) => (
                     <option  style={{width:'fit-content', height: '50px'}} key={productItem.id} value={productItem.id}> {productItem.productName} </option>
@@ -395,6 +401,7 @@ const InvoicePage = ({
                   type="text"
                   placeholder=""
                   id="product"
+                  required
                   value={productName}
                   onChange={e => setPN(e.target.value)}
                   errorMessage=""
@@ -435,6 +442,7 @@ const InvoicePage = ({
                   type="number"
                   placeholder=""
                   id="cost_item"
+                  required
                   value={productPrice}
                   onChange={e => setPP(e.target.value)}
                   errorMessage=""
@@ -455,6 +463,7 @@ const InvoicePage = ({
                   name="quantity"
                   type="number"
                   placeholder=""
+                  required
                   id="quantity"
                   value={productQuantity}
                   onChange={e => setPQ(e.target.value)}
@@ -465,16 +474,16 @@ const InvoicePage = ({
             </div>
           </div>
         </div>
-      </div>
-      </div>
-
-
         <div className="pModal-footer">
-        <div className="button button--auto button-md button--orange" onClick={add}>
-           + ITEM
+          <div className="button button--auto button-md button--orange" onClick={add}>
+            + ITEM
+          </div>
         </div>
+      </form>
+      </div>
 
-        </div>
+
+
         <div ref={componentRef} className="col-12 col-lg-12">
 
           <div className="invoice-card">
@@ -503,12 +512,12 @@ const InvoicePage = ({
             <div className="invoice-subcontent">
               <div className="subcontent-address">
                 <div className="billed-to">
-                  <p className="grey-format">Billed To</p>
-                  <p>{addressLine1}</p>
-                  <p>{addressLine2}</p>
-                  <p>{addressLine3}</p>
+                  <p className="grey-format" >Billed To</p>
+                  <p style={{width: 'max-content'}}>Customer Name: {customerName}</p>
+                  <p style={{width: 'max-content'}}>Address: {addressLine1}</p>
+                  <p style={{width: 'max-content'}}>Address 2: {addressLine2}</p>
                 </div>
-                <div className="invoice-number" style={{marginLeft: '100px'}}>
+                <div className="invoice-number" style={{marginLeft: '200px'}}>
                   <p className="grey-format">Invoice Number</p>
                   <p>{getStringHash()}</p>
                   <p className="grey-format">Date of Issue</p>
@@ -577,14 +586,14 @@ const InvoicePage = ({
             </div>
             <div className="invoice-footer">
               <div className="invoice-footer-child">
-                <div className="button button--auto button-md button--orange" >
+                {/* <div className="button button--auto button-md button--orange" >
                   Download
-                </div>
-                <div
+                </div> */}
+                <button
                   onClick={submit}
-                  className="button button--auto button-md button--neutral ml-15">
+                  className="button button--auto button-md button--orange ml-15">
                   Send Via Email
-                </div>
+                </button>
               </div>
             </div>
           </div>
