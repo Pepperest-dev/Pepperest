@@ -22,6 +22,7 @@ import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 import { connect } from "react-redux";
 import * as actions from 'store/actions/index';
 // import {useReactToPrint} from "react-to-print";
+var numeral = require('numeral')
 
 const config = {
   hasAlternateHeader: false,
@@ -51,6 +52,8 @@ const InvoicePage = ({
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
   const [userAddress, setUA] = useState("")
+  const [error, setErr] = useState(false)
+  const [productError, setPErr] = useState(false)
   // const [productz, setProductz] = useState("");
   const pepperestFees = 2.5
   const date = new Date();
@@ -85,18 +88,24 @@ const InvoicePage = ({
 
   const [address] = addresses.filter(a => a.address_id == userAddress)
   const add = () => {
-    const product = {
-      name: productName,
-      des: productDescription,
-      quantity: productQuantity,
-      price: productPrice
+    if (productName, productDescription, productQuantity, productPrice) {
+      const product = {
+        name: productName,
+        des: productDescription,
+        quantity: productQuantity,
+        price: productPrice
+      }
+      setProducts([...products, product])
+      setPN("")
+      setPD("")
+      setPQ("")
+      setPP("")
+      setAlert('Product added to invoice', 'success', getStringHash())
+      setPErr(false)
+    } else {
+      setPErr(true)
+      setAlert('Please complete the Product form', 'error', getStringHash())
     }
-    setProducts([...products, product])
-    setPN("")
-    setPD("")
-    setPQ("")
-    setPP("")
-    setAlert('Product added to invoice', 'success', getStringHash())
   }
   const componentRef = useRef();
   // const handlePrint = useReactToPrint({
@@ -112,7 +121,6 @@ const InvoicePage = ({
     setAlert('Product removed from invoice', 'success', getStringHash())
   }
 
-  var numeral = require('numeral')
 
   const calcTotal = () => {
     let total = 0
@@ -122,8 +130,8 @@ const InvoicePage = ({
     return total
   }
   const amount = () => {
-  let total=  calcTotal() * ((tax + pepperestFees + 100)/100)
-  return numeral(total).format('0,0.00')
+    let total = calcTotal() * ((tax + pepperestFees + 100)/100)
+    return numeral(total).format('0,0.00')
   }
 
   const AlertCloseIcon = ({ className, onClick }) => (
@@ -142,7 +150,17 @@ const InvoicePage = ({
     </svg>
   );
   const submit = () => {
-    if (products.length && address){
+    if (
+      products.length &&
+      address &&
+      addressLine1 &&
+      addressLine2 &&
+      customerEmail &&
+      phoneNumber &&
+      customerName &&
+      tax &&
+      deliveryPeriod
+    ){
       const extraParams = {
       userAddress: address.address,
       addressLine_1: addressLine1,
@@ -153,12 +171,20 @@ const InvoicePage = ({
       customerName: customerName,
       totalcost: calcTotal() * ((tax + pepperestFees + 100)/100),
       deliveryPeriod: deliveryPeriod,
-      vat:tax,
+      vat:calcTotal() * (tax/100),
       products: products,
       currency: "NGN",
       pepperest_fee: calcTotal() * (pepperestFees/100)
       }
       createInvoice(token, user, extraParams)
+      setErr(false)
+    } else if (products.length === 0){
+      setAlert('Select/Add product to invoice', 'error', getStringHash())
+    } else if (!address){
+      setAlert('Please select an address', 'error', getStringHash())
+    } else {
+      setAlert('Please Fill out all Invoice Data Fields', 'error', getStringHash())
+      setErr(true)
     }
   }
 
@@ -171,9 +197,8 @@ const InvoicePage = ({
       <form  className="pModal-form">
         <div style={{display: 'flex'}}>
         <div className="spanex" style={{display: 'inline'}} >
-          <div className="pModal-main__notification text--smallest">
-            A payment link would be created and sent to the customer email
-            address
+          <div className="pModal-main__notification text--small">
+            Invoice Data
           </div>
           <div className="pModal-form-control row mx-0">
               <div className="col-md-5">
@@ -193,7 +218,7 @@ const InvoicePage = ({
                   value={customerName}
                   onChange={e => setCN(e.target.value)}
                   classNames="nsForm-input__alternate"
-                  errorMessage=""
+                  errorMessage={error && !customerName ? "required" : ""}
                 />
               </div>
             </div>
@@ -215,7 +240,7 @@ const InvoicePage = ({
                   value={addressLine1}
                   onChange={e => setAL1(e.target.value)}
                   classNames="nsForm-input__alternate"
-                  errorMessage=""
+                  errorMessage={error && !addressLine1 ? "required" : ""}
                 />
               </div>
             </div>
@@ -235,7 +260,7 @@ const InvoicePage = ({
                   id="addressLine2"
                   value={addressLine2}
                   onChange={e => setAL2(e.target.value)}
-                  errorMessage=""
+                  errorMessage={error && !addressLine2 ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -259,7 +284,7 @@ const InvoicePage = ({
                   required
                   value={customerEmail}
                   onChange={e => setCE(e.target.value)}
-                  errorMessage=""
+                  errorMessage={error && !customerEmail ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -303,7 +328,7 @@ const InvoicePage = ({
                   value={tax}
                   required
                   onChange={e => setTax(e.target.value)}
-                  errorMessage=""
+                  errorMessage={error && !tax ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -325,7 +350,7 @@ const InvoicePage = ({
                   required
                   value={deliveryPeriod}
                   onChange={e => setDP(e.target.value)}
-                  errorMessage=""
+                  errorMessage={error && !deliveryPeriod ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -363,6 +388,9 @@ const InvoicePage = ({
 
 
             <div style={{marginLeft:'20px'}}>
+              <div className="pModal-main__notification text--small">
+                Product Data
+              </div>
               <div className="pModal-main__notification text--smallest">
                 Select products from store to add to invoice
               </div>
@@ -404,7 +432,7 @@ const InvoicePage = ({
                   required
                   value={productName}
                   onChange={e => setPN(e.target.value)}
-                  errorMessage=""
+                  errorMessage={productError && !productName ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -423,7 +451,7 @@ const InvoicePage = ({
               <div className="col-md-7">
                 <TextArea name="description"
                   value={productDescription}
-                  errorMessage=""
+                  errorMessage={productError && !productDescription ? "required" : ""}
                   onChange={e => setPD(e.target.value)} />
               </div>
             </div>
@@ -445,7 +473,7 @@ const InvoicePage = ({
                   required
                   value={productPrice}
                   onChange={e => setPP(e.target.value)}
-                  errorMessage=""
+                  errorMessage={productError && !productPrice ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -467,7 +495,7 @@ const InvoicePage = ({
                   id="quantity"
                   value={productQuantity}
                   onChange={e => setPQ(e.target.value)}
-                  errorMessage=""
+                  errorMessage={productError && !productQuantity ? "required" : ""}
                   classNames="nsForm-input__alternate"
                 />
               </div>
@@ -565,11 +593,11 @@ const InvoicePage = ({
                   </div>
                   <div className="total-items-content">
                     <p>Tax</p>
-                    <p>{tax}%</p>
+                    <p>N{numeral(calcTotal() * tax/100).format('0,0.00')}</p>
                   </div>
                   <div className="total-items-content">
                     <p>Pepperest Fees</p>
-                    <p>{pepperestFees}%</p>
+                    <p>N{numeral(calcTotal() * pepperestFees/100).format('0,0.00')}</p>
                   </div>
                   <div className="total-items-content">
                     <p>Total</p>
@@ -595,6 +623,10 @@ const InvoicePage = ({
                   Send Via Email
                 </button>
               </div>
+                <div className="pModal-main__notification text--smallest">
+                  A payment link would be created and sent to the customer email
+                  address
+                </div>
             </div>
           </div>
         </div>
