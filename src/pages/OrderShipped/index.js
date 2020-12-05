@@ -37,7 +37,7 @@ const OrderShipped = (props) => {
       </div>
       <PepperestContext.Consumer>
         {(context) =>
-          context.state.showReportIssueModal ? <ReportIssueModal /> : null
+          context.state.showReportIssueModal ? <ReportIssueModal context={context}/> : null
         }
       </PepperestContext.Consumer>
     </>
