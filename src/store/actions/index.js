@@ -27,6 +27,9 @@ from './products';
 
 export {
 	loadCustomer,
+	reportIssue,
+	requestRefund,
+	requestPayment,
 }
 from './customers';
 
