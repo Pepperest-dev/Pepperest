@@ -38,7 +38,7 @@ export const reportIssue = (token, user, extraParams = {}) => dispatch => {
       ...extraParams
     }
     PepperestAxios.post(Customers.REPORT_ISSUE, body, {headers}).then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch( setAlert('Your issue has been reported successfully', 'success', getStringHash()))
     }).catch(err => {
       if (err.response) console.error(err.response)
@@ -56,10 +56,12 @@ export const requestRefund = (token, user, extraParams = {}) => dispatch => {
       ...extraParams
     }
     PepperestAxios.post(Customers.REQUEST_REFUND, body, {headers}).then(res => {
-      console.log(res);
+      // console.log(res);
+      dispatch( setAlert('Request successful', 'success', getStringHash()))
     }).catch(err => {
       if (err.response) console.error(err.response)
       else console.error(err)
+      dispatch( setAlert('An error occurred', 'error', getStringHash()))
     })
 }
 export const requestPayment = (token, user, extraParams = {}) => dispatch => {
@@ -72,10 +74,12 @@ export const requestPayment = (token, user, extraParams = {}) => dispatch => {
       ...extraParams
     }
     PepperestAxios.post(Customers.REQUEST_PAYMENT, body, {headers}).then(res => {
-      console.log(res);
+      // console.log(res);
+      dispatch( setAlert('Request successful', 'success', getStringHash()))
     }).catch(err => {
       if (err.response) console.error(err.response)
       else console.error(err)
+      dispatch( setAlert('An error occurred', 'error', getStringHash()))
     })
 }
 
