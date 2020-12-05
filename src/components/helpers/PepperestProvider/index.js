@@ -27,6 +27,7 @@ const PepperestProvider = (props) => {
     productDetails: {},
     productForDeleting: {},
     address: {},
+    transactionId: "",
   });
   return (
     <PepperestContext.Provider
@@ -93,8 +94,11 @@ const PepperestProvider = (props) => {
             showPublishInstagramImageModal: value,
           });
         },
-        updateShowRequestPaymentModal: (value) => {
-          setLocalState({ ...localState, showRequestPaymentModal: value });
+        updateShowRequestPaymentModal: (value, id) => {
+          setLocalState({
+            ...localState, showRequestPaymentModal: value,
+            transactionId: id,
+          });
         },
       }}
     >
