@@ -76,8 +76,9 @@ const PepperestProvider = (props) => {
         updateShowDeleteProductModal: (value, productForDeleting={}) => {
           setLocalState({ ...localState, productForDeleting, showDeleteProductModal: value });
         },
-        updateShowRefundCustomerModal: (value) => {
-          setLocalState({ ...localState, showRefundCustomerModal: value });
+        updateShowRefundCustomerModal: (value, id) => {
+          setLocalState({ ...localState,
+            showRefundCustomerModal: value, transactionId: id });
         },
         updateShowAddNewAddressModal: (value) => {
           setLocalState({ ...localState, showAddNewAddressModal: value });

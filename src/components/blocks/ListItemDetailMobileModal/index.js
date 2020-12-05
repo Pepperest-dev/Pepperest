@@ -161,7 +161,7 @@ const ListItemDetailMobileModal = ({paymentDetails}) => {
                   <div
                     className="button button-md button--grey"
                     onClick={() => {
-                      context.updateShowRefundCustomerModal(true);
+                      context.updateShowRefundCustomerModal(true, transactionId);
                     }}
                   >
                     Refund customer
