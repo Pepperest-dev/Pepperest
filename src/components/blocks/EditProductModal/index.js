@@ -168,12 +168,12 @@ const EditProductModal = (props) => {
                 <div className="col-md-7">
                 <InputWithoutLabel
                       name="display_image"
-                      type="text"
+                      type="file"
                       placeholder=""
                       id="display_image"
                       required
                       errorMessage={error ? "Upload Product Image": ''}
-                      value={Link}
+                      value=""
                       onChange={handleChangeLink}
                       classNames="nsForm-input__alternate"
                     />
