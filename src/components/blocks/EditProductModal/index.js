@@ -172,7 +172,7 @@ const EditProductModal = (props) => {
                   </div>
                 </div>
                 <div className="col-md-7">
-                <InputWithoutLabel
+                <input
                       name="display_image"
                       type="file"
                       placeholder=""
