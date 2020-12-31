@@ -1,4 +1,6 @@
 import CloseIcon from './CloseIcon'
+import AddIcon from './AddIcon'
+import RemoveIcon from './RemoveIcon'
 import RightChevron from './RightChevron'
 import CalendarIcon from './CalendarIcon';
 import SpinnerIcon from './SpinnerIcon';
@@ -31,6 +33,8 @@ import AlertCloseIcon from './AlertCloseIcon';
 
 export {
   CloseIcon,
+  AddIcon,
+  RemoveIcon,
   RightChevron,
   CalendarIcon,
   SpinnerIcon,
