@@ -49,8 +49,10 @@ const InvoicePage = ({
   const [deliveryPeriod, setDP] = useState("")
   const [productDescription, setPD] = useState("")
   const [productQuantity, setPQ] = useState("")
+  const [storeQuantity, setSQ] = useState("")
   const [productPrice, setPP] = useState("")
   const [products, setProducts] = useState([])
+  const [storeSelectedProduct, setStoreSelecetedProduct] = useState("")
   const [userAddress, setUA] = useState("")
   const [error, setErr] = useState(false)
   const [productError, setPErr] = useState(false)
@@ -85,6 +87,29 @@ const InvoicePage = ({
       setAlert('Product added to invoice', 'success', getStringHash())
     }
   };
+
+  const addFromStore = () => {
+    if (storeSelectedProduct && storeQuantity) {
+      const [p] = storeProducts.filter(x => x.id == storeSelectedProduct)
+      // const [q] = products.filter(x => x.name === p.productName)
+      var indexOfq = products.findIndex(i => i.name === p.productName);
+      if (indexOfq < 0) {
+        const product = {
+          name: p.productName,
+          des: p.productDescription,
+          price: p.amount,
+          quantity: storeQuantity,
+        }
+        setProducts([...products, product])
+        setStoreSelecetedProduct("")
+        setSQ("")
+        setAlert('Product added to invoice', 'success', getStringHash())
+    } else {
+      setAlert('Product already in invoice', 'error', getStringHash())
+    }
+  } else {
+    setAlert('Select a product & enter a quantity', 'error', getStringHash())
+  }}
 
   const [address] = addresses.filter(a => a.address_id == userAddress)
   const add = () => {
@@ -403,7 +428,7 @@ const InvoicePage = ({
                 </div>
               </div>
               <div className="col-md-7">
-                <select  style={{width:'100%', height: '50px'}} className="nsForm-select__alternate" value={products} onChange={handleChangeSelectProducts}  >
+                <select  style={{width:'100%', height: '50px'}} className="nsForm-select__alternate" value={storeSelectedProduct} onChange={e => setStoreSelecetedProduct(e.target.value)}  >
                     <option style={{width:'fit-content', height: '50px'}} value={0}> Select Product </option>
                   {storeProducts.map((productItem) => (
                     <option  style={{width:'fit-content', height: '50px'}} key={productItem.id} value={productItem.id}> {productItem.productName} </option>
@@ -411,7 +436,34 @@ const InvoicePage = ({
                 </select>
               </div>
             </div>
-            <hr />
+              <div className="pModal-form-control row mx-0">
+                <div className="col-md-5">
+                  <div className="pModal-form__label-control">
+                    <label htmlFor="quantity" className="pModal-form__label">
+                      Quantity
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <InputWithoutLabel
+                    name="quantity"
+                    type="number"
+                    placeholder=""
+                    required
+                    id="quantity"
+                    value={storeQuantity}
+                    onChange={e => setSQ(e.target.value)}
+                    errorMessage={productError && !productQuantity ? "required" : ""}
+                    classNames="nsForm-input__alternate"
+                  />
+                </div>
+              </div>
+              <div className="pModal-footer">
+                <div className="button button--auto button-md button--orange" onClick={addFromStore}>
+                  + ITEM
+                </div>
+              </div>
+              <hr />
               <div className="pModal-main__notification text--smallest">
                 Enter details for product not in store to be added to Invoice
               </div>

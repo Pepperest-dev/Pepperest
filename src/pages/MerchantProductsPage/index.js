@@ -13,7 +13,7 @@ const config = {
   hasAlternateHeader: false,
   hasCommonHeader: true,
   showCart: true,
-  commonHeaderTitle: 'Seun Akanni\'s Store',
+  commonHeaderTitle: 'Merchant Store',
   showCommonHeaderOnDesktop: true,
   links: [],
   isSettings: false,
