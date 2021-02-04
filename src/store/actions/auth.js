@@ -3,6 +3,7 @@ import { Auth, AuthErrorMessages } from '../../libs/constants/PepperestWebServic
 import * as actionTypes from './actionTypes';
 import { setStateInLocalStorage, getStateFromLocalStorage, removeStateFromLocalStorage } from '../utility';
 import { getUserProfile } from 'store/actions/userAccount';
+import { productCheck } from './cart'
 
 export const authStart = () => {
     return {
@@ -123,16 +124,17 @@ export const autenticate = (payLoad, endpoint) => {
             dispatch(authSuccess(token, response.data.userInfo));
             dispatch(getUserProfile(token, response.data.userInfo));
             dispatch(checkAuthTimeout(response.data.token.expires_in));
+            dispatch(productCheck(token, response.data.userInfo))
         })
         .catch( error => {
             let errorMessage = null;
             if(endpoint === Auth.LOGIN || endpoint === Auth.SOCIAL){
-                errorMessage = error.response ? 
-                (AuthErrorMessages[error.response.data.error] || AuthErrorMessages.default) : 
+                errorMessage = error.response ?
+                (AuthErrorMessages[error.response.data.error] || AuthErrorMessages.default) :
                 'Unable to connect to the server' //TODO handle this in global PepperestAxios
                 dispatch(authFail(errorMessage));
             }else{
-                errorMessage = error.response ? error.response.data.message : 
+                errorMessage = error.response ? error.response.data.message :
                 'Unable to connect to the server' //TODO handle this in global PepperestAxios
                 dispatch(registerFail(errorMessage));
             }
@@ -154,7 +156,7 @@ export const authCheckState = () => {
                 dispatch(authSuccess(token, userInfo));
                 dispatch(getUserProfile(token, userInfo));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
-            }   
+            }
         }
     };
 };

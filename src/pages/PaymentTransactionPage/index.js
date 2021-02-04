@@ -30,7 +30,7 @@ const PaymentTransactionPage = (props) => {
       />
       <PepperestContext.Consumer>
         {(context) =>
-          context.state.showRequestPaymentModal ? <RequestPaymentModal /> : null
+          context.state.showRequestPaymentModal ? <RequestPaymentModal context={context}/> : null
         }
       </PepperestContext.Consumer>
     </>

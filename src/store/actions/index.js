@@ -21,16 +21,26 @@ export {
 	selectPage,
 	updateProduct,
 	removeProduct,
+	loadProductsAndAddress
 }
 from './products';
 
 export {
 	loadCustomer,
+	reportIssue,
+	requestRefund,
+	requestPayment,
 }
 from './customers';
 
 export {
 	loadOrders,
+	placeOrder,
+	confirmOrder,
+	getAddress,
+	addAddress,
+	editAddress,
+	deleteAddress
 }
 from './orders';
 
@@ -46,12 +56,15 @@ from './userAccount';
 
 export {
 	loadCustomerCart,
-	removeItemFromCart
+	addToCart,
+	removeItemFromCart,
+	productCheck
 }
 from './cart'
 
 export {
 	getMerchantStoreProducts,
+	createInvoice
 }
 from './merchant'
 

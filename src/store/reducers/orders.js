@@ -2,7 +2,13 @@ import { PAGE_TYPES as OrdersPageTypes } from "libs/constants/PepperestWebServic
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
-const initialState = {};
+const initialState = {
+  addresses: [],
+  addressError: null,
+  redirectUrl: null,
+  loading: false,
+  confirmOrderDetails: null
+};
 Object.values(OrdersPageTypes).forEach((pageTypes) => {
   initialState[pageTypes] =
     pageTypes !== OrdersPageTypes.DASHBOARD
@@ -36,6 +42,17 @@ const loading = (state, action) => {
   return updateObject(state, update);
 };
 
+const setAddress = (state, action) => {
+  const update = {
+    addresses: action.addresses
+  }
+  return updateObject(state, update)
+}
+
+const addressError = (state, action) => {
+  return updateObject(state, {addressError: true})
+}
+
 const loadedOrder = (state, action) => {
   const update = {};
   update[action.pageType] = action.pageTypeUpdate;
@@ -57,6 +74,19 @@ const failedToLoadOrder = (state, action) => {
   return updateObject(state, update);
 };
 
+const redirect = (state, action) => {
+  const update = {redirectUrl: action.redirectUrl}
+  return updateObject(state, update);
+}
+
+const confirmLoading = (state, action) => {
+  return updateObject(state, {loading: action.loading})
+}
+
+const orderConfirmed = (state, action) => {
+  return updateObject(state, action.payload)
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.LOADING_ORDERS:
@@ -65,6 +95,16 @@ const reducer = (state = initialState, action) => {
       return loadedOrder(state, action);
     case actionTypes.LOADING_ORDERS_FAILED:
       return failedToLoadOrder(state, action);
+    case actionTypes.LOAD_ADDRESS:
+      return setAddress(state, action)
+    case actionTypes.LOAD_ADDRESS_ERROR:
+      return addressError(state, action)
+    case actionTypes.ORDER_REDIRECT:
+      return redirect(state, action)
+    case actionTypes.CONFIRM_LOADING:
+      return confirmLoading(state, action)
+    case actionTypes.CONFIRM_ORDER_DETAILS:
+      return orderConfirmed(state, action)
     default:
       return state;
   }

@@ -61,12 +61,12 @@ const PaymentPage = ({ match }) => (
     </PepperestContext.Consumer>
     <PepperestContext.Consumer>
       {(context) =>
-        context.state.showReportIssueModal ? <ReportIssueModal /> : null
+        context.state.showReportIssueModal ? <ReportIssueModal context={context}/> : null
       }
     </PepperestContext.Consumer>
     <PepperestContext.Consumer>
       {(context) =>
-        context.state.showRefundCustomerModal ? <RefundCustomerModal /> : null
+        context.state.showRefundCustomerModal ? <RefundCustomerModal context={context}/> : null
       }
     </PepperestContext.Consumer>
   </>

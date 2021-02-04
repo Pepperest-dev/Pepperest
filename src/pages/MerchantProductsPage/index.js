@@ -13,7 +13,7 @@ const config = {
   hasAlternateHeader: false,
   hasCommonHeader: true,
   showCart: true,
-  commonHeaderTitle: 'Seun Akanni\'s Store',
+  commonHeaderTitle: 'Merchant Store',
   showCommonHeaderOnDesktop: true,
   links: [],
   isSettings: false,
@@ -37,8 +37,6 @@ class MerchantProductsPage extends Component {
     }
 
     componentDidMount() {
-      // console.log(this.props.match.params.id);
-      console.log(this.props);
       this.props.getMerchant(this.props.match.params.id)
       this.updateIsDesktop();
       window.addEventListener("resize", this.updateIsDesktop);
@@ -56,8 +54,6 @@ class MerchantProductsPage extends Component {
       const {
         hasAlternateHeader,
         isSettings,
-        links,
-        page,
         isDesktop,
         hasCommonHeader,
         showCart,
@@ -68,7 +64,28 @@ class MerchantProductsPage extends Component {
 
       const {
         products,
+        getMerchant,
+        meta,
+        links,
+        page,
+        match
       } = this.props;
+
+const t = (id, i) => {
+  getMerchant(id, i-1)
+}
+
+      const footerList = []
+      if (meta) {
+        for (var i = 1; i <= meta.last_page; i++) {
+          footerList.push(<li key={i}
+            className={`list-footer__pagination-page-number list-footer-text ${meta.current_page == i ? 'list-footer-text-alt' : ''}`}
+            onClick={() => t(match.params.id, i)}
+            >
+            {i}
+          </li>)
+        }
+      }
       return (
         <div>
 
@@ -110,32 +127,26 @@ class MerchantProductsPage extends Component {
 
             </div>
           </div>
-
-          <div className="list-footer">
-                <p className="list-footer-label">Showing 1 - 6 of 90 entries</p>
-                <div className="list-footer__pagination">
-                  <span className="list-footer__pagination-prev list-footer-text">
-                    Previous
-                  </span>
-                  <ul className="d-flex flex-row">
-                    <li className="list-footer__pagination-page-number list-footer-text">
-                      1
-                    </li>
-                    <li className="list-footer__pagination-page-number list-footer-text">
-                      2
-                    </li>
-                    <li className="list-footer__pagination-page-number list-footer-text">
-                      3
-                    </li>
-                    <li className="list-footer__pagination-page-number list-footer-text list-footer-text-alt">
-                      4
-                    </li>
-                  </ul>
-                  <span className="list-footer__pagination-next list-footer-text list-footer-text-alt">
-                    Next
-                  </span>
-                </div>
-              </div>
+          {Boolean(meta) && (<div className="list-footer">
+            <p className="list-footer-label">{`Showing ${meta.from} - ${meta.to} of ${meta.total} entries`}</p>
+            <div className="list-footer__pagination">
+              <button
+                disabled={!links.previous}
+                onClick={() => getMerchant(match.params.id, meta.currentPage-1)}
+                className="list-footer__pagination-prev list-footer-text">
+                Previous
+              </button>
+              <ul className="d-flex flex-row">
+                {footerList}
+              </ul>
+              <button
+                disabled={!links.next}
+                onClick={() => getMerchant(match.params.id, meta.currentPage+1)}
+                className="list-footer__pagination-next list-footer-text ">
+                Next
+              </button>
+            </div>
+          </div>)}
 
         </div>
       )
@@ -155,7 +166,7 @@ class MerchantProductsPage extends Component {
 
   const mapDispatchToProps = (dispatch) => {
     return {
-      getMerchant: merchantCode => dispatch(actions.getMerchantStoreProducts(merchantCode))
+      getMerchant: (merchantCode, page) => dispatch(actions.getMerchantStoreProducts(merchantCode, page))
     }
   }
 

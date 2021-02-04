@@ -21,7 +21,6 @@ const ProductListItemDetailMobileModal = (props) => {
     onClick,
 
   } = context.state.productDetails
-  console.log(context);
   const [state, setState] = useState({
     isRecentTransactionActive: false,
     style: {},

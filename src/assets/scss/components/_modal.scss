@@ -43,7 +43,7 @@
       margin: 100px 0px;
       width: 586px;
       min-height: 900px;
-      height: auto;
+      height: fit-content;
       overflow: hidden;
       position: relative;
     }
@@ -92,19 +92,20 @@
   &-sub__header {
     height: auto;
     width: 100%;
-    background-color: $whitesmoke;
+    background-color: #ff721b;
     border: solid 1px $gainsboro;
     border-left: none;
     border-right: none;
     @include desktop {
-      height: 64px;
+      height: fit-content;
     }
 
     &-half {
       display: flex;
       flex-direction: column;
       padding: 9px 24px;
-      // border: solid 1px #979797;
+      border: solid 1px #fff;
+      color: #fff;
       border-bottom: solid 1px $gainsboro;
       // border-left: solid 0.5px #979797;
       justify-content: space-between;
@@ -122,6 +123,7 @@
       }
 
       & .text--smaller {
+        color: #fff;
         &:last-child {
           @include medium-font;
         }

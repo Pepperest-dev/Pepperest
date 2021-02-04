@@ -8,11 +8,11 @@ import {setAlert} from './alert'
 import { getStringHash } from 'libs/utils';
 
 
-export const getMerchantStoreProducts = (merchantCode) => {
+export const getMerchantStoreProducts = (merchantCode, page = 1) => {
 	return (dispatch) => {
     dispatch(loadingMerchantPage())
     const params = { merchantCode }
-    PepperestAxios.get( Products.MERCHANT_STORE, { params })
+    PepperestAxios.get( `${Products.MERCHANT_STORE}?page=${page}`, { params })
     .then((response) => {
       const products = response.data.products.data
       const meta = response.data.products.meta
@@ -24,6 +24,24 @@ export const getMerchantStoreProducts = (merchantCode) => {
   )
   }
 }
+
+export const createInvoice = (token, user, extraParams = {}) => dispatch => {
+	const headers = {
+			Authorization : token,
+			customerID : user.customerID
+	}
+	const body = {
+		merchant_id: user.customerID,
+		...extraParams
+	}
+	PepperestAxios.post(Products.CREATE_INVOICE, body, headers).then((response) =>{
+		console.log(response);
+		dispatch( setAlert('Operation Successful', 'success', getStringHash()))
+
+	}).catch((error) => {
+	console.error(error.response)
+	dispatch( setAlert('An error occurred', 'error', getStringHash()))
+	})}
 
 export const loadingMerchantPage = () => {
 	return {

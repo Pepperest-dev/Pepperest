@@ -2,10 +2,12 @@ import PepperestAxios from '../../libs/utils/PepperestAxios'
 import * as actionTypes from './actionTypes';
 import { setStateInLocalStorage, getStateFromLocalStorage, removeStateFromLocalStorage } from '../utility';
 import { Cart, CartErrorMessages} from '../../libs/constants/PepperestWebServices';
+import {setAlert} from './alert'
+import { getStringHash } from 'libs/utils';
 
 export const loadCustomerCart = (token, user) => {
   return (dispatch) => {
-    dispatch(loadedCart())
+    dispatch(loadingCart())
     const headers = {
       Authorization: token,
       customerID: user.customerID
@@ -13,12 +15,49 @@ export const loadCustomerCart = (token, user) => {
     const params = { customerID: user.customerID }
     PepperestAxios.get(Cart.BUYER_CART, { params, headers})
     .then(response => {
-      const cart = { cart: response.data.cart }
-      dispatch(loadedCart(cart))
+      console.log(response.data);
+      dispatch(loadedCart(response.data.cart))
     }).catch(error => {
       console.error(error)
       dispatch(failedLoadingCart(error))
+      dispatch( setAlert(CartErrorMessages.getCartData, 'error', getStringHash()))
     })
+  }
+}
+
+export const productCheck = (token, user) => {
+  return (dispatch) => {
+    const productID = window.localStorage.getItem('product')
+    if (productID) {
+      dispatch(addToCart(token, user, productID))
+      window.localStorage.removeItem('product')
+    }
+}}
+
+export const addToCart = (token, user, productID, quantity=1) => {
+  return (dispatch) => {
+    const headers = {
+      Authorization: token,
+      customerID: user.customerID
+    }
+    console.log(headers);
+    const body = {
+      customerID: user.customerID,
+      productID,
+      quantity
+     }
+     PepperestAxios.post(Cart.ADD, body, {headers})
+     .then(response => {
+       console.log(response);
+       const cart = { cart: response.data.cart, loaded: true }
+       dispatch(loadedCart(response.data.cart))
+       dispatch( setAlert('Item added to cart', 'success', getStringHash()))
+
+     }).catch(error => {
+       console.log(error.response);
+       dispatch(failedLoadingCart(error))
+       dispatch( setAlert('An error occurred.', 'error', getStringHash()))
+     })
   }
 }
 
@@ -34,12 +73,14 @@ export const removeItemFromCart = (token, user, cart_id, productID, quantity=1) 
       productID,
       quantity
      }
-     PepperestAxios.post(Cart.REMOVE, body, headers)
+     PepperestAxios.post(Cart.REMOVE, body, {headers})
      .then(response => {
-       const cart = { cart: response.data.cart }
-       dispatch(loadedCart(cart))
+       dispatch(loadedCart(response.data.cart))
+       dispatch( setAlert('Item removed', 'success', getStringHash()))
+
      }).catch(error => {
        dispatch(failedLoadingCart(error))
+       dispatch( setAlert('An error occurred.', 'error', getStringHash()))
      })
   }
 }
@@ -53,7 +94,11 @@ export const loadingCart = () => {
 export const loadedCart = (cart) => {
   return {
     type: actionTypes.FINISHED_LOADING_CART,
-    cart,
+    cart: {
+      loaded: true,
+      loading: false,
+      cart,
+    }
   }
 }
 

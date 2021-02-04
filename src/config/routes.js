@@ -67,7 +67,7 @@ const routes = [
   },
   {
     path: "/payments",
-    exact: false,
+    // exact: false,
     component: PaymentPage,
     isProtected: true,
   },
@@ -109,13 +109,13 @@ const routes = [
   },
   {
     path: "/orders",
-    exact: false,
+    // exact: false,
     component: OrdersPage,
     isProtected: true,
   },
   {
     path: "/merchant/:id",
-    exact: false,
+    // exact: false,
     component: MerchantProductsPage,
     isProtected: false,
   },

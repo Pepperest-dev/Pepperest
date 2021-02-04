@@ -1,30 +1,12 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, {
-  useContext,
-  useRef,
-  useEffect,
-  useState,
-  useLayoutEffect,
-} from "react";
-import { PepperestContext } from "components/helpers/constant";
+import React, { useState, useEffect } from "react";
+import { CloseIcon } from "components/vectors";
+// import { InputWithoutLabel, SelectInputWithoutLabel } from "components/blocks";
+import EscapeCloseModalHelper from "components/helpers/EscapeCloseModalHelper";
 import useResizeObserver from "components/customHook/useResizeObserver";
 
-const ListItemDetailMobileModal = ({paymentDetails}) => {
-  const {
-    status,
-    customerName,
-    customerEmail,
-    paymentName,
-    amount,
-    transactionId,
-    transactionDatetime,
-    paymentDescription,
-    date,
-    statusText,
-    deliveryDatetime,
-  } = paymentDetails
-  const pepperestContext = useContext(PepperestContext);
+
+const Modal = props => {
+  const {close, orders} = props
   const [ref, { contentRect }] = useResizeObserver();
   const [state, setState] = useState({ style: {} });
 
@@ -43,12 +25,11 @@ const ListItemDetailMobileModal = ({paymentDetails}) => {
   }, [contentRect]);
   return (
     <>
-      <div className="list-modal-overlay" />
+      <div className="list-modal-overlay" style={{display:'block'}} />
       <div
         className="list-modal"
-        onClick={() => {
-          pepperestContext.updateShowPaymentListModal(false);
-        }}
+        onClick={() => {close(false)}}
+        style={{display:'block'}}
       >
         <div
           className="list-modal__body"
@@ -61,89 +42,97 @@ const ListItemDetailMobileModal = ({paymentDetails}) => {
           <div className="list-modal__header">
             <div
               className="list-item-detail__container-close"
-              onClick={() => {
-                pepperestContext.updateShowPaymentListModal(false);
-              }}
+              onClick={() => {close(false)}}
             >
               Close
             </div>
           </div>
           <ul className="list-modal__list">
             <li className="list-modal__list-item">
-              <p className="list-item-detail__main-item__title">
-                Transaction ID
-              </p>
+              <p className="list-item-detail__main-item__title">Order ID</p>
               <p className="list-item-detail__main-item__details">
-                {transactionId}
+                {orders.order.orderId}
               </p>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">Customer</p>
               <p className="list-item-detail__main-item__details">
-                {customerName}
+                {orders.order.customerName}
               </p>
             </li>
             <li className="list-modal__list-item">
-              <p className="list-item-detail__main-item__title">
-                Transaction Date
-              </p>
+              <p className="list-item-detail__main-item__title">Order Date</p>
               <p className="list-item-detail__main-item__details">
-                {transactionDatetime}
+                {orders.order.orderDate}
               </p>
             </li>
             <li className="list-modal__list-item">
-              <p className="list-item-detail__main-item__title">Payment Name</p>
+              <p className="list-item-detail__main-item__title">Total Amount</p>
               <p className="list-item-detail__main-item__details">
-                {paymentName}
+                {orders.orderPayment.amount}
               </p>
-            </li>
-            <li className="list-modal__list-item">
-              <p className="list-item-detail__main-item__title">
-                Delivery Date
-              </p>
-              <p className="list-item-detail__main-item__details">
-                {deliveryDatetime} ( Your expected delivery date is 2 days from
-                payment date.)
-              </p>
-            </li>
-            <li className="list-modal__list-item">
-              <div className="list-item__payment-container">
-                <div>
-                  <p className="list-item-detail__main-item__title">Amount</p>
-                  <p className="list-item-detail__main-item__details">
-                    {amount}
-                  </p>
-                </div>
-                <div className="button button-md button--orange">
-                  Make Payment
-                </div>
-              </div>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">
                 Customer Email
               </p>
               <p className="list-item-detail__main-item__details">
-                {customerEmail}
+                {orders.order.customerEmail}
               </p>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">Status</p>
-              <p className="list-item-detail__main-item__details list-item__status-text text--pending">
-                {statusText}
+              <p className="list-item-detail__main-item__details list-item__status-text text--active">
+                {orders.orderPayment.payment_status}
               </p>
             </li>
             <li className="list-modal__list-item">
               <p className="list-item-detail__main-item__title">
-                Payment Description
+                Delivery Addresss
               </p>
               <p className="list-item-detail__main-item__details">
-                {paymentDescription}
+                {orders.order.address}
               </p>
             </li>
+            <li className="list-modal__list-item">
+              <p className="list-item-detail__main-item__title">
+                Items in Order
+              </p>
+              <div className="list-item__details-product__image-container">
+                <img
+                  className="list-item__details-product__image"
+                  src="/assets/images/product.jpeg"
+                  alt="product"
+                />
+                <img
+                  className="list-item__details-product__image"
+                  src="/assets/images/product.jpeg"
+                  alt="product"
+                />
+                <img
+                  className="list-item__details-product__image"
+                  src="/assets/images/product.jpeg"
+                  alt="product"
+                />
+                <img
+                  className="list-item__details-product__image"
+                  src="/assets/images/product.jpeg"
+                  alt="product"
+                />
+              </div>
+            </li>
+            {/*<li className="list-modal__list-item">
+              <p className="list-item-detail__main-item__title">
+                Payment Method
+              </p>
+              <p className="list-item-detail__main-item__details">
+                Flutterwave
+              </p>
+            </li>*/}
+
             <div className="list-modal__list-item list-modal__list-item__alternate">
               <div className="button button-md button--grey">Print Receipt</div>
-              <PepperestContext.Consumer>
+              {/*<PepperestContext.Consumer>
                 {(context) => (
                   <div
                     role="presentation"
@@ -155,25 +144,12 @@ const ListItemDetailMobileModal = ({paymentDetails}) => {
                     Report an issue
                   </div>
                 )}
-              </PepperestContext.Consumer>
-              <PepperestContext.Consumer>
-                {(context) => (
-                  <div
-                    className="button button-md button--grey"
-                    onClick={() => {
-                      context.updateShowRefundCustomerModal(true, transactionId);
-                    }}
-                  >
-                    Refund customer
-                  </div>
-                )}
-              </PepperestContext.Consumer>
+              </PepperestContext.Consumer>*/}
             </div>
           </ul>
         </div>
       </div>
     </>
-  );
-};
+  )}
 
-export default ListItemDetailMobileModal;
+export default Modal

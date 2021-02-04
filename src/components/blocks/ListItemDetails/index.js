@@ -91,7 +91,7 @@ const ListItemDetails = ({
               <div
                 className="button button-md button--orange"
                 onClick={() => {
-                  context.updateShowRequestPaymentModal(true);
+                  context.updateShowRequestPaymentModal(true, transactionId);
                 }}
               >
                 Request Payment
@@ -156,7 +156,7 @@ const ListItemDetails = ({
             <div
               className="button button-md button--grey"
               onClick={() => {
-                context.updateShowRefundCustomerModal(true);
+                context.updateShowRefundCustomerModal(true, transactionId);
               }}
             >
               Refund customer

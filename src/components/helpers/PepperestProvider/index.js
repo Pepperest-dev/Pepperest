@@ -26,6 +26,8 @@ const PepperestProvider = (props) => {
     productForUpdate: {},
     productDetails: {},
     productForDeleting: {},
+    address: {},
+    transactionId: "",
   });
   return (
     <PepperestContext.Provider
@@ -74,17 +76,18 @@ const PepperestProvider = (props) => {
         updateShowDeleteProductModal: (value, productForDeleting={}) => {
           setLocalState({ ...localState, productForDeleting, showDeleteProductModal: value });
         },
-        updateShowRefundCustomerModal: (value) => {
-          setLocalState({ ...localState, showRefundCustomerModal: value });
+        updateShowRefundCustomerModal: (value, id) => {
+          setLocalState({ ...localState,
+            showRefundCustomerModal: value, transactionId: id });
         },
         updateShowAddNewAddressModal: (value) => {
           setLocalState({ ...localState, showAddNewAddressModal: value });
         },
-        updateShowEditAddressModal: (value) => {
-          setLocalState({ ...localState, showEditAddressModal: value });
+        updateShowEditAddressModal: (value, address={}) => {
+          setLocalState({ ...localState, address, showEditAddressModal: value });
         },
-        updateShowRemoveAddressModal: (value) => {
-          setLocalState({ ...localState, showRemoveAddressModal: value });
+        updateShowRemoveAddressModal: (value, address={}) => {
+          setLocalState({ ...localState, address, showRemoveAddressModal: value });
         },
         updateShowPublishInstagramImageModal: (value, item) => {
           setLocalState({
@@ -92,8 +95,11 @@ const PepperestProvider = (props) => {
             showPublishInstagramImageModal: value,
           });
         },
-        updateShowRequestPaymentModal: (value) => {
-          setLocalState({ ...localState, showRequestPaymentModal: value });
+        updateShowRequestPaymentModal: (value, id) => {
+          setLocalState({
+            ...localState, showRequestPaymentModal: value,
+            transactionId: id,
+          });
         },
       }}
     >
