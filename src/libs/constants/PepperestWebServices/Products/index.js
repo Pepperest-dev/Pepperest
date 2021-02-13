@@ -7,6 +7,7 @@ export default {
 	UPDATE_PRODUCT: '/EscrowBackend/api/product/update',
 	REMOVE_PRODUCT: '/EscrowBackend/api/product/remove',
 	MERCHANT_STORE: '/EscrowBackend/api/product/merchantStore',
+	CREATE_INVOICE: '/EscrowBackend/api/invoice/create',
 }
 
 export const ErrorMessages = {

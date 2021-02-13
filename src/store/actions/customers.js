@@ -1,6 +1,8 @@
 import PepperestAxios from '../../libs/utils/PepperestAxios'
 import { Customers, CustomersErrorMessages } from '../../libs/constants/PepperestWebServices';
 import * as actionTypes from './actionTypes';
+import {setAlert} from './alert'
+import { getStringHash } from 'libs/utils';
 
 export const loadCustomer = (token, user, extraParams = {}) => {
     return dispatch => {
@@ -24,6 +26,61 @@ export const loadCustomer = (token, user, extraParams = {}) => {
             dispatch(failedToLoadCustomer(CustomersErrorMessages.getHistoryFailed))
         })
     };
+}
+
+export const reportIssue = (token, user, extraParams = {}) => dispatch => {
+    const headers = {
+      Authorization: token,
+      customerID: user.customerID
+    }
+    const body = {
+      customerID : user.customerID,
+      ...extraParams
+    }
+    PepperestAxios.post(Customers.REPORT_ISSUE, body, {headers}).then(res => {
+      // console.log(res);
+      dispatch( setAlert('Your issue has been reported successfully', 'success', getStringHash()))
+    }).catch(err => {
+      if (err.response) console.error(err.response)
+      else console.error(err)
+      dispatch( setAlert('An error occurred', 'error', getStringHash()))
+    })
+}
+export const requestRefund = (token, user, extraParams = {}) => dispatch => {
+    const headers = {
+      Authorization: token,
+      customerID: user.customerID
+    }
+    const body = {
+      customerID : user.customerID,
+      ...extraParams
+    }
+    PepperestAxios.post(Customers.REQUEST_REFUND, body, {headers}).then(res => {
+      // console.log(res);
+      dispatch( setAlert('Request successful', 'success', getStringHash()))
+    }).catch(err => {
+      if (err.response) console.error(err.response)
+      else console.error(err)
+      dispatch( setAlert('An error occurred', 'error', getStringHash()))
+    })
+}
+export const requestPayment = (token, user, extraParams = {}) => dispatch => {
+    const headers = {
+      Authorization: token,
+      customerID: user.customerID
+    }
+    const body = {
+      customerID : user.customerID,
+      ...extraParams
+    }
+    PepperestAxios.post(Customers.REQUEST_PAYMENT, body, {headers}).then(res => {
+      // console.log(res);
+      dispatch( setAlert('Request successful', 'success', getStringHash()))
+    }).catch(err => {
+      if (err.response) console.error(err.response)
+      else console.error(err)
+      dispatch( setAlert('An error occurred', 'error', getStringHash()))
+    })
 }
 
 export const loadingCustomer = () => {

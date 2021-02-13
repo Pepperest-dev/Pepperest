@@ -22,6 +22,7 @@ const ProductModal = (props) => {
   const [DeliveryPeriod, setDeliveryPeriod] = useState("")
   const [Link, setLink] = useState(context.state.item)
   const [error, setError] = useState(false)
+  const [images, setImages] = useState(null)
 
   const handleChangeProductName = (e) => setProductName(e.target.value);
   const handleChangeProductDescription = (e) => setProductDescription(e.target.value);
@@ -29,7 +30,9 @@ const ProductModal = (props) => {
   const handleChangeCurrency = (e) => setChangeCurrency(e.target.value);
   const handleChangeDeliveryPeriod = (e) => setDeliveryPeriod(e.target.value);
   const handleChangeLink = (e) => setLink(e.target.value);
-
+  const handleImage = e => {
+    setImages(e.target.files);
+  }
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
@@ -39,7 +42,7 @@ const ProductModal = (props) => {
       price: ChangeAmount,
       currency: 'NGN',
       deliveryperiod: DeliveryPeriod,
-      link: Link,
+      images: images,
     }
     publishProduct(token, user, extraParams)
     context.updateShowProductModal(false)
@@ -188,15 +191,14 @@ const ProductModal = (props) => {
                   </div>
                 </div>
                 <div className="col-md-7">
-                  <InputWithoutLabel
+                  <input
                     name="display_image"
-                    type="text"
+                    type="file"
                     placeholder=""
                     id="cost_item"
                     required
                     errorMessage={error ? "Upload Product Image": ''}
-                    value={Link}
-                    onChange={handleChangeLink}
+                    onChange={handleImage}
                     classNames="nsForm-input__alternate"
                   />
                 </div>

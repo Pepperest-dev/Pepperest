@@ -40,13 +40,15 @@ export const addToCart = (token, user, productID, quantity=1) => {
       Authorization: token,
       customerID: user.customerID
     }
+    console.log(headers);
     const body = {
       customerID: user.customerID,
       productID,
       quantity
      }
-     PepperestAxios.post(Cart.ADD, body, headers)
+     PepperestAxios.post(Cart.ADD, body, {headers})
      .then(response => {
+       console.log(response);
        const cart = { cart: response.data.cart, loaded: true }
        dispatch(loadedCart(response.data.cart))
        dispatch( setAlert('Item added to cart', 'success', getStringHash()))
@@ -71,7 +73,7 @@ export const removeItemFromCart = (token, user, cart_id, productID, quantity=1) 
       productID,
       quantity
      }
-     PepperestAxios.post(Cart.REMOVE, body, headers)
+     PepperestAxios.post(Cart.REMOVE, body, {headers})
      .then(response => {
        dispatch(loadedCart(response.data.cart))
        dispatch( setAlert('Item removed', 'success', getStringHash()))

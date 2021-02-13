@@ -25,14 +25,12 @@ const HeaderAlternate = ({ page, links, location }) => {
         return (
           <PepperestContext.Consumer>
             {(context) => (
-              <div
+              <a
                 className="button button-md button--orange"
-                onClick={() => {
-                  context.updateShowPaymentModal(true);
-                }}
+                href="/invoice"
               >
                 Create Invoice
-              </div>
+              </a>
             )}
           </PepperestContext.Consumer>
         );

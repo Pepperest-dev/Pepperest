@@ -27,6 +27,9 @@ from './products';
 
 export {
 	loadCustomer,
+	reportIssue,
+	requestRefund,
+	requestPayment,
 }
 from './customers';
 
@@ -61,6 +64,7 @@ from './cart'
 
 export {
 	getMerchantStoreProducts,
+	createInvoice
 }
 from './merchant'
 
